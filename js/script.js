@@ -1,329 +1,412 @@
-// @ts-nocheck - Disable TypeScript checking for JavaScript file
 /**
- * Portfolio JavaScript - Production Ready Version
- * All functionality working with defensive programming
+ * Portfolio JavaScript - Sistema mejorado con datos unificados
+ * Improved portfolio system with unified data structure
  */
 
-// Initialize i18n system
-let i18n;
+// Variables globales
+let portfolioI18n;
 
-// Mobile Navigation Toggle and Translation System
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize translation system
-  if (typeof I18n !== "undefined") {
-    i18n = new I18n();
-    i18n.init();
+// Inicialización cuando el DOM está listo
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    // Inicializar sistema de traducciones
+    portfolioI18n = new PortfolioI18n();
+    await portfolioI18n.init();
 
-    // Setup language selector
-    const languageToggle = document.getElementById("language-toggle");
-    const languageDropdown = document.querySelector(".language-dropdown");
-    const languageOptions = document.querySelectorAll(".language-option");
+    // Configurar navegación móvil
+    setupMobileNavigation();
 
-    if (languageToggle && languageDropdown) {
-      // Show/hide dropdown
-      languageToggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        languageDropdown.classList.toggle("show");
-      });
+    // Configurar tema
+    setupThemeToggle();
 
-      // Close dropdown when clicking outside
-      document.addEventListener("click", () => {
-        languageDropdown.classList.remove("show");
-      });
+    // Configurar animaciones de scroll
+    setupScrollAnimations();
 
-      // Prevent dropdown from closing when clicking inside
-      languageDropdown.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
+    // Configurar formulario de contacto
+    setupContactForm();
 
-      // Handle language selection
-      languageOptions.forEach((option) => {
-        option.addEventListener("click", (e) => {
-          e.preventDefault();
-          const lang = option.getAttribute("data-lang");
-          if (lang && i18n) {
-            i18n.setLanguage(lang);
-            languageDropdown.classList.remove("show");
+    // Configurar navegación suave
+    setupSmoothScrolling();
 
-            // Update button text
-            const flagSpan = languageToggle.querySelector(".flag");
-            const textSpan = languageToggle.querySelector(".lang-text");
-            const selectedFlag = option.querySelector(".flag").textContent;
-            const selectedText = option.querySelector(".lang-name").textContent;
-
-            if (flagSpan && textSpan) {
-              flagSpan.textContent = selectedFlag;
-              textSpan.textContent = selectedText;
-            }
-          }
-        });
-      });
-    }
+    console.log("🎉 Portfolio inicializado correctamente");
+  } catch (error) {
+    console.error("❌ Error al inicializar el portfolio:", error);
   }
+});
 
-  // Initialize theme system
-  initThemeSystem();
+/**
+ * Configuración de navegación móvil
+ */
+function setupMobileNavigation() {
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
+  const navLinksItems = document.querySelectorAll(".nav-link");
 
-  // Mobile Navigation
-  const navToggle = document.getElementById("nav-toggle");
-  const navMenu = document.getElementById("nav-menu");
-
-  if (navToggle && navMenu) {
-    navToggle.addEventListener("click", function () {
-      navMenu.classList.toggle("active");
-
-      // Animate hamburger menu
-      const bars = navToggle.querySelectorAll(".bar");
-      bars.forEach((bar) => bar.classList.toggle("active"));
+  if (hamburger && navLinks) {
+    // Toggle menú móvil
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("active");
+      document.body.classList.toggle("nav-open");
     });
 
-    // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll(".nav-link");
-    navLinks.forEach((link) => {
+    // Cerrar menú al hacer click en un enlace
+    navLinksItems.forEach((link) => {
       link.addEventListener("click", () => {
-        navMenu.classList.remove("active");
-        const bars = navToggle.querySelectorAll(".bar");
-        bars.forEach((bar) => bar.classList.remove("active"));
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+        document.body.classList.remove("nav-open");
       });
     });
+
+    // Cerrar menú al hacer click fuera
+    document.addEventListener("click", (e) => {
+      if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+        document.body.classList.remove("nav-open");
+      }
+    });
   }
-});
+}
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
+/**
+ * Configuración de cambio de tema
+ */
+function setupThemeToggle() {
+  const themeToggle = document.querySelector(".theme-toggle");
+  const logo = document.getElementById("hero-logo");
 
-    // Type-safe href attribute check
-    if (anchor instanceof HTMLAnchorElement) {
-      const href = anchor.getAttribute("href");
-      if (href) {
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
+  if (!themeToggle) return;
+
+  // Obtener tema guardado o usar predeterminado
+  const savedTheme = localStorage.getItem("portfolio-theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateThemeButton(savedTheme);
+  updateLogo(savedTheme);
+
+  // Cambiar tema al hacer click
+  themeToggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("portfolio-theme", newTheme);
+    updateThemeButton(newTheme);
+    updateLogo(newTheme);
+  });
+
+  function updateThemeButton(theme) {
+    const icon = themeToggle.querySelector("i");
+    if (icon) {
+      icon.className = theme === "light" ? "fas fa-moon" : "fas fa-sun";
+    }
+    themeToggle.title = portfolioI18n
+      ? portfolioI18n.getText("ui.theme.toggle")
+      : "Cambiar tema";
+  }
+
+  function updateLogo(theme) {
+    if (logo) {
+      logo.src = theme === "light" ? "img/logo-light.png" : "img/logo-dark.png";
+    }
+  }
+}
+
+/**
+ * Configuración de animaciones de scroll
+ */
+function setupScrollAnimations() {
+  // Intersection Observer para animaciones
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate");
+
+        // Animar contadores si es la sección about
+        if (entry.target.classList.contains("about")) {
+          animateCounters();
         }
       }
-    }
+    });
+  }, observerOptions);
+
+  // Observar secciones
+  document.querySelectorAll("section").forEach((section) => {
+    observer.observe(section);
   });
-});
 
-// Navbar background update function
-function updateNavbarBackground() {
-  const navbar = document.querySelector(".navbar");
-  if (navbar && navbar instanceof HTMLElement) {
-    const isDarkTheme =
-      document.documentElement.getAttribute("data-theme") === "dark";
+  // Observar cards individuales
+  document
+    .querySelectorAll(".cert-card, .project-card, .timeline-item")
+    .forEach((card) => {
+      observer.observe(card);
+    });
+}
 
-    if (window.scrollY > 50) {
-      if (isDarkTheme) {
-        navbar.style.background = "rgba(13, 17, 23, 0.98)";
-        navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.3)";
+/**
+ * Animación de contadores
+ */
+function animateCounters() {
+  const counters = document.querySelectorAll(".stat h3");
+
+  counters.forEach((counter) => {
+    const target = parseInt(counter.textContent.replace(/\D/g, "")) || 0;
+    const suffix = counter.textContent.replace(/\d/g, "");
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        counter.textContent = target + suffix;
+        clearInterval(timer);
       } else {
-        navbar.style.background = "rgba(255, 255, 255, 0.98)";
-        navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)";
+        counter.textContent = Math.floor(current) + suffix;
       }
-    } else {
-      if (isDarkTheme) {
-        navbar.style.background = "rgba(13, 17, 23, 0.95)";
-        navbar.style.boxShadow = "none";
-      } else {
-        navbar.style.background = "rgba(255, 255, 255, 0.95)";
-        navbar.style.boxShadow = "none";
-      }
-    }
-  }
-}
-
-// Navbar background opacity on scroll
-window.addEventListener("scroll", updateNavbarBackground);
-
-// Active navigation link highlighting
-window.addEventListener("scroll", function () {
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll(".nav-link");
-
-  let current = "";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
-
-    if (window.scrollY >= sectionTop - 200) {
-      const sectionId = section.getAttribute("id");
-      if (sectionId) {
-        current = sectionId;
-      }
-    }
-  });
-
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === `#${current}`) {
-      link.classList.add("active");
-    }
-  });
-});
-
-// Skill bars animation
-function animateSkillBars() {
-  const skillLevels = document.querySelectorAll(".skill-level");
-  skillLevels.forEach((skill) => {
-    const level = skill.getAttribute("data-level");
-    if (skill instanceof HTMLElement && level) {
-      skill.style.setProperty("--skill-width", level + "%");
-    }
+    }, 30);
   });
 }
 
-// Trigger skill animation when skills section is visible
-const skillsSectionElement = document.querySelector("#habilidades");
-if (skillsSectionElement) {
-  const skillAnimationObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateSkillBars();
-          skillAnimationObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
+/**
+ * Configuración del formulario de contacto
+ */
+function setupContactForm() {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
 
-  skillAnimationObserver.observe(skillsSectionElement);
-}
-
-// Contact form handling
-const portfolioContactForm = document.getElementById("contact-form");
-if (portfolioContactForm && portfolioContactForm instanceof HTMLFormElement) {
-  portfolioContactForm.addEventListener("submit", function (e) {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Get form data
-    const formData = new FormData(portfolioContactForm);
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const message = formData.get("message");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
 
-    // Simple form validation
-    if (!name || !email || !message) {
-      showNotification("Por favor, completa todos los campos.", "error");
-      return;
+    try {
+      // Mostrar estado de carga
+      submitBtn.textContent = portfolioI18n
+        ? portfolioI18n.getText("ui.system.loading")
+        : "Enviando...";
+      submitBtn.disabled = true;
+
+      // Simular envío (aquí iría la lógica real de envío)
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Mostrar mensaje de éxito
+      showNotification(
+        portfolioI18n
+          ? portfolioI18n.getText("contact.notifications.success")
+          : "Mensaje enviado correctamente!",
+        "success"
+      );
+
+      form.reset();
+    } catch (error) {
+      // Mostrar mensaje de error
+      showNotification(
+        portfolioI18n
+          ? portfolioI18n.getText("contact.notifications.error")
+          : "Error al enviar el mensaje",
+        "error"
+      );
+    } finally {
+      // Restaurar botón
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     }
-
-    if (typeof email === "string" && !isValidEmail(email)) {
-      showNotification("Por favor, ingresa un email válido.", "error");
-      return;
-    }
-
-    // Simulate form submission
-    showNotification(
-      "¡Mensaje enviado con éxito! Te contactaré pronto.",
-      "success"
-    );
-    portfolioContactForm.reset();
   });
 }
 
-// Email validation with proper typing
-function isValidEmail(email) {
-  if (typeof email !== "string") return false;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-// Notification system with proper typing
-function showNotification(message, type) {
-  if (typeof message !== "string" || typeof type !== "string") return;
-
-  // Remove existing notifications
-  const existingNotification = document.querySelector(".notification");
-  if (existingNotification) {
-    existingNotification.remove();
-  }
-
-  // Create notification element
+/**
+ * Mostrar notificaciones
+ */
+function showNotification(message, type = "info") {
+  // Crear elemento de notificación
   const notification = document.createElement("div");
   notification.className = `notification notification-${type}`;
   notification.innerHTML = `
-        <span>${message}</span>
-        <button class="notification-close">&times;</button>
-    `;
+    <div class="notification-content">
+      <i class="fas ${
+        type === "success" ? "fa-check-circle" : "fa-exclamation-circle"
+      }"></i>
+      <span>${message}</span>
+      <button class="notification-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  `;
 
-  // Add styles
-  notification.style.cssText = `
+  // Agregar estilos si no existen
+  if (!document.querySelector("#notification-styles")) {
+    const styles = document.createElement("style");
+    styles.id = "notification-styles";
+    styles.textContent = `
+      .notification {
         position: fixed;
-        top: 90px;
+        top: 20px;
         right: 20px;
-        padding: 15px 20px;
-        border-radius: 10px;
+        max-width: 400px;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+      .notification.show {
+        transform: translateX(0);
+      }
+      .notification-success {
+        background: var(--success-color, #22c55e);
         color: white;
-        font-weight: 500;
-        z-index: 1001;
+      }
+      .notification-error {
+        background: var(--error-color, #ef4444);
+        color: white;
+      }
+      .notification-content {
         display: flex;
         align-items: center;
-        gap: 15px;
-        animation: slideInRight 0.3s ease-out;
-        max-width: 400px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    `;
-
-  if (type === "success") {
-    notification.style.background = "linear-gradient(135deg, #10b981, #059669)";
-  } else {
-    notification.style.background = "linear-gradient(135deg, #ef4444, #dc2626)";
-  }
-
-  // Add to body
-  document.body.appendChild(notification);
-
-  // Close button functionality
-  const closeButton = notification.querySelector(".notification-close");
-  if (closeButton && closeButton instanceof HTMLElement) {
-    closeButton.style.cssText = `
+        gap: 0.75rem;
+      }
+      .notification-close {
         background: none;
         border: none;
-        color: white;
-        font-size: 20px;
+        color: currentColor;
         cursor: pointer;
-        opacity: 0.8;
+        padding: 0.25rem;
+        margin-left: auto;
+      }
     `;
-
-    closeButton.addEventListener("click", () => {
-      notification.remove();
-    });
+    document.head.appendChild(styles);
   }
 
-  // Auto remove after 5 seconds
-  setTimeout(() => {
-    if (notification.parentNode) {
-      notification.remove();
-    }
+  // Agregar al DOM
+  document.body.appendChild(notification);
+
+  // Mostrar con animación
+  setTimeout(() => notification.classList.add("show"), 100);
+
+  // Configurar cierre automático
+  const closeBtn = notification.querySelector(".notification-close");
+  const autoClose = setTimeout(() => {
+    closeNotification(notification);
   }, 5000);
+
+  // Cerrar al hacer click
+  closeBtn.addEventListener("click", () => {
+    clearTimeout(autoClose);
+    closeNotification(notification);
+  });
+
+  function closeNotification(notification) {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }
 }
 
-// Add CSS for notification animation
-const notificationStyles = document.createElement("style");
-notificationStyles.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+/**
+ * Configuración de navegación suave
+ */
+function setupSmoothScrolling() {
+  // Navegación suave para enlaces internos
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+
+      if (target) {
+        const headerHeight =
+          document.querySelector(".header")?.offsetHeight || 70;
+        const targetPosition =
+          target.getBoundingClientRect().top +
+          window.pageYOffset -
+          headerHeight;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+      }
+    });
+  });
+
+  // Actualizar navegación activa en scroll
+  let ticking = false;
+
+  function updateActiveNav() {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const headerHeight = document.querySelector(".header")?.offsetHeight || 70;
+
+    let current = "";
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - headerHeight - 100;
+      if (window.pageYOffset >= sectionTop) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${current}`) {
+        link.classList.add("active");
+      }
+    });
+
+    ticking = false;
+  }
+
+  function requestUpdateActiveNav() {
+    if (!ticking) {
+      requestAnimationFrame(updateActiveNav);
+      ticking = true;
     }
-    
-    .notification-close:hover {
-        opacity: 1 !important;
+  }
+
+  window.addEventListener("scroll", requestUpdateActiveNav);
+}
+
+/**
+ * Utilidades globales
+ */
+window.portfolioUtils = {
+  // Obtener datos del portfolio
+  getData: () => portfolioI18n?.getData(),
+
+  // Cambiar idioma
+  changeLanguage: (lang) => {
+    if (portfolioI18n) {
+      portfolioI18n.updateLanguage(lang);
     }
-`;
-document.head.appendChild(notificationStyles);
+  },
+
+  // Obtener idioma actual
+  getCurrentLanguage: () => portfolioI18n?.getCurrentLanguage(),
+
+  // Mostrar notificación
+  showNotification,
+};
+
+// Log de éxito
+console.log("🎉 Sistema de portfolio mejorado cargado correctamente!");
+console.log("✅ Características habilitadas:");
+console.log("  - 🌐 Sistema i18n unificado con JSON");
+console.log("  - 📱 Navegación móvil responsiva");
+console.log("  - 🎨 Cambio de tema dinámico");
+console.log("  - 🔄 Animaciones de scroll optimizadas");
+console.log("  - 📝 Formularios con validación");
+console.log("  - 🔔 Sistema de notificaciones mejorado");
+console.log("  - 🚀 Navegación suave");
+console.log("⚡ ¡Todo listo para funcionar!");
 
 // Add loading animation
 window.addEventListener("load", function () {

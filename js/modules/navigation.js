@@ -1,150 +1,182 @@
 /**
- * Navigation Module
- * Handles mobile navigation, smooth scrolling, active link highlighting, and navbar background
+ * Módulo de Navegación
+ * Maneja la navegación móvil, scroll suave y enlaces activos
  */
 
-class NavigationManager {
+class NavigationModule {
   constructor() {
-    this.navbar = null;
-    this.navToggle = null;
-    this.navMenu = null;
-    this.navLinks = null;
-    this.sections = null;
-
-    this.init();
+    this.isInitialized = false;
+    this.activeNavTicking = false;
   }
 
+  /**
+   * Inicializar el módulo de navegación
+   */
   init() {
-    this.cacheElements();
-    this.setupMobileNavigation();
-    this.setupSmoothScrolling();
-    this.setupScrollEvents();
+    if (this.isInitialized) return;
+
+    // Pequeño retraso para asegurar que el DOM esté completamente cargado
+    setTimeout(() => {
+      this.setupMobileNavigation();
+      this.setupSmoothScrolling();
+      this.setupActiveNavigation();
+    }, 100);
+
+    this.isInitialized = true;
+    console.log("✅ Módulo de navegación inicializado");
   }
 
-  cacheElements() {
-    this.navbar = document.querySelector(".navbar");
-    this.navToggle = document.getElementById("nav-toggle");
-    this.navMenu = document.getElementById("nav-menu");
-    this.navLinks = document.querySelectorAll(".nav-link");
-    this.sections = document.querySelectorAll("section");
-  }
-
+  /**
+   * Configurar navegación móvil
+   */
   setupMobileNavigation() {
-    if (!this.navToggle || !this.navMenu) return;
+    const navToggle = document.querySelector(".nav-toggle");
+    const navMenu = document.querySelector(".nav-menu");
 
-    // Toggle mobile menu
-    this.navToggle.addEventListener("click", () => {
-      if (this.navMenu) {
-        this.navMenu.classList.toggle("active");
-      }
+    if (!navToggle || !navMenu) {
+      console.warn("⚠️ Elementos de navegación móvil no encontrados");
+      return;
+    }
 
-      // Animate hamburger menu
-      if (this.navToggle) {
-        const bars = this.navToggle.querySelectorAll(".bar");
-        bars.forEach((bar) => bar.classList.toggle("active"));
+    // Toggle menú móvil
+    navToggle.addEventListener("click", () => {
+      navToggle.classList.toggle("active");
+      navMenu.classList.toggle("active");
+      document.body.classList.toggle("nav-open");
+
+      // Animar barras del hamburger
+      const bars = navToggle.querySelectorAll(".bar");
+      bars.forEach((bar) => bar.classList.toggle("active"));
+    });
+
+    // Usar delegación de eventos para enlaces dinámicos
+    navMenu.addEventListener("click", (e) => {
+      if (e.target.classList.contains("nav-link")) {
+        navToggle.classList.remove("active");
+        navMenu.classList.remove("active");
+        document.body.classList.remove("nav-open");
+
+        // Restaurar barras del hamburger
+        const bars = navToggle.querySelectorAll(".bar");
+        bars.forEach((bar) => bar.classList.remove("active"));
       }
     });
 
-    // Close mobile menu when clicking on links
-    if (this.navLinks) {
-      this.navLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-          this.closeMobileMenu();
-        });
-      });
-    }
-  }
-  closeMobileMenu() {
-    if (!this.navMenu || !this.navToggle) return;
+    // Cerrar menú al hacer click fuera
+    document.addEventListener("click", (e) => {
+      if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+        navToggle.classList.remove("active");
+        navMenu.classList.remove("active");
+        document.body.classList.remove("nav-open");
 
-    this.navMenu.classList.remove("active");
-    const bars = this.navToggle.querySelectorAll(".bar");
-    bars.forEach((bar) => bar.classList.remove("active"));
+        // Restaurar barras del hamburger
+        const bars = navToggle.querySelectorAll(".bar");
+        bars.forEach((bar) => bar.classList.remove("active"));
+      }
+    });
   }
 
+  /**
+   * Configurar navegación suave
+   */
   setupSmoothScrolling() {
+    // Navegación suave para enlaces internos
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", (e) => {
         e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute("href"));
 
-        if (anchor instanceof HTMLAnchorElement) {
-          const href = anchor.getAttribute("href");
-          if (href) {
-            const target = document.querySelector(href);
-            if (target) {
-              target.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }
-          }
+        if (target) {
+          this.scrollToSection(target);
         }
       });
     });
   }
 
-  setupScrollEvents() {
-    window.addEventListener("scroll", () => {
-      this.updateNavbarBackground();
-      this.updateActiveLink();
+  /**
+   * Scroll suave a una sección específica
+   * @param {Element} target - Elemento objetivo
+   */
+  scrollToSection(target) {
+    const headerHeight = document.querySelector(".navbar")?.offsetHeight || 70;
+    const targetPosition =
+      target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
     });
   }
 
-  updateNavbarBackground() {
-    if (!this.navbar || !(this.navbar instanceof HTMLElement)) return;
+  /**
+   * Configurar actualización de navegación activa
+   */
+  setupActiveNavigation() {
+    const updateActiveNav = () => {
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-link");
+      const headerHeight =
+        document.querySelector(".navbar")?.offsetHeight || 70;
 
-    const isDarkTheme =
-      document.documentElement.getAttribute("data-theme") === "dark";
-    const isScrolled = window.scrollY > 50;
+      let current = "";
 
-    if (isScrolled) {
-      if (isDarkTheme) {
-        this.navbar.style.background = "rgba(13, 17, 23, 0.98)";
-        this.navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.3)";
-      } else {
-        this.navbar.style.background = "rgba(255, 255, 255, 0.98)";
-        this.navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - headerHeight - 100;
+        if (window.pageYOffset >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+
+      this.activeNavTicking = false;
+    };
+
+    const requestUpdateActiveNav = () => {
+      if (!this.activeNavTicking) {
+        requestAnimationFrame(updateActiveNav);
+        this.activeNavTicking = true;
       }
-    } else {
-      if (isDarkTheme) {
-        this.navbar.style.background = "rgba(13, 17, 23, 0.95)";
-        this.navbar.style.boxShadow = "none";
-      } else {
-        this.navbar.style.background = "rgba(255, 255, 255, 0.95)";
-        this.navbar.style.boxShadow = "none";
-      }
+    };
+
+    window.addEventListener("scroll", requestUpdateActiveNav);
+  }
+
+  /**
+   * Ir a una sección específica por ID
+   * @param {string} sectionId - ID de la sección
+   */
+  goToSection(sectionId) {
+    const target = document.getElementById(sectionId);
+    if (target) {
+      this.scrollToSection(target);
     }
   }
 
-  updateActiveLink() {
-    if (!this.sections || !this.navLinks) return;
+  /**
+   * Obtener la sección activa actual
+   * @returns {string|null} - ID de la sección activa
+   */
+  getCurrentSection() {
+    const sections = document.querySelectorAll("section[id]");
+    const headerHeight = document.querySelector(".navbar")?.offsetHeight || 70;
 
-    let current = "";
-
-    this.sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-
-      if (window.scrollY >= sectionTop - 200) {
-        const sectionId = section.getAttribute("id");
-        if (sectionId) {
-          current = sectionId;
-        }
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const section = sections[i];
+      const sectionTop = section.offsetTop - headerHeight - 100;
+      if (window.pageYOffset >= sectionTop) {
+        return section.getAttribute("id");
       }
-    });
+    }
 
-    this.navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
-    });
-  } // Public method to update navbar background (called from theme system)
-  refreshNavbarBackground() {
-    this.updateNavbarBackground();
+    return null;
   }
 }
 
-// Make available globally
-if (typeof window !== "undefined") {
-  window["NavigationManager"] = NavigationManager;
-}
+// Exportar para uso global
+window.NavigationModule = NavigationModule;

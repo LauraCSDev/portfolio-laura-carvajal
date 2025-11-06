@@ -33,6 +33,7 @@
             </div>
 
             <ul class="nav-menu" id="nav-menu">
+                <!-- Enlaces de navegación con fallback -->
                 <li><a href="#inicio" class="nav-link active" data-i18n="nav.inicio">Inicio</a></li>
                 <li><a href="#sobre-mi" class="nav-link" data-i18n="nav.sobreMi">Sobre Mí</a></li>
                 <li><a href="#habilidades" class="nav-link" data-i18n="nav.habilidades">Habilidades</a></li>
@@ -40,29 +41,33 @@
                 <li><a href="#certificaciones" class="nav-link" data-i18n="nav.certificaciones">Certificaciones</a></li>
                 <li><a href="#proyectos" class="nav-link" data-i18n="nav.proyectos">Proyectos</a></li>
                 <li><a href="#contacto" class="nav-link" data-i18n="nav.contacto">Contacto</a></li>
-                <li class="language-selector">
-                    <a href="#" class="language-toggle" id="language-toggle">
-                        <span class="flag">🇪🇸</span>
-                        <span class="lang-text">Español</span>
-                    </a>
-                    <div class="language-dropdown">
-                        <a href="#" class="language-option" data-lang="es">
-                            <span class="flag">🇪🇸</span>
-                            <span class="lang-name">Español</span>
-                        </a>
-                        <a href="#" class="language-option" data-lang="en">
-                            <span class="flag">🇺🇸</span>
-                            <span class="lang-name">English</span>
-                        </a>
-                    </div>
-                </li>
-                <li class="theme-selector">
-                    <button class="theme-toggle" id="theme-toggle" title="Cambiar tema">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                </li>
             </ul>
 
+            <!-- Selector de idioma -->
+            <div class="language-selector">
+                <button class="language-toggle" id="language-toggle">
+                    <span class="flag">🇪🇸</span>
+                    <span class="lang-text">ES</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="language-dropdown">
+                    <button class="language-option" data-lang="es">
+                        <span class="flag">🇪🇸</span>
+                        <span class="lang-name">Español</span>
+                    </button>
+                    <button class="language-option" data-lang="en">
+                        <span class="flag">🇺🇸</span>
+                        <span class="lang-name">English</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Selector de tema -->
+            <button class="theme-toggle" id="theme-toggle" title="Cambiar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <!-- Menú hamburguesa -->
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -76,20 +81,20 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span data-i18n="hero.greeting">Hola, soy</span>
-                    <span class="highlight" data-i18n="hero.name">Laura Carvajal</span>
+                    <span>Hola, soy</span>
+                    <span class="highlight" data-hero="name">Laura Carvajal</span>
                 </h1>
-                <h2 class="hero-subtitle" data-i18n="hero.title">Analista Programador II | Frontend Developer | UX/UI
+                <h2 class="hero-subtitle" data-hero="title">Analista Programador II | Frontend Developer | UX/UI
                     Designer</h2>
-                <p class="hero-description" data-i18n="hero.description">
+                <p class="hero-description" data-hero="description">
                     Frontend Developer con casi 6 años de experiencia. Especializada en React, Flutter y tecnologías
                     modernas.
                     Profesora universitaria y Team Lead con experiencia en desarrollo mobile y web de alta calidad.
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="#proyectos" class="btn btn-primary" data-i18n="hero.btnProjects">Ver Proyectos</a>
-                    <a href="#contacto" class="btn btn-secondary" data-i18n="hero.btnContact">Contáctame</a>
+                    <a href="#proyectos" class="btn btn-primary" data-i18n="ui.buttons.viewProjects">Ver Proyectos</a>
+                    <a href="#contacto" class="btn btn-secondary" data-i18n="ui.buttons.contactMe">Contáctame</a>
                 </div>
             </div>
 
@@ -109,12 +114,12 @@
             <h2 class="section-title" data-i18n="about.title">Sobre Mí</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p class="about-intro">
-                        Soy una profesional de 26 años con casi 6 años de experiencia en desarrollo de software.
+                    <p class="about-intro" data-i18n="about.intro">
+                        Soy una profesional de 27 años con casi 6 años de experiencia en desarrollo de software.
                         Actualmente me desempeño como Analista Programador II en BAC Latam y como Profesora
-                        Universitaria en Fidélitas University, combinando la práctica profesional con la enseñanza.
+                        Universitaria en la Universidad Fidélitas, combinando la práctica profesional con la enseñanza.
                     </p>
-                    <p>
+                    <p data-i18n="about.description">
                         Mi experiencia abarca desarrollo Frontend con React, desarrollo mobile con Flutter,
                         y liderazgo de equipos técnicos. Me especializo en crear aplicaciones web y móviles
                         de alta calidad, aplicando técnicas de modelado, estándares y patrones acordados.
@@ -122,18 +127,7 @@
                     </p>
 
                     <div class="about-stats">
-                        <div class="stat">
-                            <h3>6</h3>
-                            <p>Años de Experiencia</p>
-                        </div>
-                        <div class="stat">
-                            <h3>4</h3>
-                            <p>Empresas Líderes</p>
-                        </div>
-                        <div class="stat">
-                            <h3>10+</h3>
-                            <p>Tecnologías Dominadas</p>
-                        </div>
+                        <!-- Los stats se generarán dinámicamente -->
                     </div>
                 </div>
 
@@ -152,131 +146,7 @@
             <h2 class="section-title" data-i18n="skills.title">Habilidades Técnicas</h2>
 
             <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fas fa-laptop-code"></i> Frontend</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">React</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">JavaScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="88"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">TypeScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">HTML5/CSS3</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Tailwind CSS</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="92"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">SASS/SCSS</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="88"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-mobile-alt"></i> Backend & Mobile</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Flutter</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Dart</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Java</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="82"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Node.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="78"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Spring Boot</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="75"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Herramientas & Cloud</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Git/GitHub</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">AWS</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">MySQL</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">GraphQL</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="78"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">SCRUM</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="88"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">UX/UI Design</span>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="82"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Las habilidades se generarán dinámicamente -->
             </div>
         </div>
     </section>
@@ -287,23 +157,25 @@
             <h2 class="section-title" data-i18n="experience.title">Experiencia Profesional</h2>
 
             <div class="timeline">
+                <!-- Experiencia con fallback -->
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Analista Programador II</h3>
+                        <h3 data-i18n="experience.jobs.bac.title">Analista Programador II</h3>
                         <h4>BAC Latam</h4>
-                        <span class="timeline-date">Octubre 2023 - Presente</span>
-                        <p>
-                            Desarrollo y mantenimiento de aplicaciones móviles y web de alta calidad, aplicando
-                            técnicas de modelado, estándares, patrones y herramientas acordadas. Liderazgo de equipo
-                            técnico y mentor de desarrolladores junior.
-                        </p>
+                        <span class="timeline-date" data-i18n="experience.jobs.bac.period">Octubre 2023 -
+                            Presente</span>
+                        <p data-i18n="experience.jobs.bac.description">Desarrollo y mantenimiento de aplicaciones
+                            móviles y web de alta calidad, aplicando técnicas de modelado, estándares, patrones y
+                            herramientas acordadas. Liderazgo de equipo técnico y mentor de desarrolladores en sistemas
+                            Atomic Design.</p>
                         <div class="timeline-skills">
                             <span class="skill-tag">Java</span>
                             <span class="skill-tag">Flutter</span>
                             <span class="skill-tag">AWS</span>
                             <span class="skill-tag">Git</span>
                             <span class="skill-tag">Dart</span>
+                            <span class="skill-tag">Atomic Design</span>
                             <span class="skill-tag">Team Lead</span>
                         </div>
                     </div>
@@ -312,16 +184,17 @@
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>University Professor</h3>
+                        <h3 data-i18n="experience.jobs.fidelitas.title">University Professor</h3>
                         <h4>Fidélitas University</h4>
-                        <span class="timeline-date">Febrero 2023 - Presente</span>
-                        <p>
-                            Profesora universitaria en la Facultad de Ingeniería en Sistemas de Computación.
-                            Enseñanza de programación, desarrollo de software y tecnologías modernas a estudiantes
-                            de ingeniería.
-                        </p>
+                        <span class="timeline-date" data-i18n="experience.jobs.fidelitas.period">Febrero 2023 -
+                            Presente</span>
+                        <p data-i18n="experience.jobs.fidelitas.description">Profesora universitaria en la Facultad de
+                            Ingeniería en Sistemas de Computación. Enseñanza de programación, desarrollo de software y
+                            tecnologías modernas a estudiantes de ingeniería.</p>
                         <div class="timeline-skills">
                             <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Raptor</span>
+                            <span class="skill-tag">SCRUM</span>
                             <span class="skill-tag">Spring Boot</span>
                             <span class="skill-tag">MySQL</span>
                             <span class="skill-tag">Git</span>
@@ -334,13 +207,13 @@
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Frontend Web Developer</h3>
+                        <h3 data-i18n="experience.jobs.bhuma.title">Frontend Web Developer</h3>
                         <h4>Bhuma</h4>
-                        <span class="timeline-date">Marzo 2022 - Octubre 2023</span>
-                        <p>
-                            Desarrollo Frontend como Software Developer, realizando también tareas de cIQ, DevRel
-                            y diseño UX/UI. Creación de interfaces web modernas y experiencias de usuario optimizadas.
-                        </p>
+                        <span class="timeline-date" data-i18n="experience.jobs.bhuma.period">Marzo 2022 - Octubre
+                            2023</span>
+                        <p data-i18n="experience.jobs.bhuma.description">Desarrollo Frontend como Software Developer,
+                            realizando también tareas de cIQ, DevRel y diseño UX/UI. Creación de interfaces web modernas
+                            y experiencias de usuario optimizadas.</p>
                         <div class="timeline-skills">
                             <span class="skill-tag">React</span>
                             <span class="skill-tag">GraphQL</span>
@@ -355,13 +228,13 @@
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Frontend Developer</h3>
+                        <h3 data-i18n="experience.jobs.kleeen.title">Frontend Developer</h3>
                         <h4>Kleeen Software</h4>
-                        <span class="timeline-date">Febrero 2020 - Noviembre 2022</span>
-                        <p>
-                            Desarrollo Frontend como Software Developer, especializada en crear interfaces
-                            de usuario modernas y responsivas utilizando las últimas tecnologías web.
-                        </p>
+                        <span class="timeline-date" data-i18n="experience.jobs.kleeen.period">Febrero 2020 - Noviembre
+                            2022</span>
+                        <p data-i18n="experience.jobs.kleeen.description">Desarrollo Frontend como Software Developer,
+                            especializada en crear interfaces de usuario modernas y responsivas utilizando las últimas
+                            tecnologías web.</p>
                         <div class="timeline-skills">
                             <span class="skill-tag">React</span>
                             <span class="skill-tag">GraphQL</span>
@@ -375,14 +248,13 @@
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
-                        <h3>Bachelor Degree IT Management</h3>
+                        <h3 data-i18n="experience.jobs.education.title">Licenciatura en Administración de TI</h3>
                         <h4>Tecnológico de Costa Rica</h4>
-                        <span class="timeline-date">Enero 2016 - Julio 2022</span>
-                        <p>
-                            Formación en gestión de tecnologías de la información, desarrollo de profesionales
-                            innovadores para análisis de negocios, gestión de proyectos, arquitectura de aplicaciones
-                            y consultoría en servicios de TI.
-                        </p>
+                        <span class="timeline-date" data-i18n="experience.jobs.education.period">Enero 2016 - Julio
+                            2022</span>
+                        <p data-i18n="experience.jobs.education.description">Formación en gestión de tecnologías de la
+                            información, desarrollo de profesionales innovadores para análisis de negocios, gestión de
+                            proyectos, arquitectura de aplicaciones y consultoría en servicios de TI.</p>
                         <div class="timeline-skills">
                             <span class="skill-tag">IT Management</span>
                             <span class="skill-tag">Project Management</span>
@@ -401,6 +273,8 @@
             <h2 class="section-title" data-i18n="certifications.title">Certificaciones</h2>
 
             <div class="certifications-grid">
+                <!-- Las certificaciones se generarán dinámicamente -->
+                <!-- Fallback content in case JavaScript fails -->
                 <div class="cert-card">
                     <div class="cert-icon">
                         <i class="fab fa-google"></i>
@@ -440,7 +314,6 @@
                     <div class="cert-content">
                         <h3>UX Writing: Content Design and User Experience</h3>
                         <h4>Udemy</h4>
-                        <p class="cert-description">Especialización en diseño de contenido y experiencia de usuario</p>
                         <div class="cert-tech">
                             <span class="tech-tag">UX Writing</span>
                             <span class="tech-tag">Content Design</span>
@@ -456,64 +329,10 @@
     <section id="proyectos" class="projects">
         <div class="container">
             <h2 class="section-title" data-i18n="projects.title">Proyectos Destacados</h2>
+            <p class="section-subtitle" data-i18n="projects.subtitle">Algunos de mis trabajos destacados</p>
 
             <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="image-placeholder">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Portfolio Personal Responsivo</h3>
-                        <p>Diseño y desarrollo de portfolio personal con enfoque en UX/UI moderno,
-                            implementando animaciones CSS y navegación intuitiva.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Figma</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="image-placeholder">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Landing Page Corporativa</h3>
-                        <p>Diseño UX/UI y desarrollo frontend de landing page para startup tecnológica,
-                            optimizada para conversión y con diseño responsive.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">SASS</span>
-                            <span class="tech-tag">Adobe XD</span>
-                            <span class="tech-tag">Framer Motion</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="image-placeholder">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>App Web de E-learning</h3>
-                        <p>Interfaz de usuario para plataforma educativa online con sistema de cursos
-                            y seguimiento de progreso centrado en la experiencia de aprendizaje.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Figma</span>
-                            <span class="tech-tag">CSS Grid</span>
-                            <span class="tech-tag">User Research</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Los proyectos se generarán dinámicamente -->
             </div>
         </div>
     </section>
@@ -525,65 +344,34 @@
 
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>¡Hablemos!</h3>
-                    <p>Estoy disponible para nuevas oportunidades y proyectos interesantes.</p>
-
-                    <div class="contact-items">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <p>danycarse@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <p>linkedin.com/in/laura-carvajal-segura</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4>Ubicación</h4>
-                                <p>Cartago, Costa Rica</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/laura-carvajal-segura" class="social-link"
-                            target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://codepen.io/Laura_CarvajalS" class="social-link" target="_blank"><i
-                                class="fab fa-codepen"></i></a>
-                        <a href="https://medium.com/@danycarse" class="social-link" target="_blank"><i
-                                class="fab fa-medium"></i></a>
-                        <a href="https://dev.to/laura_carvajals" class="social-link" target="_blank"><i
-                                class="fab fa-dev"></i></a>
-                    </div>
+                    <!-- La información de contacto se generará dinámicamente -->
                 </div>
 
                 <div class="contact-form-container">
                     <form class="contact-form" id="contact-form">
+                        <!-- El formulario se generará dinámicamente -->
+                        <!-- Fallback content in case JavaScript fails -->
                         <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="name">Nombre *</label>
+                            <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
                         </div>
+
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="tu.email@ejemplo.com" required>
                         </div>
+
                         <div class="form-group">
                             <label for="subject">Asunto</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje">
                         </div>
+
                         <div class="form-group">
-                            <label for="message">Mensaje</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Mensaje *</label>
+                            <textarea id="message" name="message" placeholder="Tu mensaje aquí..." required></textarea>
                         </div>
+
                         <button type="submit" class="btn btn-primary btn-full">
-                            <i class="fas fa-paper-plane"></i>
                             Enviar Mensaje
                         </button>
                     </form>
@@ -602,29 +390,25 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Laura Carvajal. Todos los derechos reservados.</p>
-                <p>Diseñado y desarrollado con ❤️ usando HTML5, CSS3 y JavaScript</p>
+                <p data-i18n="footer.copyright">&copy; 2025 Laura Carvajal. Todos los derechos reservados.</p>
+                <p data-i18n="footer.madeWith">Diseñado y desarrollado con ❤️ usando HTML5, CSS3 y JavaScript</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript Modules -->
-    <script src="js/config.js"></script>
-    <!-- Enhanced I18n System -->
-    <script src="js/i18n/config.js"></script>
-    <script src="js/i18n/es.js"></script>
-    <script src="js/i18n/en.js"></script>
-    <script src="js/i18n/loader.js"></script>
-    <script src="js/i18n/i18n.js"></script>
-    <script src="js/i18n/index.js"></script>
-    <!-- Modules -->
-    <script src="js/modules/notifications.js"></script>
+    <!-- JavaScript - Sistema Modular -->
+
+    <!-- 1. Sistema i18n (debe cargarse primero) -->
+    <script src="js/i18n.js"></script>
+
+    <!-- 2. Módulos especializados -->
     <script src="js/modules/navigation.js"></script>
     <script src="js/modules/theme.js"></script>
-    <script src="js/modules/language.js"></script>
     <script src="js/modules/animations.js"></script>
     <script src="js/modules/forms.js"></script>
-    <script src="js/main.js"></script>
+
+    <!-- 3. Coordinador principal (debe cargarse al final) -->
+    <script src="js/app.js"></script>
 </body>
 
 </html>
