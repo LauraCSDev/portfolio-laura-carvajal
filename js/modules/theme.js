@@ -72,17 +72,18 @@ class ThemeManager {
     const logoSrc =
       this.currentTheme === "dark" ? "img/logo-dark.png" : "img/logo-light.png";
 
-    if (navbarLogo) navbarLogo.src = logoSrc;
-    if (heroLogo) heroLogo.src = logoSrc;
-    if (favicon) favicon.href = logoSrc;
-    if (appleIcon) appleIcon.href = logoSrc;
+    if (navbarLogo && "src" in navbarLogo) navbarLogo.src = logoSrc;
+    if (heroLogo && "src" in heroLogo) heroLogo.src = logoSrc;
+    if (favicon && "href" in favicon) favicon.href = logoSrc;
+    if (appleIcon && "href" in appleIcon) appleIcon.href = logoSrc;
   }
 
   updateTooltips() {
     if (!this.themeToggle) return;
 
     // Get current language for proper tooltip
-    const currentLang = window.i18n?.getCurrentLanguage() || "es";
+    const i18nInstance = window["i18n"];
+    const currentLang = i18nInstance?.getCurrentLanguage() || "es";
 
     if (currentLang === "en") {
       this.themeToggle.title =
@@ -112,7 +113,7 @@ class ThemeManager {
   }
 }
 
-// Export for use in other modules
+// Make available globally
 if (typeof window !== "undefined") {
-  window.ThemeManager = ThemeManager;
+  window["ThemeManager"] = ThemeManager;
 }

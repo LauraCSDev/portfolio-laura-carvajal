@@ -71,7 +71,7 @@ class AnimationsManager {
   }
 }
 
-// Export for use in other modules
+// Make available globally
 if (typeof window !== "undefined") {
-  window.AnimationsManager = AnimationsManager;
+  window["AnimationsManager"] = AnimationsManager;
 }

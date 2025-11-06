@@ -8,8 +8,8 @@ class NavigationManager {
     this.navbar = null;
     this.navToggle = null;
     this.navMenu = null;
-    this.navLinks = [];
-    this.sections = [];
+    this.navLinks = null;
+    this.sections = null;
 
     this.init();
   }
@@ -34,21 +34,26 @@ class NavigationManager {
 
     // Toggle mobile menu
     this.navToggle.addEventListener("click", () => {
-      this.navMenu.classList.toggle("active");
+      if (this.navMenu) {
+        this.navMenu.classList.toggle("active");
+      }
 
       // Animate hamburger menu
-      const bars = this.navToggle.querySelectorAll(".bar");
-      bars.forEach((bar) => bar.classList.toggle("active"));
+      if (this.navToggle) {
+        const bars = this.navToggle.querySelectorAll(".bar");
+        bars.forEach((bar) => bar.classList.toggle("active"));
+      }
     });
 
     // Close mobile menu when clicking on links
-    this.navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        this.closeMobileMenu();
+    if (this.navLinks) {
+      this.navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          this.closeMobileMenu();
+        });
       });
-    });
+    }
   }
-
   closeMobileMenu() {
     if (!this.navMenu || !this.navToggle) return;
 
@@ -112,6 +117,8 @@ class NavigationManager {
   }
 
   updateActiveLink() {
+    if (!this.sections || !this.navLinks) return;
+
     let current = "";
 
     this.sections.forEach((section) => {
@@ -131,15 +138,13 @@ class NavigationManager {
         link.classList.add("active");
       }
     });
-  }
-
-  // Public method to update navbar background (called from theme system)
+  } // Public method to update navbar background (called from theme system)
   refreshNavbarBackground() {
     this.updateNavbarBackground();
   }
 }
 
-// Export for use in other modules
+// Make available globally
 if (typeof window !== "undefined") {
-  window.NavigationManager = NavigationManager;
+  window["NavigationManager"] = NavigationManager;
 }

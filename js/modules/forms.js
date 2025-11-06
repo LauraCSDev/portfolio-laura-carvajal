@@ -32,7 +32,8 @@ class FormsManager {
   handleSubmit(e) {
     e.preventDefault();
 
-    if (!this.contactForm) return;
+    if (!this.contactForm || !(this.contactForm instanceof HTMLFormElement))
+      return;
 
     // Get form data
     const formData = new FormData(this.contactForm);
@@ -84,7 +85,7 @@ class FormsManager {
     this.showSuccess(this.getSuccessMessage());
 
     // Reset form
-    if (this.contactForm) {
+    if (this.contactForm && this.contactForm instanceof HTMLFormElement) {
       this.contactForm.reset();
     }
 
@@ -105,7 +106,8 @@ class FormsManager {
   }
 
   getValidationMessage(type) {
-    const currentLang = window.i18n?.getCurrentLanguage() || "es";
+    const i18nInstance = window["i18n"];
+    const currentLang = i18nInstance?.getCurrentLanguage() || "es";
 
     const messages = {
       es: {
@@ -118,18 +120,22 @@ class FormsManager {
       },
     };
 
-    return messages[currentLang]?.[type] || messages.es[type];
+    if (currentLang === "en" && type === "required")
+      return messages.en.required;
+    if (currentLang === "en" && type === "email") return messages.en.email;
+    return type === "required" ? messages.es.required : messages.es.email;
   }
 
   getSuccessMessage() {
-    const currentLang = window.i18n?.getCurrentLanguage() || "es";
+    const i18nInstance = window["i18n"];
+    const currentLang = i18nInstance?.getCurrentLanguage() || "es";
 
     const messages = {
       es: "¡Mensaje enviado con éxito! Te contactaré pronto.",
       en: "Message sent successfully! I will contact you soon.",
     };
 
-    return messages[currentLang] || messages.es;
+    return currentLang === "en" ? messages.en : messages.es;
   }
 
   // Set notifications manager reference
@@ -138,7 +144,7 @@ class FormsManager {
   }
 }
 
-// Export for use in other modules
+// Make available globally
 if (typeof window !== "undefined") {
-  window.FormsManager = FormsManager;
+  window["FormsManager"] = FormsManager;
 }

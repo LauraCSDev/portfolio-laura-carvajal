@@ -75,7 +75,7 @@ const PortfolioConfig = {
 
 // Make configuration available globally
 if (typeof window !== "undefined") {
-  window.PortfolioConfig = PortfolioConfig;
+  window["PortfolioConfig"] = PortfolioConfig;
 }
 
 // Export for Node.js environments

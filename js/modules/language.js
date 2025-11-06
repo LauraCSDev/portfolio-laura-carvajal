@@ -7,7 +7,7 @@ class LanguageManager {
   constructor() {
     this.languageToggle = null;
     this.languageDropdown = null;
-    this.languageOptions = [];
+    this.languageOptions = null;
     this.i18n = null;
     this.themeManager = null;
 
@@ -22,7 +22,7 @@ class LanguageManager {
 
       // Make i18n available globally
       if (typeof window !== "undefined") {
-        window.i18n = this.i18n;
+        window["i18n"] = this.i18n;
       }
     }
 
@@ -57,16 +57,20 @@ class LanguageManager {
     });
 
     // Handle language selection
-    this.languageOptions.forEach((option) => {
-      option.addEventListener("click", (e) => {
-        e.preventDefault();
-        const lang = option.getAttribute("data-lang");
-        if (lang && this.i18n) {
-          this.changeLanguage(lang);
-          this.languageDropdown.classList.remove("show");
-        }
+    if (this.languageOptions) {
+      this.languageOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.preventDefault();
+          const lang = option.getAttribute("data-lang");
+          if (lang && this.i18n) {
+            this.changeLanguage(lang);
+            if (this.languageDropdown) {
+              this.languageDropdown.classList.remove("show");
+            }
+          }
+        });
       });
-    });
+    }
   }
 
   changeLanguage(lang) {
@@ -118,7 +122,7 @@ class LanguageManager {
   }
 }
 
-// Export for use in other modules
+// Make available globally
 if (typeof window !== "undefined") {
-  window.LanguageManager = LanguageManager;
+  window["LanguageManager"] = LanguageManager;
 }

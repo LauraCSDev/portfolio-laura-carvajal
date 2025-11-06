@@ -152,5 +152,5 @@ const app = new PortfolioApp();
 
 // Make app available globally for debugging
 if (typeof window !== "undefined") {
-  window.portfolioApp = app;
+  window["portfolioApp"] = app;
 }
