@@ -10,6 +10,7 @@ const es = {
     sobreMi: "Sobre Mí",
     habilidades: "Habilidades",
     experiencia: "Experiencia",
+    certificaciones: "Certificaciones",
     proyectos: "Proyectos",
     contacto: "Contacto",
     idioma: "Language",
@@ -19,22 +20,25 @@ const es = {
   hero: {
     greeting: "Hola, soy",
     name: "Laura Carvajal",
-    title: "Frontend Developer & UX/UI Designer",
+    title: "Analista Programador II | Frontend Developer | UX/UI Designer",
     description:
-      "Me apasiona la tecnología y el desarrollo innovador en el campo de las aplicaciones web. Tengo experiencia como desarrollador front-end y siempre busco crear software de calidad y una experiencia de usuario agradable, lo que me permite proporcionar herramientas eficientes a quienes las necesitan. Así, puedo ayudar a las personas a alcanzar sus objetivos o implementar las mejores soluciones.",
+      "Frontend Developer con casi 6 años de experiencia. Especializada en React, Flutter y tecnologías modernas. Profesora universitaria y Team Lead con experiencia en desarrollo mobile y web de alta calidad.",
     btnProjects: "Ver Proyectos",
-    btnContact: "Contactar",
+    btnContact: "Contáctame",
   },
 
   // Sección Sobre Mí
   about: {
     title: "Sobre Mí",
+    intro:
+      "Soy una profesional de 27 años con casi 6 años de experiencia en desarrollo de software. Actualmente me desempeño como Analista Programador II en BAC Latam y como Profesora Universitaria en la Universidad Fidélitas, combinando la práctica profesional con la enseñanza.",
     description:
-      "Soy una desarrolladora frontend con sólida experiencia en UX/UI design. Me especializo en crear interfaces modernas, accesibles y centradas en el usuario utilizando las últimas tecnologías web.",
-    skills: "Habilidades principales:",
-    experience: "Años de experiencia:",
-    projects: "Proyectos completados:",
-    clients: "Clientes satisfechos:",
+      "Mi experiencia abarca desarrollo Frontend con React, desarrollo mobile con Flutter, y liderazgo de equipos técnicos. Me especializo en crear aplicaciones web y móviles de alta calidad, aplicando técnicas de modelado, estándares y patrones acordados. También tengo experiencia en cIQ, DevRel y diseño UX/UI.",
+    stats: {
+      experience: "Años de Experiencia",
+      companies: "Empresas Líderes",
+      technologies: "Tecnologías Dominadas",
+    },
   },
 
   // Sección Habilidades
@@ -43,9 +47,8 @@ const es = {
     subtitle: "Tecnologías y herramientas que domino",
     categories: {
       frontend: "Frontend",
-      backend: "Backend",
-      design: "Diseño",
-      tools: "Herramientas",
+      backend: "Backend & Mobile",
+      tools: "Herramientas & Cloud",
     },
   },
 
@@ -53,27 +56,31 @@ const es = {
   experience: {
     title: "Experiencia Profesional",
     subtitle: "Mi trayectoria profesional",
-    jobs: {
-      frontend: {
-        title: "Frontend Developer",
-        company: "Freelance",
-        period: "2023 - Presente",
+  },
+
+  // Sección Certificaciones
+  certifications: {
+    title: "Certificaciones",
+    subtitle: "Certificaciones profesionales y especializaciones",
+    items: {
+      flutter: {
+        title: "Flutter Certified Application Developer",
+        company: "ATC - Advance Training Consultants",
+        id: "ID: ATCW10001832",
         description:
-          "Desarrollo de interfaces web modernas y responsivas para diversos clientes. Implementación de diseños UX/UI centrados en el usuario y optimización de performance web.",
+          "Certificación oficial en desarrollo de aplicaciones móviles con Flutter",
       },
-      uxui: {
-        title: "UX/UI Designer",
-        company: "Proyectos Independientes",
-        period: "2022 - 2023",
-        description:
-          "Diseño de experiencias de usuario para aplicaciones web y móviles. Creación de wireframes, prototipos y sistemas de diseño coherentes.",
+      scrum: {
+        title: "Scrum Foundation Professional Certificate (SFPC)",
+        company: "CertiProf",
+        id: "ID: JLSTTDHPHJ-VHVKHVHZ-YBWYJDJDDT",
+        description: "Certificación profesional en metodologías ágiles SCRUM",
       },
-      education: {
-        title: "Formación Académica",
-        company: "Autodidacta y Cursos Online",
-        period: "2021 - 2022",
+      ux: {
+        title: "UX Writing: Content Design and User Experience",
+        company: "Udemy",
         description:
-          "Especialización en tecnologías frontend modernas y principios de UX/UI. Certificaciones en desarrollo web y diseño de experiencias de usuario.",
+          "Especialización en diseño de contenido y experiencia de usuario",
       },
     },
   },

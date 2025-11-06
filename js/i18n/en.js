@@ -10,6 +10,7 @@ const en = {
     sobreMi: "About",
     habilidades: "Skills",
     experiencia: "Experience",
+    certificaciones: "Certifications",
     proyectos: "Projects",
     contacto: "Contact",
     idioma: "Idioma",
@@ -19,9 +20,9 @@ const en = {
   hero: {
     greeting: "Hi, I'm",
     name: "Laura Carvajal",
-    title: "Frontend Developer & UX/UI Designer",
+    title: "Software Analyst II | Frontend Developer | UX/UI Designer",
     description:
-      "I love technology and innovative development in the field of web applications. I have experience as a front-end developer, I always seek to develop quality software and a pleasant user experience, which allows me to provide efficient tools for those who need them, so, I can help people achieve their goals or implement the best solutions.",
+      "Frontend Developer with almost 6 years of experience. Specialized in React, Flutter and modern technologies. University Professor and Team Lead with experience in high-quality mobile and web development.",
     btnProjects: "View Projects",
     btnContact: "Contact Me",
   },
@@ -29,12 +30,15 @@ const en = {
   // About Section
   about: {
     title: "About Me",
+    intro:
+      "I am a 27-year-old professional with almost 6 years of experience in software development. I currently work as a Software Analyst II at BAC Latam and as a University Professor at Fidélitas University, combining professional practice with teaching.",
     description:
-      "I'm a frontend developer with solid experience in UX/UI design. I specialize in creating modern, accessible and user-centered interfaces using the latest web technologies.",
-    skills: "Core skills:",
-    experience: "Years of experience:",
-    projects: "Completed projects:",
-    clients: "Satisfied clients:",
+      "My experience spans Frontend development with React, mobile development with Flutter, and technical team leadership. I specialize in creating high-quality web and mobile applications, applying modeling techniques, agreed-upon standards and patterns. I also have experience in cIQ, DevRel and UX/UI design.",
+    stats: {
+      experience: "Years of Experience",
+      companies: "Leading Companies",
+      technologies: "Technologies Mastered",
+    },
   },
 
   // Skills Section
@@ -43,9 +47,8 @@ const en = {
     subtitle: "Technologies and tools I master",
     categories: {
       frontend: "Frontend",
-      backend: "Backend",
-      design: "Design",
-      tools: "Tools",
+      backend: "Backend & Mobile",
+      tools: "Tools & Cloud",
     },
   },
 
@@ -53,27 +56,30 @@ const en = {
   experience: {
     title: "Professional Experience",
     subtitle: "My professional journey",
-    jobs: {
-      frontend: {
-        title: "Frontend Developer",
-        company: "Freelance",
-        period: "2023 - Present",
+  },
+
+  // Certifications Section
+  certifications: {
+    title: "Certifications",
+    subtitle: "Professional certifications and specializations",
+    items: {
+      flutter: {
+        title: "Flutter Certified Application Developer",
+        company: "ATC - Advance Training Consultants",
+        id: "ID: ATCW10001832",
         description:
-          "Development of modern and responsive web interfaces for various clients. Implementation of user-centered UX/UI designs and web performance optimization.",
+          "Official certification in mobile application development with Flutter",
       },
-      uxui: {
-        title: "UX/UI Designer",
-        company: "Independent Projects",
-        period: "2022 - 2023",
-        description:
-          "User experience design for web and mobile applications. Creation of wireframes, prototypes and coherent design systems.",
+      scrum: {
+        title: "Scrum Foundation Professional Certificate (SFPC)",
+        company: "CertiProf",
+        id: "ID: JLSTTDHPHJ-VHVKHVHZ-YBWYJDJDDT",
+        description: "Professional certification in SCRUM agile methodologies",
       },
-      education: {
-        title: "Academic Training",
-        company: "Self-taught and Online Courses",
-        period: "2021 - 2022",
-        description:
-          "Specialization in modern frontend technologies and UX/UI principles. Certifications in web development and user experience design.",
+      ux: {
+        title: "UX Writing: Content Design and User Experience",
+        company: "Udemy",
+        description: "Specialization in content design and user experience",
       },
     },
   },
@@ -106,30 +112,29 @@ const en = {
   // Contact Section
   contact: {
     title: "Contact",
-    subtitle: "Have a project in mind? Let's talk!",
-    info: {
-      email: "Email",
-      linkedin: "LinkedIn",
-      location: "Location",
-      locationValue: "Cartago, Costa Rica",
-    },
+    subtitle: "Let's work together",
     form: {
-      name: "Full name",
-      email: "Email address",
-      subject: "Subject",
+      name: "Name",
+      email: "Email",
       message: "Message",
       send: "Send Message",
-    },
-    notifications: {
       success: "Message sent successfully!",
-      error: "Error sending message. Please try again.",
+      error: "There was an error. Please try again.",
     },
+  },
+
+  // Footer
+  footer: {
+    text: "Made with ❤️ by Laura Carvajal",
+    rights: "All rights reserved.",
   },
 
   // Footer
   footer: {
     copyright: "© 2025 Laura Carvajal. All rights reserved.",
     madeWith: "Designed and developed with ❤️ using HTML5, CSS3 and JavaScript",
+    text: "Made with ❤️ by Laura Carvajal",
+    rights: "All rights reserved.",
   },
 
   // System messages
@@ -148,6 +153,12 @@ const en = {
     toggleTooltip: "Switch theme",
     switchToLight: "Switch to light theme",
     switchToDark: "Switch to dark theme",
+  },
+
+  // Language
+  language: {
+    es: "Spanish",
+    en: "English",
   },
 };
 
