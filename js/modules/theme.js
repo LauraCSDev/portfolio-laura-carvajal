@@ -1,119 +1,223 @@
 /**
- * Theme System Module
- * Handles dark/light theme switching and theme-related UI updates
+ * Módulo de Temas
+ * Maneja el cambio entre tema claro y oscuro
  */
 
-class ThemeManager {
+class ThemeModule {
   constructor() {
+    this.isInitialized = false;
+    this.currentTheme = localStorage.getItem("portfolio-theme") || "light";
     this.themeToggle = null;
-    this.themeIcon = null;
-    this.currentTheme = "light";
-    this.navigationManager = null;
-
-    this.init();
   }
 
+  /**
+   * Inicializar el módulo de temas
+   */
   init() {
-    this.cacheElements();
-    this.loadSavedTheme();
-    this.setupEventListeners();
+    if (this.isInitialized) return;
+
+    this.themeToggle = document.querySelector(".theme-toggle");
+
+    if (!this.themeToggle) {
+      console.warn("⚠️ Botón de cambio de tema no encontrado");
+      return;
+    }
+
+    this.setupThemeToggle();
+    this.applyTheme(this.currentTheme);
+
+    this.isInitialized = true;
+    console.log("✅ Módulo de temas inicializado");
   }
 
-  cacheElements() {
-    this.themeToggle = document.getElementById("theme-toggle");
-    this.themeIcon = this.themeToggle?.querySelector(".theme-icon");
-  }
+  /**
+   * Configurar el botón de cambio de tema
+   */
+  setupThemeToggle() {
+    // Aplicar tema guardado
+    this.updateThemeButton(this.currentTheme);
+    this.updateLogos(this.currentTheme);
 
-  loadSavedTheme() {
-    const savedTheme = localStorage.getItem("portfolio-theme") || "light";
-    this.setTheme(savedTheme);
-  }
-
-  setupEventListeners() {
-    if (!this.themeToggle) return;
-
+    // Event listener para cambio de tema
     this.themeToggle.addEventListener("click", () => {
-      const newTheme = this.currentTheme === "dark" ? "light" : "dark";
+      const newTheme = this.currentTheme === "light" ? "dark" : "light";
       this.setTheme(newTheme);
     });
   }
 
+  /**
+   * Establecer un tema específico
+   * @param {string} theme - 'light' o 'dark'
+   */
   setTheme(theme) {
+    if (!["light", "dark"].includes(theme)) {
+      console.warn(`⚠️ Tema inválido: ${theme}`);
+      return;
+    }
+
     this.currentTheme = theme;
-    document.documentElement.setAttribute("data-theme", theme);
+    this.applyTheme(theme);
+    this.updateThemeButton(theme);
+    this.updateLogos(theme);
+
+    // Guardar en localStorage
     localStorage.setItem("portfolio-theme", theme);
 
-    this.updateThemeIcon();
-    this.updateLogos();
-    this.updateTooltips();
-
-    // Notify navigation manager to update navbar background
-    if (this.navigationManager) {
-      this.navigationManager.refreshNavbarBackground();
-    }
+    // Emitir evento personalizado
+    this.dispatchThemeChange(theme);
   }
 
-  updateThemeIcon() {
-    if (!this.themeIcon || !this.themeToggle) return;
-
-    if (this.currentTheme === "dark") {
-      this.themeIcon.textContent = "☀️";
-    } else {
-      this.themeIcon.textContent = "🌙";
-    }
+  /**
+   * Aplicar el tema al documento
+   * @param {string} theme - Tema a aplicar
+   */
+  applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    document.body.className = document.body.className.replace(/theme-\w+/g, "");
+    document.body.classList.add(`theme-${theme}`);
   }
 
-  updateLogos() {
-    const navbarLogo = document.getElementById("navbar-logo");
-    const heroLogo = document.getElementById("hero-logo");
-    const favicon = document.getElementById("favicon");
-    const appleIcon = document.getElementById("apple-icon");
-
-    const logoSrc =
-      this.currentTheme === "dark" ? "img/logo-dark.png" : "img/logo-light.png";
-
-    if (navbarLogo && "src" in navbarLogo) navbarLogo.src = logoSrc;
-    if (heroLogo && "src" in heroLogo) heroLogo.src = logoSrc;
-    if (favicon && "href" in favicon) favicon.href = logoSrc;
-    if (appleIcon && "href" in appleIcon) appleIcon.href = logoSrc;
-  }
-
-  updateTooltips() {
+  /**
+   * Actualizar el botón de cambio de tema
+   * @param {string} theme - Tema actual
+   */
+  updateThemeButton(theme) {
     if (!this.themeToggle) return;
 
-    // Get current language for proper tooltip
-    const i18nInstance = window["i18n"];
-    const currentLang = i18nInstance?.getCurrentLanguage() || "es";
-
-    if (currentLang === "en") {
-      this.themeToggle.title =
-        this.currentTheme === "dark"
-          ? "Switch to light theme"
-          : "Switch to dark theme";
-    } else {
-      this.themeToggle.title =
-        this.currentTheme === "dark"
-          ? "Cambiar a tema claro"
-          : "Cambiar a tema oscuro";
+    const icon = this.themeToggle.querySelector("i");
+    if (icon) {
+      icon.className = theme === "light" ? "fas fa-moon" : "fas fa-sun";
     }
+
+    // Actualizar título del botón
+    const tooltips = {
+      light: {
+        es: "Cambiar a tema oscuro",
+        en: "Switch to dark theme",
+      },
+      dark: {
+        es: "Cambiar a tema claro",
+        en: "Switch to light theme",
+      },
+    };
+
+    const currentLang = window.portfolioI18n?.getCurrentLanguage() || "es";
+    this.themeToggle.title = tooltips[theme][currentLang];
   }
 
-  // Method to be called from language system when language changes
-  refreshTooltips() {
-    this.updateTooltips();
+  /**
+   * Actualizar logos según el tema
+   * @param {string} theme - Tema actual
+   */
+  updateLogos(theme) {
+    const logoSelectors = [
+      "#navbar-logo",
+      "#hero-logo",
+      "#favicon",
+      "#apple-icon",
+    ];
+
+    const logoSrc =
+      theme === "light" ? "img/logo-light.png" : "img/logo-dark.png";
+
+    logoSelectors.forEach((selector) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        if (element.tagName.toLowerCase() === "img") {
+          element.src = logoSrc;
+        } else {
+          element.href = logoSrc;
+        }
+      }
+    });
   }
 
-  // Set navigation manager reference
-  setNavigationManager(navigationManager) {
-    this.navigationManager = navigationManager;
-  }
-
+  /**
+   * Obtener el tema actual
+   * @returns {string} - Tema actual
+   */
   getCurrentTheme() {
     return this.currentTheme;
   }
+
+  /**
+   * Alternar entre temas
+   */
+  toggleTheme() {
+    const newTheme = this.currentTheme === "light" ? "dark" : "light";
+    this.setTheme(newTheme);
+  }
+
+  /**
+   * Detectar preferencia del sistema
+   * @returns {string} - 'light' o 'dark'
+   */
+  detectSystemTheme() {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return "dark";
+    }
+    return "light";
+  }
+
+  /**
+   * Usar tema del sistema si no hay preferencia guardada
+   */
+  useSystemTheme() {
+    if (!localStorage.getItem("portfolio-theme")) {
+      const systemTheme = this.detectSystemTheme();
+      this.setTheme(systemTheme);
+    }
+  }
+
+  /**
+   * Escuchar cambios en la preferencia del sistema
+   */
+  watchSystemTheme() {
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      mediaQuery.addEventListener("change", (e) => {
+        if (!localStorage.getItem("portfolio-theme")) {
+          this.setTheme(e.matches ? "dark" : "light");
+        }
+      });
+    }
+  }
+
+  /**
+   * Emitir evento de cambio de tema
+   * @param {string} theme - Nuevo tema
+   */
+  dispatchThemeChange(theme) {
+    const event = new CustomEvent("themeChanged", {
+      detail: { theme, previousTheme: this.currentTheme },
+    });
+    document.dispatchEvent(event);
+  }
+
+  /**
+   * Actualizar tooltips cuando cambie el idioma
+   * @param {string} lang - Idioma actual
+   */
+  updateTooltips(lang) {
+    if (!this.themeToggle) return;
+
+    const tooltips = {
+      light: {
+        es: "Cambiar a tema oscuro",
+        en: "Switch to dark theme",
+      },
+      dark: {
+        es: "Cambiar a tema claro",
+        en: "Switch to light theme",
+      },
+    };
+
+    this.themeToggle.title = tooltips[this.currentTheme][lang];
+  }
 }
 
-// Make available globally
-if (typeof window !== "undefined") {
-  window["ThemeManager"] = ThemeManager;
-}
+// Exportar para uso global
+window.ThemeModule = ThemeModule;

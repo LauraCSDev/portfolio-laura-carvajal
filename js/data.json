@@ -1,0 +1,637 @@
+{
+  "personal": {
+    "name": {
+      "es": "Laura Carvajal",
+      "en": "Laura Carvajal"
+    },
+    "title": {
+      "es": "Analista Programador II | Frontend Developer | UX/UI Designer",
+      "en": "Software Analyst II | Frontend Developer | UX/UI Designer"
+    },
+    "age": 27,
+    "yearsExperience": 6,
+    "location": {
+      "es": "Cartago, Costa Rica",
+      "en": "Cartago, Costa Rica"
+    },
+    "email": "danycarse@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/laura-carvajal-segura/",
+    "description": {
+      "es": "Frontend Developer con más de 6 años de experiencia. Especializada en React, Flutter y tecnologías modernas. Profesora universitaria y Team Lead con experiencia en desarrollo mobile y web de alta calidad.",
+      "en": "Frontend Developer with more than 6 years of experience. Specialized in React, Flutter and modern technologies. University Professor and Team Lead with experience in high-quality mobile and web development."
+    }
+  },
+  "navigation": {
+    "items": [
+      {
+        "key": "inicio",
+        "es": "Inicio",
+        "en": "Home",
+        "href": "#inicio"
+      },
+      {
+        "key": "sobreMi",
+        "es": "Sobre Mí",
+        "en": "About",
+        "href": "#sobre-mi"
+      },
+      {
+        "key": "habilidades",
+        "es": "Habilidades",
+        "en": "Skills",
+        "href": "#habilidades"
+      },
+      {
+        "key": "experiencia",
+        "es": "Experiencia",
+        "en": "Experience",
+        "href": "#experiencia"
+      },
+      {
+        "key": "certificaciones",
+        "es": "Certificaciones",
+        "en": "Certifications",
+        "href": "#certificaciones"
+      },
+      {
+        "key": "proyectos",
+        "es": "Proyectos",
+        "en": "Projects",
+        "href": "#proyectos"
+      },
+      {
+        "key": "contacto",
+        "es": "Contacto",
+        "en": "Contact",
+        "href": "#contacto"
+      }
+    ]
+  },
+  "about": {
+    "title": {
+      "es": "Sobre Mí",
+      "en": "About Me"
+    },
+    "intro": {
+      "es": "Soy una profesional de 27 años con más de 6 años de experiencia en desarrollo de software. Actualmente me desempeño como Analista Programador II en BAC Latam y como Profesora Universitaria en la Universidad Fidélitas, combinando la práctica profesional con la enseñanza.",
+      "en": "I am a 27-year-old professional with more than 6 years of experience in software development. I currently work as a Software Analyst II at BAC Latam and as a University Professor at Fidélitas University, combining professional practice with teaching."
+    },
+    "description": {
+      "es": "Mi experiencia abarca desarrollo Frontend con React, desarrollo mobile con Flutter, y liderazgo de equipos técnicos. Me especializo en crear aplicaciones web y móviles de alta calidad, aplicando técnicas de modelado, estándares y patrones acordados. También tengo experiencia en cIQ, DevRel y diseño UX/UI.",
+      "en": "My experience spans Frontend development with React, mobile development with Flutter, and technical team leadership. I specialize in creating high-quality web and mobile applications, applying modeling techniques, agreed-upon standards and patterns. I also have experience in cIQ, DevRel and UX/UI design."
+    },
+    "stats": [
+      {
+        "value": "+6",
+        "label": {
+          "es": "Años de Experiencia",
+          "en": "Years of Experience"
+        }
+      },
+      {
+        "value": "2",
+        "label": {
+          "es": "Empresas Líderes",
+          "en": "Leading Companies"
+        }
+      },
+      {
+        "value": "+10",
+        "label": {
+          "es": "Tecnologías Dominadas",
+          "en": "Technologies Mastered"
+        }
+      }
+    ]
+  },
+  "skills": {
+    "title": {
+      "es": "Habilidades Técnicas",
+      "en": "Technical Skills"
+    },
+    "subtitle": {
+      "es": "Tecnologías y herramientas que domino",
+      "en": "Technologies and tools I master"
+    },
+    "categories": [
+      {
+        "key": "frontend",
+        "title": {
+          "es": "Frontend",
+          "en": "Frontend"
+        },
+        "icon": "fas fa-code",
+        "skills": [
+          { "name": "React", "level": 90 },
+          { "name": "JavaScript", "level": 88 },
+          { "name": "HTML5", "level": 95 },
+          { "name": "CSS3", "level": 92 },
+          { "name": "Tailwind CSS", "level": 85 },
+          { "name": "TypeScript", "level": 82 }
+        ]
+      },
+      {
+        "key": "backend",
+        "title": {
+          "es": "Backend & Mobile",
+          "en": "Backend & Mobile"
+        },
+        "icon": "fas fa-server",
+        "skills": [
+          { "name": "Flutter", "level": 85 },
+          { "name": "Dart", "level": 85 },
+          { "name": "Java", "level": 82 },
+          { "name": "Node.js", "level": 80 },
+          { "name": "Python", "level": 78 },
+          { "name": "Spring Boot", "level": 75 }
+        ]
+      },
+      {
+        "key": "tools",
+        "title": {
+          "es": "Herramientas & Cloud",
+          "en": "Tools & Cloud"
+        },
+        "icon": "fas fa-tools",
+        "skills": [
+          { "name": "Git/GitHub", "level": 90 },
+          { "name": "AWS", "level": 80 },
+          { "name": "MySQL", "level": 85 },
+          { "name": "Firebase", "level": 85 },
+          { "name": "Copilot", "level": 95 },
+          { "name": "Docker", "level": 78 },
+          { "name": "UX/UI Design", "level": 82 }
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "title": {
+      "es": "Experiencia Profesional",
+      "en": "Professional Experience"
+    },
+    "subtitle": {
+      "es": "Mi trayectoria profesional",
+      "en": "My professional journey"
+    },
+    "jobs": [
+      {
+        "id": "bac",
+        "title": {
+          "es": "Analista Programador II",
+          "en": "Software Analyst II"
+        },
+        "company": "BAC Latam",
+        "period": {
+          "es": "Octubre 2023 - Presente",
+          "en": "October 2023 - Present"
+        },
+        "description": {
+          "es": "Desarrollo y mantenimiento de aplicaciones móviles y web de alta calidad, aplicando técnicas de modelado, estándares, patrones y herramientas acordadas. Liderazgo de equipo técnico y mentor de desarrolladores en sistemas Atomic Design.",
+          "en": "Development and maintenance of high-quality mobile and web applications, applying modeling techniques, standards, agreed patterns and tools. Technical team leadership and mentoring developers in Atomic Design systems."
+        },
+        "skills": [
+          "Java",
+          "Flutter",
+          "AWS",
+          "Git",
+          "Dart",
+          "Atomic Design",
+          "Team Lead"
+        ],
+        "type": "work"
+      },
+      {
+        "id": "fidelitas",
+        "title": {
+          "es": "University Professor",
+          "en": "University Professor"
+        },
+        "company": "Fidélitas University",
+        "period": {
+          "es": "Febrero 2023 - Presente",
+          "en": "February 2023 - Present"
+        },
+        "description": {
+          "es": "Profesora universitaria en la Facultad de Ingeniería en Sistemas de Computación. Enseñanza de programación, desarrollo de software y tecnologías modernas a estudiantes de ingeniería.",
+          "en": "University professor at the Faculty of Computer Systems Engineering. Teaching programming, software development and modern technologies to engineering students."
+        },
+        "skills": [
+          "Java",
+          "Raptor",
+          "SCRUM",
+          "Spring Boot",
+          "MySQL",
+          "Git",
+          "Python",
+          "Teaching"
+        ],
+        "type": "work"
+      },
+      {
+        "id": "bhuma",
+        "title": {
+          "es": "Frontend Web Developer",
+          "en": "Frontend Web Developer"
+        },
+        "company": "Bhuma",
+        "period": {
+          "es": "Marzo 2022 - Octubre 2023",
+          "en": "March 2022 - October 2023"
+        },
+        "description": {
+          "es": "Desarrollo Frontend como Software Developer, realizando también tareas de cIQ, DevRel y diseño UX/UI. Creación de interfaces web modernas y experiencias de usuario optimizadas.",
+          "en": "Frontend development as Software Developer, also performing cIQ, DevRel and UX/UI design tasks. Creation of modern web interfaces and optimized user experiences."
+        },
+        "skills": [
+          "React",
+          "GraphQL",
+          "Tailwind",
+          "Node.js",
+          "TypeScript",
+          "UX/UI"
+        ],
+        "type": "work"
+      },
+      {
+        "id": "kleeen",
+        "title": {
+          "es": "Frontend Developer",
+          "en": "Frontend Developer"
+        },
+        "company": "Kleeen Software",
+        "period": {
+          "es": "Febrero 2020 - Noviembre 2022",
+          "en": "February 2020 - November 2022"
+        },
+        "description": {
+          "es": "Desarrollo Frontend como Software Developer, especializada en crear interfaces de usuario modernas y responsivas utilizando las últimas tecnologías web.",
+          "en": "Frontend development as Software Developer, specialized in creating modern and responsive user interfaces using the latest web technologies."
+        },
+        "skills": ["React", "GraphQL", "Tailwind", "Node.js", "TypeScript"],
+        "type": "work"
+      },
+      {
+        "id": "education",
+        "title": {
+          "es": "Licenciatura en Administración de Tecnologías de Información",
+          "en": "Bachelor Degree IT Management"
+        },
+        "company": "Tecnológico de Costa Rica",
+        "period": {
+          "es": "Enero 2016 - Julio 2022",
+          "en": "January 2016 - July 2022"
+        },
+        "description": {
+          "es": "Formación en gestión de tecnologías de la información, desarrollo de profesionales innovadores para análisis de negocios, gestión de proyectos, arquitectura de aplicaciones y consultoría en servicios de TI.",
+          "en": "Training in information technology management, developing innovative professionals for business analysis, project management, application architecture and IT services consulting."
+        },
+        "skills": [
+          "IT Management",
+          "Project Management",
+          "Software Architecture",
+          "Business Analysis"
+        ],
+        "type": "education"
+      }
+    ]
+  },
+  "certifications": {
+    "title": {
+      "es": "Certificaciones",
+      "en": "Certifications"
+    },
+    "subtitle": {
+      "es": "Certificaciones profesionales y especializaciones",
+      "en": "Professional certifications and specializations"
+    },
+    "items": [
+      {
+        "id": "flutter",
+        "title": {
+          "es": "Flutter Certified Application Developer",
+          "en": "Flutter Certified Application Developer"
+        },
+        "company": "ATC - Advance Training Consultants",
+        "id_number": "ATCW10001832",
+        "description": {
+          "es": "Certificación oficial en desarrollo de aplicaciones móviles con Flutter",
+          "en": "Official certification in mobile application development with Flutter"
+        },
+        "technologies": ["Flutter", "Dart", "Mobile Development"],
+        "icon": "fab fa-google"
+      },
+      {
+        "id": "scrum",
+        "title": {
+          "es": "Scrum Foundation Professional Certificate (SFPC)",
+          "en": "Scrum Foundation Professional Certificate (SFPC)"
+        },
+        "company": "CertiProf",
+        "id_number": "JLSTTDHPHJ-VHVKHVHZ-YBWYJDJDDT",
+        "description": {
+          "es": "Certificación profesional en metodologías ágiles SCRUM",
+          "en": "Professional certification in SCRUM agile methodologies"
+        },
+        "technologies": ["SCRUM", "Agile", "Project Management"],
+        "icon": "fas fa-certificate"
+      },
+      {
+        "id": "ux",
+        "title": {
+          "es": "UX Writing: Content Design and User Experience",
+          "en": "UX Writing: Content Design and User Experience"
+        },
+        "company": "Udemy",
+        "description": {
+          "es": "Especialización en diseño de contenido y experiencia de usuario",
+          "en": "Specialization in content design and user experience"
+        },
+        "technologies": ["UX Writing", "Content Design", "User Experience"],
+        "icon": "fas fa-paint-brush"
+      }
+    ]
+  },
+  "projects": {
+    "title": {
+      "es": "Proyectos Destacados",
+      "en": "Featured Projects"
+    },
+    "subtitle": {
+      "es": "Algunos de mis trabajos destacados",
+      "en": "Some of my featured work"
+    },
+    "items": [
+      {
+        "id": "portfolio",
+        "title": {
+          "es": "Portfolio Personal Responsivo",
+          "en": "Responsive Personal Portfolio"
+        },
+        "description": {
+          "es": "Diseño y desarrollo de portfolio personal con enfoque en UX/UI moderno, implementando animaciones CSS y navegación intuitiva.",
+          "en": "Design and development of personal portfolio with focus on modern UX/UI, implementing CSS animations and intuitive navigation."
+        },
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+        "image": "img/projects/portfolio.jpg",
+        "demo": "#",
+        "code": "#"
+      },
+      {
+        "id": "landing",
+        "title": {
+          "es": "Landing Page Corporativa",
+          "en": "Corporate Landing Page"
+        },
+        "description": {
+          "es": "Diseño UX/UI y desarrollo frontend de landing page para startup tecnológica, optimizada para conversión y con diseño responsive.",
+          "en": "UX/UI design and frontend development of landing page for tech startup, optimized for conversion with responsive design."
+        },
+        "technologies": ["React", "Tailwind CSS", "JavaScript", "UX/UI"],
+        "image": "img/projects/landing.jpg",
+        "demo": "#",
+        "code": "#"
+      },
+      {
+        "id": "elearning",
+        "title": {
+          "es": "App Web de E-learning",
+          "en": "E-learning Web App"
+        },
+        "description": {
+          "es": "Interfaz de usuario para plataforma educativa online con sistema de cursos y seguimiento de progreso centrado en la experiencia de aprendizaje.",
+          "en": "User interface for online educational platform with course system and progress tracking focused on learning experience."
+        },
+        "technologies": ["React", "Node.js", "MongoDB", "Express"],
+        "image": "img/projects/elearning.jpg",
+        "demo": "#",
+        "code": "#"
+      }
+    ]
+  },
+  "contact": {
+    "title": {
+      "es": "Contacto",
+      "en": "Contact"
+    },
+    "subtitle": {
+      "es": "¿Tienes un proyecto en mente? ¡Hablemos!",
+      "en": "Let's work together"
+    },
+    "greeting": {
+      "es": "¡Hablemos!",
+      "en": "Let's talk!"
+    },
+    "description": {
+      "es": "Estoy disponible para nuevas oportunidades y proyectos interesantes.",
+      "en": "I'm available for new opportunities and interesting projects."
+    },
+    "info": {
+      "email": {
+        "label": {
+          "es": "Email",
+          "en": "Email"
+        },
+        "value": "danycarse@gmail.com"
+      },
+      "linkedin": {
+        "label": {
+          "es": "LinkedIn",
+          "en": "LinkedIn"
+        },
+        "value": "laura-carvajal-segura",
+        "url": "https://www.linkedin.com/in/laura-carvajal-segura/"
+      },
+      "location": {
+        "label": {
+          "es": "Ubicación",
+          "en": "Location"
+        },
+        "value": {
+          "es": "Cartago, Costa Rica",
+          "en": "Cartago, Costa Rica"
+        }
+      }
+    },
+    "socialLinks": [
+      {
+        "name": "linkedin",
+        "url": "https://www.linkedin.com/in/laura-carvajal-segura",
+        "icon": "fab fa-linkedin",
+        "label": {
+          "es": "LinkedIn",
+          "en": "LinkedIn"
+        }
+      },
+      {
+        "name": "codepen",
+        "url": "https://codepen.io/Laura_CarvajalS",
+        "icon": "fab fa-codepen",
+        "label": {
+          "es": "CodePen",
+          "en": "CodePen"
+        }
+      },
+      {
+        "name": "medium",
+        "url": "https://medium.com/@danycarse",
+        "icon": "fab fa-medium",
+        "label": {
+          "es": "Medium",
+          "en": "Medium"
+        }
+      },
+      {
+        "name": "dev",
+        "url": "https://dev.to/laura_carvajals",
+        "icon": "fab fa-dev",
+        "label": {
+          "es": "Dev.to",
+          "en": "Dev.to"
+        }
+      }
+    ],
+    "form": {
+      "fields": [
+        {
+          "name": "name",
+          "type": "text",
+          "label": {
+            "es": "Nombre",
+            "en": "Name"
+          },
+          "placeholder": {
+            "es": "Tu nombre",
+            "en": "Your name"
+          },
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "label": {
+            "es": "Email",
+            "en": "Email"
+          },
+          "placeholder": {
+            "es": "tu@email.com",
+            "en": "your@email.com"
+          },
+          "required": true
+        },
+        {
+          "name": "subject",
+          "type": "text",
+          "label": {
+            "es": "Asunto",
+            "en": "Subject"
+          },
+          "placeholder": {
+            "es": "Asunto del mensaje",
+            "en": "Message subject"
+          },
+          "required": true
+        },
+        {
+          "name": "message",
+          "type": "textarea",
+          "label": {
+            "es": "Mensaje",
+            "en": "Message"
+          },
+          "placeholder": {
+            "es": "Tu mensaje...",
+            "en": "Your message..."
+          },
+          "required": true
+        }
+      ],
+      "submit": {
+        "es": "Enviar Mensaje",
+        "en": "Send Message"
+      }
+    },
+    "notifications": {
+      "success": {
+        "es": "¡Mensaje enviado correctamente!",
+        "en": "Message sent successfully!"
+      },
+      "error": {
+        "es": "Error al enviar el mensaje. Inténtalo de nuevo.",
+        "en": "There was an error. Please try again."
+      }
+    }
+  },
+  "ui": {
+    "buttons": {
+      "viewProjects": {
+        "es": "Ver Proyectos",
+        "en": "View Projects"
+      },
+      "contactMe": {
+        "es": "Contáctame",
+        "en": "Contact Me"
+      },
+      "viewProject": {
+        "es": "Ver Proyecto",
+        "en": "View Project"
+      },
+      "viewCode": {
+        "es": "Ver Código",
+        "en": "View Code"
+      }
+    },
+    "theme": {
+      "light": {
+        "es": "Tema Claro",
+        "en": "Light Theme"
+      },
+      "dark": {
+        "es": "Tema Oscuro",
+        "en": "Dark Theme"
+      },
+      "toggle": {
+        "es": "Cambiar tema",
+        "en": "Switch theme"
+      }
+    },
+    "language": {
+      "es": {
+        "es": "Español",
+        "en": "Spanish"
+      },
+      "en": {
+        "es": "Inglés",
+        "en": "English"
+      },
+      "toggle": {
+        "es": "Cambiar idioma",
+        "en": "Change language"
+      }
+    },
+    "footer": {
+      "copyright": {
+        "es": "© 2025 Laura Carvajal. Todos los derechos reservados.",
+        "en": "© 2025 Laura Carvajal. All rights reserved."
+      },
+      "madeWith": {
+        "es": "Diseñado y desarrollado con ❤️ usando HTML5, CSS3 y JavaScript",
+        "en": "Designed and developed with ❤️ using HTML5, CSS3 and JavaScript"
+      }
+    },
+    "system": {
+      "loading": {
+        "es": "Cargando...",
+        "en": "Loading..."
+      },
+      "error": {
+        "es": "Error",
+        "en": "Error"
+      },
+      "success": {
+        "es": "Éxito",
+        "en": "Success"
+      }
+    }
+  }
+}
