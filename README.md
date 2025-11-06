@@ -1,28 +1,29 @@
-# í²¼ Portfolio Laura Carvajal
+# ï¿½ï¿½ï¿½ Portfolio Laura Carvajal
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-brightgreen)](https://lauracdev.github.io/portfolio-laura-carvajal/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Portafolio personal bilingÃ¼e (ES/EN) con sistema de temas claro/oscuro y diseÃ±o responsive inspirado en GitHub.
 
-## íº€ Demo en Vivo
+## ï¿½ï¿½ï¿½ Demo en Vivo
 
-- **í¼ GitHub Pages**: [https://lauracdev.github.io/portfolio-laura-carvajal/](https://lauracdev.github.io/portfolio-laura-carvajal/)
-- **í³± Responsive**: Optimizado para mÃ³viles, tablets y desktop
+- **ï¿½ï¿½ï¿½ GitHub Pages**: [https://lauracdev.github.io/portfolio-laura-carvajal/](https://lauracdev.github.io/portfolio-laura-carvajal/)
+- **ï¿½ï¿½ï¿½ Responsive**: Optimizado para mÃ³viles, tablets y desktop
 
 ## âœ¨ CaracterÃ­sticas
 
-- í¼ **BilingÃ¼e**: EspaÃ±ol â†” InglÃ©s con selector dinÃ¡mico
-- í¾¨ **Temas**: Claro/Oscuro con persistencia en localStorage
-- í³± **Responsive**: DiseÃ±o mobile-first completamente adaptativo
-- í¶¼ï¸ **Logos dinÃ¡micos**: Favicon y logos cambian automÃ¡ticamente con el tema
-- í¾¯ **GitHub-inspired**: DiseÃ±o limpio y profesional
+- ï¿½ï¿½ï¿½ **BilingÃ¼e**: EspaÃ±ol â†” InglÃ©s con selector dinÃ¡mico
+- ï¿½ï¿½ï¿½ **Temas**: Claro/Oscuro con persistencia en localStorage
+- ï¿½ï¿½ï¿½ **Responsive**: DiseÃ±o mobile-first completamente adaptativo
+- ï¿½ï¿½ï¿½ï¸ **Logos dinÃ¡micos**: Favicon y logos cambian automÃ¡ticamente con el tema
+- ï¿½ï¿½ï¿½ **GitHub-inspired**: DiseÃ±o limpio y profesional
 - âš¡ **Performance**: Optimizado para carga rÃ¡pida
-- í´§ **Vanilla JS**: Sin dependencias externas
+- ï¿½ï¿½ï¿½ **Vanilla JS**: Sin dependencias externas
 
-## í» ï¸ InstalaciÃ³n Local
+## ï¿½ï¿½ï¿½ï¸ InstalaciÃ³n Local
 
 ### Prerrequisitos
+
 - Python 3.x (para servidor local)
 - Navegador moderno (Chrome, Firefox, Safari, Edge)
 
@@ -53,7 +54,7 @@ npx http-server -p 8000
 php -S localhost:8000
 ```
 
-## í³ Estructura del Proyecto
+## ï¿½ï¿½ï¿½ Estructura del Proyecto
 
 ```
 portfolio-laura-carvajal/
@@ -71,7 +72,7 @@ portfolio-laura-carvajal/
 â””â”€â”€ .gitignore            # Archivos ignorados por Git
 ```
 
-## í´§ ConfiguraciÃ³n y PersonalizaciÃ³n
+## ï¿½ï¿½ï¿½ ConfiguraciÃ³n y PersonalizaciÃ³n
 
 ### Traducciones
 
@@ -112,11 +113,12 @@ Modifica las variables CSS en `css/style.css`:
 ### Logos y Branding
 
 Reemplaza los archivos en `img/`:
+
 - `logo-light.png` - Logo para tema claro (recomendado: 200x50px)
 - `logo-dark.png` - Logo para tema oscuro (recomendado: 200x50px)
 - `favicon.ico` - Icono del sitio (32x32px o 16x16px)
 
-## í·ª Testing y VerificaciÃ³n
+## ï¿½ï¿½ï¿½ Testing y VerificaciÃ³n
 
 DespuÃ©s de iniciar el servidor local, verifica:
 
@@ -127,7 +129,7 @@ DespuÃ©s de iniciar el servidor local, verifica:
 - âœ… **Logos**: Cambian dinÃ¡micamente con el tema
 - âœ… **NavegaciÃ³n**: Links internos y scroll suave funcionan
 
-## íº€ Deployment
+## ï¿½ï¿½ï¿½ Deployment
 
 ### GitHub Pages (Recomendado)
 
@@ -143,7 +145,7 @@ DespuÃ©s de iniciar el servidor local, verifica:
 - **Vercel**: Import desde GitHub con zero-config
 - **Surge.sh**: `npm install -g surge && surge`
 
-## í» ï¸ Desarrollo
+## ï¿½ï¿½ï¿½ï¸ Desarrollo
 
 ### Estructura de commits
 
@@ -157,14 +159,14 @@ git commit -m "docs: actualizar README con nuevas instrucciones"
 
 ### Roadmap
 
-- [ ] í´§ AÃ±adir TypeScript para mejor type safety
-- [ ] í¾¨ MÃ¡s temas (high-contrast, colorblind-friendly)
-- [ ] í³Š IntegraciÃ³n con Google Analytics
-- [ ] í´ SEO mejorado con meta tags dinÃ¡micos
-- [ ] í¼ MÃ¡s idiomas (francÃ©s, alemÃ¡n)
-- [ ] í³± PWA (Progressive Web App)
+- [ ]  ï¿½ï¿½ï¿½ AÃ±adir TypeScript para mejor type safety
+- [ ]  ï¿½ï¿½ï¿½ MÃ¡s temas (high-contrast, colorblind-friendly)
+- [ ]  ï¿½ï¿½ï¿½ IntegraciÃ³n con Google Analytics
+- [ ]  ï¿½ï¿½ï¿½ SEO mejorado con meta tags dinÃ¡micos
+- [ ]  ï¿½ï¿½ï¿½ MÃ¡s idiomas (francÃ©s, alemÃ¡n)
+- [ ]  ï¿½ï¿½ï¿½ PWA (Progressive Web App)
 
-## í´ Contribuir
+## ï¿½ï¿½ï¿½ Contribuir
 
 1. Fork el proyecto
 2. Crea tu feature branch (`git checkout -b feature/AmazingFeature`)
@@ -172,17 +174,18 @@ git commit -m "docs: actualizar README con nuevas instrucciones"
 4. Push a la branch (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## í³„ Licencia
+## ï¿½ï¿½ï¿½ Licencia
 
 Este proyecto estÃ¡ bajo la Licencia MIT. Ver `LICENSE` para mÃ¡s detalles.
 
-## í±©â€í²» Autora
+## ï¿½ï¿½ï¿½â€ï¿½ï¿½ï¿½ Autora
 
 **Laura Carvajal**
-- í²¼ Portfolio: [lauracdev.github.io](https://lauracdev.github.io/portfolio-laura-carvajal/)
-- í²¼ LinkedIn: [Laura Carvajal](https://linkedin.com/in/laura-carvajal-dev)
-- í³§ Email: contacto@lauracarvajal.dev
-- í°™ GitHub: [@LauraCSDev](https://github.com/LauraCSDev)
+
+- ï¿½ï¿½ï¿½ Portfolio: [portfolio-laura-carvajal]([https://lauracdev.github.io/portfolio-laura-carvajal/](https://lauracsdev.github.io/portfolio-laura-carvajal)https://lauracdev.github.io/portfolio-laura-carvajal/)
+- ï¿½ï¿½ï¿½ LinkedIn: [Laura Carvajal](https://www.linkedin.com/in/laura-carvajal-segura)
+- ï¿½ï¿½ï¿½ Email: danycarse@gmail.com
+- ï¿½ï¿½ï¿½ GitHub: [@LauraCSDev](https://github.com/LauraCSDev)
 
 ---
 
