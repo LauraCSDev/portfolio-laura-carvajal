@@ -15,13 +15,12 @@ class LanguageManager {
   }
 
   init() {
-    // Initialize i18n system first
-    if (typeof I18n !== "undefined") {
-      this.i18n = new I18n();
-      this.i18n.init();
+    // Initialize enhanced i18n system
+    this.i18n = window["getI18nInstance"] ? window["getI18nInstance"]() : null;
 
-      // Make i18n available globally
-      if (typeof window !== "undefined") {
+    if (!this.i18n && typeof initI18nSystem !== "undefined") {
+      this.i18n = initI18nSystem();
+      if (this.i18n && typeof window !== "undefined") {
         window["i18n"] = this.i18n;
       }
     }
