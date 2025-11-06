@@ -1,477 +1,462 @@
 // @ts-nocheck
 /**
  * Sistema de Internacionalización (i18n)
- * Sistema completo de traducción español-inglés para el portafolio
+ * Traducción Español - Inglés
  */
 
-class I18n {
-  constructor() {
-    this.currentLanguage = 'es'; // Idioma por defecto
-    this.translations = {
-      es: {
-        nav: {
-          home: 'Inicio',
-          about: 'Sobre Mí',
-          skills: 'Habilidades',
-          experience: 'Experiencia',
-          projects: 'Proyectos',
-          contact: 'Contacto'
+const translations = {
+  es: {
+    // Navigation
+    nav: {
+      inicio: "Inicio",
+      sobreMi: "Sobre Mí",
+      habilidades: "Habilidades",
+      experiencia: "Experiencia",
+      proyectos: "Proyectos",
+      contacto: "Contacto",
+      idioma: "Language"
+    },
+    
+    // Hero Section
+    hero: {
+      greeting: "Hola, soy",
+      name: "Laura Carvajal",
+      title: "Frontend Developer & UX/UI Designer",
+      description: "Apasionada por crear experiencias digitales excepcionales que combinan diseño intuitivo con código limpio y eficiente.",
+      btnProjects: "Ver Proyectos",
+      btnContact: "Contactar"
+    },
+    
+    // About Section
+    about: {
+      title: "Sobre Mí",
+      description: "Soy una desarrolladora frontend con sólida experiencia en UX/UI design. Me especializo en crear interfaces modernas, accesibles y centradas en el usuario utilizando las últimas tecnologías web.",
+      skills: "Habilidades principales:",
+      experience: "Años de experiencia:",
+      projects: "Proyectos completados:",
+      clients: "Clientes satisfechos:"
+    },
+    
+    // Skills Section
+    skills: {
+      title: "Habilidades",
+      subtitle: "Tecnologías y herramientas que domino",
+      categories: {
+        frontend: "Frontend",
+        backend: "Backend", 
+        design: "Diseño",
+        tools: "Herramientas"
+      }
+    },
+    
+    // Experience Section
+    experience: {
+      title: "Experiencia",
+      subtitle: "Mi trayectoria profesional",
+      jobs: {
+        frontend: {
+          title: "Frontend Developer",
+          company: "Tech Solutions Inc.",
+          period: "2022 - Presente",
+          description: "Desarrollo de aplicaciones web modernas con React, Vue.js y TypeScript. Liderazgo en implementación de mejores prácticas y arquitecturas escalables."
         },
-        theme: {
-          light: 'Cambiar a tema oscuro',
-          dark: 'Cambiar a tema claro'
+        uxui: {
+          title: "UX/UI Designer",
+          company: "Digital Agency Co.",
+          period: "2020 - 2022",
+          description: "Diseño de experiencias de usuario para aplicaciones móviles y web. Investigación de usuarios, wireframing, prototipado y testing de usabilidad."
         },
-        hero: {
-          greeting: 'Hola, soy <span class="highlight">Laura Carvajal</span>',
-          title: 'Frontend Developer & UX/UI Designer',
-          description: 'Apasionada por crear experiencias digitales innovadoras y funcionales. Combino habilidades técnicas de desarrollo con un enfoque centrado en el usuario.',
-          viewProjects: 'Ver Proyectos',
-          contact: 'Contáctame'
-        },
-        about: {
-          title: 'Sobre Mí',
-          intro: 'Frontend Developer y UX/UI Designer con sólida experiencia en el desarrollo de interfaces web modernas y el diseño de experiencias de usuario centradas en la usabilidad.',
-          description1: 'Mi formación académica y experiencia profesional me han permitido desarrollar un perfil versátil que combina conocimientos técnicos profundos con sensibilidad para el diseño y la experiencia de usuario.',
-          description2: 'Me apasiona crear soluciones digitales que no solo sean técnicamente robustas, sino también intuitivas y accesibles para todos los usuarios.',
-          description3: 'Actualmente, busco nuevas oportunidades para contribuir en proyectos desafiantes donde pueda aplicar mis conocimientos en desarrollo frontend y diseño UX/UI.',
-          stats: {
-            projects: 'Proyectos Completados',
-            experience: 'Años de Experiencia',
-            technologies: 'Tecnologías Dominadas',
-            clients: 'Clientes Satisfechos'
-          }
-        },
-        skills: {
-          title: 'Habilidades Técnicas',
-          categories: {
-            frontend: 'Frontend',
-            design: 'Diseño UX/UI',
-            tools: 'Herramientas',
-            soft: 'Habilidades Blandas'
-          }
-        },
-        experience: {
-          title: 'Experiencia Profesional',
-          jobs: {
-            frontend: {
-              title: 'Frontend Developer',
-              company: 'Empresa de Tecnología',
-              period: '2023 - Presente',
-              description: 'Desarrollo de interfaces web responsivas usando React, implementación de diseños UX/UI y optimización de rendimiento.'
-            },
-            uxui: {
-              title: 'UX/UI Designer',
-              company: 'Agencia Digital',
-              period: '2022 - 2023',
-              description: 'Diseño de experiencias de usuario, creación de prototipos interactivos y colaboración estrecha con equipos de desarrollo.'
-            },
-            education: {
-              title: 'Formación Académica',
-              company: 'Universidad/Instituto',
-              period: '2019 - 2022',
-              description: 'Estudios especializados en desarrollo web y diseño digital, con enfoque en las últimas tecnologías y metodologías.'
-            }
-          }
-        },
-        projects: {
-          title: 'Proyectos Destacados',
-          items: {
-            portfolio: {
-              title: 'Portafolio Personal',
-              description: 'Diseño y desarrollo de portafolio responsivo con HTML5, CSS3 y JavaScript vanilla.'
-            },
-            landing: {
-              title: 'Landing Page Corporativa',
-              description: 'Desarrollo de página de aterrizaje con enfoque en conversión y experiencia de usuario optimizada.'
-            },
-            elearning: {
-              title: 'Plataforma E-Learning',
-              description: 'Interfaz de usuario para plataforma educativa con dashboard interactivo y sistema de progreso.'
-            }
-          },
-          buttons: {
-            demo: 'Ver Demo',
-            code: 'Ver Código'
-          }
-        },
-        contact: {
-          title: 'Contacto',
-          subtitle: 'Hablemos de tu próximo proyecto',
-          description: 'Estoy disponible para nuevas oportunidades. Si tienes un proyecto en mente o simplemente quieres conectar, no dudes en contactarme.',
-          info: {
-            email: 'Email',
-            linkedin: 'LinkedIn',
-            location: 'Ubicación',
-            locationValue: 'Lima, Perú'
-          },
-          form: {
-            name: 'Nombre',
-            email: 'Email',
-            subject: 'Asunto',
-            message: 'Mensaje',
-            send: 'Enviar Mensaje'
-          }
-        },
-        footer: {
-          rights: '© 2025 Laura Carvajal. Todos los derechos reservados.',
-          tech: 'Diseñado y desarrollado con ❤️ usando HTML5, CSS3 y JavaScript'
-        }
-      },
-      en: {
-        nav: {
-          home: 'Home',
-          about: 'About',
-          skills: 'Skills',
-          experience: 'Experience',
-          projects: 'Projects',
-          contact: 'Contact'
-        },
-        theme: {
-          light: 'Switch to dark theme',
-          dark: 'Switch to light theme'
-        },
-        hero: {
-          greeting: 'Hi, I\'m <span class="highlight">Laura Carvajal</span>',
-          title: 'Frontend Developer & UX/UI Designer',
-          description: 'Passionate about creating innovative and functional digital experiences. I combine technical development skills with a user-centered approach.',
-          viewProjects: 'View Projects',
-          contact: 'Contact Me'
-        },
-        about: {
-          title: 'About Me',
-          intro: 'Frontend Developer and UX/UI Designer with solid experience in developing modern web interfaces and designing user experiences focused on usability.',
-          description1: 'My academic background and professional experience have allowed me to develop a versatile profile that combines deep technical knowledge with sensitivity for design and user experience.',
-          description2: 'I am passionate about creating digital solutions that are not only technically robust, but also intuitive and accessible to all users.',
-          description3: 'Currently, I am looking for new opportunities to contribute to challenging projects where I can apply my knowledge in frontend development and UX/UI design.',
-          stats: {
-            projects: 'Completed Projects',
-            experience: 'Years of Experience',
-            technologies: 'Technologies Mastered',
-            clients: 'Satisfied Clients'
-          }
-        },
-        skills: {
-          title: 'Technical Skills',
-          categories: {
-            frontend: 'Frontend',
-            design: 'UX/UI Design',
-            tools: 'Tools',
-            soft: 'Soft Skills'
-          }
-        },
-        experience: {
-          title: 'Professional Experience',
-          jobs: {
-            frontend: {
-              title: 'Frontend Developer',
-              company: 'Technology Company',
-              period: '2023 - Present',
-              description: 'Development of responsive web interfaces using React, UX/UI design implementation and performance optimization.'
-            },
-            uxui: {
-              title: 'UX/UI Designer',
-              company: 'Digital Agency',
-              period: '2022 - 2023',
-              description: 'User experience design, interactive prototype creation and close collaboration with development teams.'
-            },
-            education: {
-              title: 'Academic Background',
-              company: 'University/Institute',
-              period: '2019 - 2022',
-              description: 'Specialized studies in web development and digital design, with a focus on the latest technologies and methodologies.'
-            }
-          }
-        },
-        projects: {
-          title: 'Featured Projects',
-          items: {
-            portfolio: {
-              title: 'Personal Portfolio',
-              description: 'Design and development of responsive portfolio with HTML5, CSS3 and vanilla JavaScript.'
-            },
-            landing: {
-              title: 'Corporate Landing Page',
-              description: 'Landing page development focused on conversion and optimized user experience.'
-            },
-            elearning: {
-              title: 'E-Learning Platform',
-              description: 'User interface for educational platform with interactive dashboard and progress system.'
-            }
-          },
-          buttons: {
-            demo: 'View Demo',
-            code: 'View Code'
-          }
-        },
-        contact: {
-          title: 'Contact',
-          subtitle: 'Let\'s talk about your next project',
-          description: 'I am available for new opportunities. If you have a project in mind or just want to connect, feel free to contact me.',
-          info: {
-            email: 'Email',
-            linkedin: 'LinkedIn',
-            location: 'Location',
-            locationValue: 'Lima, Peru'
-          },
-          form: {
-            name: 'Name',
-            email: 'Email',
-            subject: 'Subject',
-            message: 'Message',
-            send: 'Send Message'
-          }
-        },
-        footer: {
-          rights: '© 2025 Laura Carvajal. All rights reserved.',
-          tech: 'Designed and developed with ❤️ using HTML5, CSS3 and JavaScript'
+        education: {
+          title: "Especialización en Desarrollo Web",
+          company: "Universidad Tecnológica",
+          period: "2019 - 2020",
+          description: "Formación intensiva en tecnologías web modernas, metodologías ágiles y principios de experiencia de usuario."
         }
       }
-    };
+    },
+    
+    // Projects Section
+    projects: {
+      title: "Proyectos",
+      subtitle: "Algunos de mis trabajos destacados",
+      viewProject: "Ver Proyecto",
+      viewCode: "Ver Código",
+      items: {
+        portfolio: {
+          title: "Portfolio Personal",
+          description: "Sitio web personal bilingüe con sistema de temas y diseño responsive desarrollado con HTML5, CSS3 y JavaScript vanilla."
+        },
+        landing: {
+          title: "Landing Page Corporativa",
+          description: "Página de aterrizaje moderna para empresa tecnológica con animaciones CSS avanzadas y optimización SEO."
+        },
+        elearning: {
+          title: "Plataforma E-Learning",
+          description: "Aplicación web para cursos online con panel de administración, sistema de progreso y evaluaciones interactivas."
+        }
+      }
+    },
+    
+    // Contact Section
+    contact: {
+      title: "Contacto",
+      subtitle: "¿Tienes un proyecto en mente? ¡Hablemos!",
+      info: {
+        email: "Email",
+        linkedin: "LinkedIn",
+        location: "Ubicación",
+        locationValue: "Madrid, España"
+      },
+      form: {
+        name: "Nombre completo",
+        email: "Correo electrónico", 
+        subject: "Asunto",
+        message: "Mensaje",
+        send: "Enviar Mensaje"
+      },
+      notifications: {
+        success: "¡Mensaje enviado correctamente!",
+        error: "Error al enviar el mensaje. Inténtalo de nuevo."
+      }
+    },
+    
+    // Footer
+    footer: {
+      copyright: "© 2024 Laura Carvajal. Todos los derechos reservados.",
+      madeWith: "Hecho con ❤️ en España"
+    }
+  },
+  
+  en: {
+    // Navigation
+    nav: {
+      inicio: "Home",
+      sobreMi: "About",
+      habilidades: "Skills",
+      experiencia: "Experience", 
+      proyectos: "Projects",
+      contacto: "Contact",
+      idioma: "Idioma"
+    },
+    
+    // Hero Section
+    hero: {
+      greeting: "Hi, I'm",
+      name: "Laura Carvajal",
+      title: "Frontend Developer & UX/UI Designer",
+      description: "Passionate about creating exceptional digital experiences that combine intuitive design with clean and efficient code.",
+      btnProjects: "View Projects",
+      btnContact: "Contact Me"
+    },
+    
+    // About Section
+    about: {
+      title: "About Me",
+      description: "I'm a frontend developer with solid experience in UX/UI design. I specialize in creating modern, accessible and user-centered interfaces using the latest web technologies.",
+      skills: "Core skills:",
+      experience: "Years of experience:",
+      projects: "Completed projects:",
+      clients: "Satisfied clients:"
+    },
+    
+    // Skills Section
+    skills: {
+      title: "Skills",
+      subtitle: "Technologies and tools I master",
+      categories: {
+        frontend: "Frontend",
+        backend: "Backend",
+        design: "Design", 
+        tools: "Tools"
+      }
+    },
+    
+    // Experience Section
+    experience: {
+      title: "Experience",
+      subtitle: "My professional journey",
+      jobs: {
+        frontend: {
+          title: "Frontend Developer",
+          company: "Tech Solutions Inc.",
+          period: "2022 - Present",
+          description: "Development of modern web applications with React, Vue.js and TypeScript. Leadership in implementing best practices and scalable architectures."
+        },
+        uxui: {
+          title: "UX/UI Designer",
+          company: "Digital Agency Co.",
+          period: "2020 - 2022", 
+          description: "User experience design for mobile and web applications. User research, wireframing, prototyping and usability testing."
+        },
+        education: {
+          title: "Web Development Specialization",
+          company: "Technology University",
+          period: "2019 - 2020",
+          description: "Intensive training in modern web technologies, agile methodologies and user experience principles."
+        }
+      }
+    },
+    
+    // Projects Section
+    projects: {
+      title: "Projects",
+      subtitle: "Some of my featured work",
+      viewProject: "View Project",
+      viewCode: "View Code",
+      items: {
+        portfolio: {
+          title: "Personal Portfolio",
+          description: "Bilingual personal website with theme system and responsive design developed with HTML5, CSS3 and vanilla JavaScript."
+        },
+        landing: {
+          title: "Corporate Landing Page",
+          description: "Modern landing page for tech company with advanced CSS animations and SEO optimization."
+        },
+        elearning: {
+          title: "E-Learning Platform",
+          description: "Web application for online courses with admin panel, progress system and interactive assessments."
+        }
+      }
+    },
+    
+    // Contact Section
+    contact: {
+      title: "Contact",
+      subtitle: "Have a project in mind? Let's talk!",
+      info: {
+        email: "Email",
+        linkedin: "LinkedIn",
+        location: "Location",
+        locationValue: "Madrid, Spain"
+      },
+      form: {
+        name: "Full name",
+        email: "Email address",
+        subject: "Subject", 
+        message: "Message",
+        send: "Send Message"
+      },
+      notifications: {
+        success: "Message sent successfully!",
+        error: "Error sending message. Please try again."
+      }
+    },
+    
+    // Footer
+    footer: {
+      copyright: "© 2024 Laura Carvajal. All rights reserved.",
+      madeWith: "Made with ❤️ in Spain"
+    }
+  }
+};
+
+/**
+ * Clase I18n para manejo de internacionalización
+ */
+class I18n {
+  constructor() {
+    this.translations = translations;
+    this.currentLanguage = this.getSavedLanguage() || 'es';
   }
 
-  // Obtener traducción por clave
+  /**
+   * Obtiene el idioma guardado del localStorage
+   */
+  getSavedLanguage() {
+    return localStorage.getItem('preferred-language');
+  }
+
+  /**
+   * Traduce una clave dada
+   */
   t(key) {
+    const translation = this.translations[this.currentLanguage];
     const keys = key.split('.');
-    let translation = this.translations[this.currentLanguage];
     
+    let result = translation;
     for (const k of keys) {
-      if (translation && typeof translation === 'object') {
-        translation = translation[k];
+      if (result && typeof result === 'object' && k in result) {
+        result = result[k];
       } else {
-        console.warn(`Translation not found for key: ${key}`);
+        console.warn(`Translation key not found: ${key} for language: ${this.currentLanguage}`);
         return key;
       }
     }
     
-    return translation || key;
+    return result || key;
   }
 
-  // Establecer idioma
+  /**
+   * Establece el idioma actual
+   */
   setLanguage(lang) {
-    if (this.translations[lang]) {
+    if (lang === 'es' || lang === 'en') {
       this.currentLanguage = lang;
       localStorage.setItem('preferred-language', lang);
       this.updatePage();
+    } else {
+      console.warn(`Language not supported: ${lang}`);
     }
   }
 
-  // Obtener idioma actual
+  /**
+   * Obtiene el idioma actual
+   */
   getCurrentLanguage() {
     return this.currentLanguage;
   }
 
-  // Inicializar sistema
+  /**
+   * Inicializa el sistema de internacionalización
+   */
   init() {
-    // Cargar idioma guardado
-    const savedLang = localStorage.getItem('preferred-language');
-    if (savedLang && this.translations[savedLang]) {
-      this.currentLanguage = savedLang;
-    }
-    
-    // Actualizar página con idioma actual
     this.updatePage();
   }
 
-  // Actualizar toda la página
+  /**
+   * Actualiza todos los elementos de la página
+   */
   updatePage() {
     // Actualizar elementos con data-i18n
-    document.querySelectorAll('[data-i18n]').forEach(element => {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
       const key = element.getAttribute('data-i18n');
       if (key) {
-        const translation = this.t(key);
-        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-          element.placeholder = translation;
-        } else {
-          element.innerHTML = translation;
-        }
+        element.textContent = this.t(key);
       }
     });
 
-    // Actualizar elementos específicos que no tienen data-i18n
+    // Actualizar elementos específicos que requieren lógica especial
     this.updateSpecificElements();
-    
-    // Actualizar tooltips de tema si está disponible
-    if (typeof window.updateThemeTooltips === 'function') {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      window.updateThemeTooltips(currentTheme);
-    }
   }
 
-  // Actualizar elementos específicos manualmente
+  /**
+   * Actualiza elementos específicos que no usan data-i18n
+   */
   updateSpecificElements() {
-    // Actualizar títulos de sección
-    const aboutTitle = document.querySelector('#sobre-mi .section-title');
-    if (aboutTitle) aboutTitle.textContent = this.t('about.title');
-
-    const skillsTitle = document.querySelector('#habilidades .section-title');
-    if (skillsTitle) skillsTitle.textContent = this.t('skills.title');
-
-    const experienceTitle = document.querySelector('#experiencia .section-title');
-    if (experienceTitle) experienceTitle.textContent = this.t('experience.title');
-
-    const projectsTitle = document.querySelector('#proyectos .section-title');
-    if (projectsTitle) projectsTitle.textContent = this.t('projects.title');
-
-    const contactTitle = document.querySelector('#contacto .section-title');
-    if (contactTitle) contactTitle.textContent = this.t('contact.title');
-
-    // Actualizar sección About
-    const aboutIntro = document.querySelector('.about-intro');
-    if (aboutIntro) aboutIntro.textContent = this.t('about.intro');
-
-    const aboutTexts = document.querySelectorAll('.about-text p:not(.about-intro)');
-    if (aboutTexts.length >= 3) {
-      aboutTexts[0].textContent = this.t('about.description1');
-      aboutTexts[1].textContent = this.t('about.description2');
-      aboutTexts[2].textContent = this.t('about.description3');
-    }
-
-    // Actualizar estadísticas
-    const statLabels = document.querySelectorAll('.stat-label');
-    if (statLabels.length >= 4) {
-      statLabels[0].textContent = this.t('about.stats.projects');
-      statLabels[1].textContent = this.t('about.stats.experience');
-      statLabels[2].textContent = this.t('about.stats.technologies');
-      statLabels[3].textContent = this.t('about.stats.clients');
-    }
-
-    // Actualizar categorías de habilidades
-    const skillCategories = document.querySelectorAll('.skill-category h3');
-    if (skillCategories.length >= 4) {
-      skillCategories[0].textContent = this.t('skills.categories.frontend');
-      skillCategories[1].textContent = this.t('skills.categories.design');
-      skillCategories[2].textContent = this.t('skills.categories.tools');
-      skillCategories[3].textContent = this.t('skills.categories.soft');
+    // Actualizar navegación mobile
+    const mobileMenuItems = document.querySelectorAll('.mobile-menu a');
+    if (mobileMenuItems.length >= 6) {
+      mobileMenuItems[0].textContent = this.t('nav.inicio');
+      mobileMenuItems[1].textContent = this.t('nav.sobreMi');
+      mobileMenuItems[2].textContent = this.t('nav.habilidades');
+      mobileMenuItems[3].textContent = this.t('nav.experiencia');
+      mobileMenuItems[4].textContent = this.t('nav.proyectos');
+      mobileMenuItems[5].textContent = this.t('nav.contacto');
     }
 
     // Actualizar timeline de experiencia
     const timelineItems = document.querySelectorAll('.timeline-item');
     if (timelineItems.length >= 3) {
-      // Primer trabajo
-      const firstJob = timelineItems[0];
-      if (firstJob) {
-        const h3 = firstJob.querySelector('h3');
-        const h4 = firstJob.querySelector('h4');
-        const date = firstJob.querySelector('.timeline-date');
-        const desc = firstJob.querySelector('p');
-        
-        if (h3) h3.textContent = this.t('experience.jobs.frontend.title');
-        if (h4) h4.textContent = this.t('experience.jobs.frontend.company');
-        if (date) date.textContent = this.t('experience.jobs.frontend.period');
-        if (desc) desc.textContent = this.t('experience.jobs.frontend.description');
-      }
+      const frontendItem = timelineItems[0];
+      const uxuiItem = timelineItems[1];
+      const educationItem = timelineItems[2];
 
-      // Segundo trabajo
-      const secondJob = timelineItems[1];
-      if (secondJob) {
-        const h3 = secondJob.querySelector('h3');
-        const h4 = secondJob.querySelector('h4');
-        const date = secondJob.querySelector('.timeline-date');
-        const desc = secondJob.querySelector('p');
-        
-        if (h3) h3.textContent = this.t('experience.jobs.uxui.title');
-        if (h4) h4.textContent = this.t('experience.jobs.uxui.company');
-        if (date) date.textContent = this.t('experience.jobs.uxui.period');
-        if (desc) desc.textContent = this.t('experience.jobs.uxui.description');
-      }
+      // Frontend Developer
+      const frontendTitle = frontendItem.querySelector('h3');
+      const frontendCompany = frontendItem.querySelector('h4');
+      const frontendDate = frontendItem.querySelector('.timeline-date');
+      const frontendDesc = frontendItem.querySelector('p');
 
-      // Educación
-      const education = timelineItems[2];
-      if (education) {
-        const h3 = education.querySelector('h3');
-        const h4 = education.querySelector('h4');
-        const date = education.querySelector('.timeline-date');
-        const desc = education.querySelector('p');
-        
-        if (h3) h3.textContent = this.t('experience.jobs.education.title');
-        if (h4) h4.textContent = this.t('experience.jobs.education.company');
-        if (date) date.textContent = this.t('experience.jobs.education.period');
-        if (desc) desc.textContent = this.t('experience.jobs.education.description');
-      }
+      if (frontendTitle) frontendTitle.textContent = this.t('experience.jobs.frontend.title');
+      if (frontendCompany) frontendCompany.textContent = this.t('experience.jobs.frontend.company');
+      if (frontendDate) frontendDate.textContent = this.t('experience.jobs.frontend.period');
+      if (frontendDesc) frontendDesc.textContent = this.t('experience.jobs.frontend.description');
+
+      // UX/UI Designer
+      const uxuiTitle = uxuiItem.querySelector('h3');
+      const uxuiCompany = uxuiItem.querySelector('h4');
+      const uxuiDate = uxuiItem.querySelector('.timeline-date');
+      const uxuiDesc = uxuiItem.querySelector('p');
+
+      if (uxuiTitle) uxuiTitle.textContent = this.t('experience.jobs.uxui.title');
+      if (uxuiCompany) uxuiCompany.textContent = this.t('experience.jobs.uxui.company');
+      if (uxuiDate) uxuiDate.textContent = this.t('experience.jobs.uxui.period');
+      if (uxuiDesc) uxuiDesc.textContent = this.t('experience.jobs.uxui.description');
+
+      // Education
+      const educationTitle = educationItem.querySelector('h3');
+      const educationCompany = educationItem.querySelector('h4');
+      const educationDate = educationItem.querySelector('.timeline-date');
+      const educationDesc = educationItem.querySelector('p');
+
+      if (educationTitle) educationTitle.textContent = this.t('experience.jobs.education.title');
+      if (educationCompany) educationCompany.textContent = this.t('experience.jobs.education.company');
+      if (educationDate) educationDate.textContent = this.t('experience.jobs.education.period');
+      if (educationDesc) educationDesc.textContent = this.t('experience.jobs.education.description');
     }
 
-    // Actualizar proyectos
+    // Actualizar tarjetas de proyectos
     const projectCards = document.querySelectorAll('.project-card');
     if (projectCards.length >= 3) {
-      // Proyecto 1
-      if (projectCards[0]) {
-        const h3 = projectCards[0].querySelector('h3');
-        const p = projectCards[0].querySelector('p');
-        if (h3) h3.textContent = this.t('projects.items.portfolio.title');
-        if (p) p.textContent = this.t('projects.items.portfolio.description');
-      }
+      // Portfolio
+      const portfolioTitle = projectCards[0].querySelector('h3');
+      const portfolioDesc = projectCards[0].querySelector('p');
+      if (portfolioTitle) portfolioTitle.textContent = this.t('projects.items.portfolio.title');
+      if (portfolioDesc) portfolioDesc.textContent = this.t('projects.items.portfolio.description');
 
-      // Proyecto 2
-      if (projectCards[1]) {
-        const h3 = projectCards[1].querySelector('h3');
-        const p = projectCards[1].querySelector('p');
-        if (h3) h3.textContent = this.t('projects.items.landing.title');
-        if (p) p.textContent = this.t('projects.items.landing.description');
-      }
+      // Landing Page
+      const landingTitle = projectCards[1].querySelector('h3');
+      const landingDesc = projectCards[1].querySelector('p');
+      if (landingTitle) landingTitle.textContent = this.t('projects.items.landing.title');
+      if (landingDesc) landingDesc.textContent = this.t('projects.items.landing.description');
 
-      // Proyecto 3
-      if (projectCards[2]) {
-        const h3 = projectCards[2].querySelector('h3');
-        const p = projectCards[2].querySelector('p');
-        if (h3) h3.textContent = this.t('projects.items.elearning.title');
-        if (p) p.textContent = this.t('projects.items.elearning.description');
-      }
+      // E-learning
+      const elearningTitle = projectCards[2].querySelector('h3');
+      const elearningDesc = projectCards[2].querySelector('p');
+      if (elearningTitle) elearningTitle.textContent = this.t('projects.items.elearning.title');
+      if (elearningDesc) elearningDesc.textContent = this.t('projects.items.elearning.description');
     }
-
-    // Actualizar botones de proyecto
-    const demoButtons = document.querySelectorAll('.btn-demo');
-    const codeButtons = document.querySelectorAll('.btn-code');
-    demoButtons.forEach(btn => {
-      if (btn) btn.textContent = this.t('projects.buttons.demo');
-    });
-    codeButtons.forEach(btn => {
-      if (btn) btn.textContent = this.t('projects.buttons.code');
-    });
-
-    // Actualizar sección de contacto
-    const contactSubtitle = document.querySelector('.contact-subtitle');
-    if (contactSubtitle) contactSubtitle.textContent = this.t('contact.subtitle');
-
-    const contactDesc = document.querySelector('.contact-description');
-    if (contactDesc) contactDesc.textContent = this.t('contact.description');
 
     // Actualizar información de contacto
-    const contactItems = document.querySelectorAll('.contact-item h4');
+    const contactItems = document.querySelectorAll('.contact-info-item');
     if (contactItems.length >= 3) {
-      if (contactItems[0]) contactItems[0].textContent = this.t('contact.info.email');
-      if (contactItems[1]) contactItems[1].textContent = this.t('contact.info.linkedin');
-      if (contactItems[2]) {
-        contactItems[2].textContent = this.t('contact.info.location');
-        const locationP = contactItems[2].parentElement.querySelector('p');
-        if (locationP) locationP.textContent = this.t('contact.info.locationValue');
-      }
+      const emailTitle = contactItems[0] ? contactItems[0].querySelector('h4') : null;
+      const linkedinTitle = contactItems[1] ? contactItems[1].querySelector('h4') : null;
+      const locationTitle = contactItems[2] ? contactItems[2].querySelector('h4') : null;
+      const locationValue = contactItems[2] ? contactItems[2].querySelector('p') : null;
+
+      if (emailTitle) emailTitle.textContent = this.t('contact.info.email');
+      if (linkedinTitle) linkedinTitle.textContent = this.t('contact.info.linkedin');
+      if (locationTitle) locationTitle.textContent = this.t('contact.info.location');
+      if (locationValue) locationValue.textContent = this.t('contact.info.locationValue');
     }
 
-    // Actualizar formulario
+    // Actualizar formulario de contacto
     const form = document.querySelector('#contact-form');
     if (form) {
       const nameLabel = form.querySelector('label[for="name"]');
       const emailLabel = form.querySelector('label[for="email"]');
       const subjectLabel = form.querySelector('label[for="subject"]');
       const messageLabel = form.querySelector('label[for="message"]');
-      const submitBtn = form.querySelector('.btn-primary[type="submit"]');
 
       if (nameLabel) nameLabel.textContent = this.t('contact.form.name');
       if (emailLabel) emailLabel.textContent = this.t('contact.form.email');
       if (subjectLabel) subjectLabel.textContent = this.t('contact.form.subject');
       if (messageLabel) messageLabel.textContent = this.t('contact.form.message');
-      if (submitBtn) submitBtn.textContent = this.t('contact.form.send');
     }
 
-    // Actualizar footer
-    const footerTexts = document.querySelectorAll('footer p');
-    if (footerTexts.length >= 2) {
-      footerTexts[0].textContent = this.t('footer.rights');
-      footerTexts[1].innerHTML = this.t('footer.tech');
+    // Actualizar botón de envío
+    const submitButton = document.querySelector('#contact-form button[type="submit"]');
+    if (submitButton) {
+      submitButton.textContent = this.t('contact.form.send');
     }
+
+    // Actualizar placeholders del formulario
+    const nameInput = document.querySelector('#name');
+    const emailInput = document.querySelector('#email');
+    const subjectInput = document.querySelector('#subject');
+    const messageTextarea = document.querySelector('#message');
+
+    if (nameInput) nameInput.placeholder = this.t('contact.form.name');
+    if (emailInput) emailInput.placeholder = this.t('contact.form.email');
+    if (subjectInput) subjectInput.placeholder = this.t('contact.form.subject');
+    if (messageTextarea) messageTextarea.placeholder = this.t('contact.form.message');
   }
 
-  // Método auxiliar para actualizar un elemento
+  /**
+   * Actualiza un elemento específico con contenido
+   */
   updateElement(selector, content) {
     const element = document.querySelector(selector);
     if (element) {
@@ -479,22 +464,16 @@ class I18n {
     }
   }
 
-  // Obtener notificaciones de idioma
+  /**
+   * Obtiene mensaje de notificación según el tipo
+   */
   getNotification(type) {
-    const notifications = {
-      es: {
-        languageChanged: 'Idioma cambiado a Español',
-        error: 'Error al cambiar idioma'
-      },
-      en: {
-        languageChanged: 'Language changed to English',
-        error: 'Error changing language'
-      }
-    };
-
-    return notifications[this.currentLanguage] && notifications[this.currentLanguage][type] || '';
+    return this.t(`contact.notifications.${type}`);
   }
 }
 
-// Hacer disponible globalmente
-window.I18n = I18n;
+// Instanciar y hacer disponible globalmente
+if (typeof window !== 'undefined') {
+  window.I18n = I18n;
+  window.i18n = new I18n();
+}
