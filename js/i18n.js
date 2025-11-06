@@ -18,11 +18,12 @@ class DataManager {
 
   async loadData() {
     if (this.isLoaded) return this.data;
-    
+
     try {
       const response = await fetch("./js/data.json");
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+
       this.data = await response.json();
       this.isLoaded = true;
       return this.data;
@@ -82,7 +83,7 @@ class LanguageManager {
 
     const oldLang = this.currentLang;
     this.currentLang = lang;
-    
+
     localStorage.setItem("portfolio-lang", lang);
     document.documentElement.lang = lang;
 
@@ -99,11 +100,11 @@ class LanguageManager {
   }
 
   removeObserver(callback) {
-    this.observers = this.observers.filter(obs => obs !== callback);
+    this.observers = this.observers.filter((obs) => obs !== callback);
   }
 
   notifyObservers(newLang, oldLang) {
-    this.observers.forEach(callback => {
+    this.observers.forEach((callback) => {
       try {
         callback(newLang, oldLang);
       } catch (error) {
@@ -130,7 +131,7 @@ class DOMUpdater {
 
   updateStaticContent() {
     const currentLang = this.languageManager.getCurrentLanguage();
-    
+
     // Actualizar elementos con data-i18n
     document.querySelectorAll("[data-i18n]").forEach((element) => {
       const key = element.getAttribute("data-i18n");
@@ -139,7 +140,13 @@ class DOMUpdater {
       if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
         element.placeholder = text;
       } else {
-        element.textContent = text;
+        // Usar innerHTML para elementos que pueden contener HTML (como <br/>)
+        const htmlKeys = ["about.description", "personal.description"];
+        if (htmlKeys.includes(key)) {
+          element.innerHTML = text;
+        } else {
+          element.textContent = text;
+        }
       }
     });
 
@@ -158,7 +165,7 @@ class DOMUpdater {
     });
 
     // Actualizar title de la página
-    const titleElement = document.querySelector('title[data-i18n]');
+    const titleElement = document.querySelector("title[data-i18n]");
     if (titleElement) {
       const key = titleElement.getAttribute("data-i18n");
       const text = this.dataManager.getText(key, currentLang);
@@ -183,7 +190,7 @@ class NavigationComponent {
   render() {
     const data = this.dataManager.getData();
     const currentLang = this.languageManager.getCurrentLanguage();
-    
+
     if (!data?.navigation) return;
 
     const nav = document.querySelector(".nav-menu");
@@ -217,7 +224,7 @@ class SkillsComponent {
   render() {
     const data = this.dataManager.getData();
     const currentLang = this.languageManager.getCurrentLanguage();
-    
+
     if (!data?.skills) return;
 
     const skillsGrid = document.querySelector(".skills-grid");
@@ -237,9 +244,15 @@ class SkillsComponent {
     categoryDiv.className = "skill-category";
 
     categoryDiv.innerHTML = `
-      <h3><i class="${category.icon}"></i> <span>${category.title[currentLang]}</span></h3>
+      <div class="glass-reflection-1"></div>
+      <div class="glass-reflection-2"></div>
+      <h3><i class="${category.icon}"></i> <span>${
+      category.title[currentLang]
+    }</span></h3>
       <div class="skill-list">
-        ${category.skills.map(skill => this.createSkillItemHTML(skill)).join("")}
+        ${category.skills
+          .map((skill) => this.createSkillItemHTML(skill))
+          .join("")}
       </div>
     `;
 
@@ -249,13 +262,11 @@ class SkillsComponent {
   createSkillItemHTML(skill) {
     return `
       <div class="skill-item">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span class="skill-name">${skill.name}</span>
-          <span class="skill-level">${skill.level}%</span>
-        </div>
+        <span class="skill-name">${skill.name}</span>
         <div class="skill-bar">
           <div class="skill-progress" data-level="${skill.level}" style="width: 0%;"></div>
         </div>
+        <span class="skill-level">${skill.level}%</span>
       </div>
     `;
   }
@@ -294,7 +305,7 @@ class ContactComponent {
   render() {
     const data = this.dataManager.getData();
     const currentLang = this.languageManager.getCurrentLanguage();
-    
+
     if (!data?.contact) return;
 
     this.renderContactInfo(data.contact, currentLang);
@@ -328,47 +339,54 @@ class ContactComponent {
         label: contact.info.email.label[currentLang],
         value: contact.info.email.value,
         href: `mailto:${contact.info.email.value}`,
-        type: "email"
+        type: "email",
       },
       {
         icon: "fab fa-linkedin",
         label: contact.info.linkedin.label[currentLang],
         value: contact.info.linkedin.value,
         href: contact.info.linkedin.url,
-        type: "linkedin"
+        type: "linkedin",
       },
       {
         icon: "fas fa-map-marker-alt",
         label: contact.info.location.label[currentLang],
         value: contact.info.location.value[currentLang],
         href: null,
-        type: "location"
-      }
+        type: "location",
+      },
     ];
 
-    return items.map(item => `
+    return items
+      .map(
+        (item) => `
       <div class="contact-item" data-contact-type="${item.type}">
         <div class="contact-item-icon">
           <i class="${item.icon}"></i>
         </div>
         <div class="contact-item-content">
           <h4>${item.label}</h4>
-          ${item.href ? 
-            `<p><a href="${item.href}" target="_blank" rel="noopener">${item.value}</a></p>` :
-            `<p>${item.value}</p>`
+          ${
+            item.href
+              ? `<p><a href="${item.href}" target="_blank" rel="noopener">${item.value}</a></p>`
+              : `<p>${item.value}</p>`
           }
         </div>
         <div class="contact-item-action">
-          ${item.href ? '<i class="fas fa-external-link-alt"></i>' : ''}
+          ${item.href ? '<i class="fas fa-external-link-alt"></i>' : ""}
         </div>
       </div>
-    `).join("");
+    `
+      )
+      .join("");
   }
 
   createSocialLinks(socialLinks, currentLang) {
     if (!socialLinks) return "";
-    
-    return socialLinks.map(social => `
+
+    return socialLinks
+      .map(
+        (social) => `
       <a href="${social.url}" 
          class="social-link" 
          target="_blank" 
@@ -378,7 +396,9 @@ class ContactComponent {
         <i class="${social.icon}"></i>
         <span class="social-label">${social.label[currentLang]}</span>
       </a>
-    `).join("");
+    `
+      )
+      .join("");
   }
 
   renderContactForm(contact, currentLang) {
@@ -390,7 +410,9 @@ class ContactComponent {
         <h3>Envía un mensaje</h3>
         <p>Completa el formulario y te responderé pronto</p>
       </div>
-      ${contact.form.fields.map(field => this.createFormField(field, currentLang)).join("")}
+      ${contact.form.fields
+        .map((field) => this.createFormField(field, currentLang))
+        .join("")}
       <button type="submit" class="btn btn-primary btn-full">
         <i class="fas fa-paper-plane"></i>
         <span>${contact.form.submit[currentLang]}</span>
@@ -401,22 +423,25 @@ class ContactComponent {
   createFormField(field, currentLang) {
     const baseClasses = "form-control";
     const isTextarea = field.type === "textarea";
-    
+
     return `
       <div class="form-group">
         <label for="${field.name}" class="form-label">
-          ${field.label[currentLang]}${field.required ? ' <span class="required">*</span>' : ''}
+          ${field.label[currentLang]}${
+      field.required ? ' <span class="required">*</span>' : ""
+    }
         </label>
-        ${isTextarea ? 
-          `<textarea 
+        ${
+          isTextarea
+            ? `<textarea 
             id="${field.name}" 
             name="${field.name}" 
             class="${baseClasses}"
             placeholder="${field.placeholder[currentLang]}"
             ${field.required ? "required" : ""}
             rows="4"
-          ></textarea>` :
-          `<input 
+          ></textarea>`
+            : `<input 
             type="${field.type}" 
             id="${field.name}" 
             name="${field.name}" 
@@ -442,12 +467,15 @@ class PortfolioI18n {
     this.dataManager = new DataManager();
     this.languageManager = new LanguageManager();
     this.domUpdater = new DOMUpdater(this.dataManager, this.languageManager);
-    
+
     // Componentes
     this.components = {
-      navigation: new NavigationComponent(this.dataManager, this.languageManager),
+      navigation: new NavigationComponent(
+        this.dataManager,
+        this.languageManager
+      ),
       skills: new SkillsComponent(this.dataManager, this.languageManager),
-      contact: new ContactComponent(this.dataManager, this.languageManager)
+      contact: new ContactComponent(this.dataManager, this.languageManager),
     };
 
     // Setup observers
@@ -476,13 +504,17 @@ class PortfolioI18n {
     if (!this.dataManager.getData()) return;
 
     this.domUpdater.updateStaticContent();
-    
+
     // Renderizar componentes especializados
-    Object.values(this.components).forEach(component => {
+    Object.values(this.components).forEach((component) => {
       try {
         component.render();
       } catch (error) {
-        console.error("Error rendering component:", component.constructor.name, error);
+        console.error(
+          "Error rendering component:",
+          component.constructor.name,
+          error
+        );
       }
     });
 
@@ -506,13 +538,16 @@ class PortfolioI18n {
       greeting: document.querySelector('[data-hero="greeting"]'),
       name: document.querySelector('[data-hero="name"]'),
       title: document.querySelector('[data-hero="title"]'),
-      description: document.querySelector('[data-hero="description"]')
+      description: document.querySelector('[data-hero="description"]'),
     };
 
-    if (elements.greeting) elements.greeting.textContent = personal.greeting[currentLang];
+    if (elements.greeting)
+      elements.greeting.textContent = personal.greeting[currentLang];
     if (elements.name) elements.name.textContent = personal.name[currentLang];
-    if (elements.title) elements.title.textContent = personal.title[currentLang];
-    if (elements.description) elements.description.textContent = personal.description[currentLang];
+    if (elements.title)
+      elements.title.textContent = personal.title[currentLang];
+    if (elements.description)
+      elements.description.innerHTML = personal.description[currentLang];
   }
 
   updateAboutSection() {
@@ -553,12 +588,16 @@ class PortfolioI18n {
       timelineItem.innerHTML = `
         <div class="timeline-marker"></div>
         <div class="timeline-content">
+          <div class="glass-reflection-1"></div>
+          <div class="glass-reflection-2"></div>
           <h3>${job.title[currentLang]}</h3>
           <h4>${job.company}</h4>
           <span class="timeline-date">${job.period[currentLang]}</span>
           <p>${job.description[currentLang]}</p>
           <div class="timeline-skills">
-            ${job.skills.map((skill) => `<span class="skill-tag">${skill}</span>`).join("")}
+            ${job.skills
+              .map((skill) => `<span class="skill-tag">${skill}</span>`)
+              .join("")}
           </div>
         </div>
       `;
@@ -582,15 +621,21 @@ class PortfolioI18n {
       certCard.className = "cert-card";
 
       certCard.innerHTML = `
+        <div class="glass-reflection-1"></div>
+        <div class="glass-reflection-2"></div>
         <div class="cert-icon">
           <i class="${cert.icon}"></i>
         </div>
         <div class="cert-content">
           <h3>${cert.title[currentLang]}</h3>
           <h4>${cert.company}</h4>
-          ${cert.id_number ? `<p class="cert-id">ID: ${cert.id_number}</p>` : ""}
+          ${
+            cert.id_number ? `<p class="cert-id">ID: ${cert.id_number}</p>` : ""
+          }
           <div class="cert-tech">
-            ${cert.technologies.map((tech) => `<span class="tech-tag">${tech}</span>`).join("")}
+            ${cert.technologies
+              .map((tech) => `<span class="tech-tag">${tech}</span>`)
+              .join("")}
           </div>
         </div>
       `;
@@ -614,14 +659,23 @@ class PortfolioI18n {
       projectCard.className = "project-card";
 
       projectCard.innerHTML = `
+        <div class="glass-reflection-1"></div>
+        <div class="glass-reflection-2"></div>
         <div class="project-image">
-          <img src="${project.image}" alt="${project.title[currentLang]}" loading="lazy">
+          <img src="${project.image}" alt="${
+        project.title[currentLang]
+      }" loading="lazy">
           <div class="project-overlay">
             <div class="project-links">
               <a href="${project.demo}" class="btn btn-primary" target="_blank">
-                ${this.dataManager.getText("ui.buttons.viewProject", currentLang)}
+                ${this.dataManager.getText(
+                  "ui.buttons.viewProject",
+                  currentLang
+                )}
               </a>
-              <a href="${project.code}" class="btn btn-secondary" target="_blank">
+              <a href="${
+                project.code
+              }" class="btn btn-secondary" target="_blank">
                 ${this.dataManager.getText("ui.buttons.viewCode", currentLang)}
               </a>
             </div>
@@ -631,7 +685,9 @@ class PortfolioI18n {
           <h3>${project.title[currentLang]}</h3>
           <p>${project.description[currentLang]}</p>
           <div class="project-tech">
-            ${project.technologies.map((tech) => `<span class="tech-tag">${tech}</span>`).join("")}
+            ${project.technologies
+              .map((tech) => `<span class="tech-tag">${tech}</span>`)
+              .join("")}
           </div>
         </div>
       `;
@@ -646,14 +702,16 @@ class PortfolioI18n {
 
     if (floatingToggle) {
       floatingToggle.addEventListener("click", () => {
-        const newLang = this.languageManager.getCurrentLanguage() === "es" ? "en" : "es";
+        const newLang =
+          this.languageManager.getCurrentLanguage() === "es" ? "en" : "es";
         this.updateLanguage(newLang);
       });
     }
 
     if (langToggle) {
       langToggle.addEventListener("click", () => {
-        const newLang = this.languageManager.getCurrentLanguage() === "es" ? "en" : "es";
+        const newLang =
+          this.languageManager.getCurrentLanguage() === "es" ? "en" : "es";
         this.updateLanguage(newLang);
       });
     }
@@ -661,12 +719,15 @@ class PortfolioI18n {
 
   updateLanguageButton() {
     const currentLang = this.languageManager.getCurrentLanguage();
-    
+
     const langToggle = document.querySelector(".lang-toggle");
     if (langToggle) {
       const nextLang = currentLang === "es" ? "en" : "es";
       langToggle.textContent = nextLang.toUpperCase();
-      langToggle.title = this.dataManager.getText("ui.language.toggle", currentLang);
+      langToggle.title = this.dataManager.getText(
+        "ui.language.toggle",
+        currentLang
+      );
     }
 
     this.updateFloatingLanguageButton();
@@ -674,7 +735,7 @@ class PortfolioI18n {
 
   updateFloatingLanguageButton() {
     const currentLang = this.languageManager.getCurrentLanguage();
-    
+
     const currentFlag = document.querySelector("#current-flag");
     if (currentFlag) {
       const flags = {
@@ -696,7 +757,10 @@ class PortfolioI18n {
 
   // Métodos públicos para acceso externo
   getText(path) {
-    return this.dataManager.getText(path, this.languageManager.getCurrentLanguage());
+    return this.dataManager.getText(
+      path,
+      this.languageManager.getCurrentLanguage()
+    );
   }
 
   getData() {

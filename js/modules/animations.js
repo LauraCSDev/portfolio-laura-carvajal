@@ -27,16 +27,25 @@ class AnimationsModule {
    * Configurar animaciones de scroll
    */
   setupScrollAnimations() {
-    // Configuración del Intersection Observer
+    // Configuración optimizada del Intersection Observer
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",
     };
 
+    // Use throttling to prevent excessive animations
+    let animationQueue = new Set();
+
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          this.handleElementInView(entry.target);
+        if (entry.isIntersecting && !animationQueue.has(entry.target)) {
+          animationQueue.add(entry.target);
+
+          // Use requestAnimationFrame for smooth animations
+          requestAnimationFrame(() => {
+            this.handleElementInView(entry.target);
+            animationQueue.delete(entry.target);
+          });
         }
       });
     }, observerOptions);
@@ -75,25 +84,42 @@ class AnimationsModule {
    * @param {Element} element - Elemento que entra en vista
    */
   handleElementInView(element) {
+    // Prevent double animations
+    if (element.classList.contains("animate")) return;
+
     // Agregar clase de animación
     element.classList.add("animate", "fade-in-up");
 
-    // Animar contadores si es la sección about
-    if (element.classList.contains("about") || element.id === "sobre-mi") {
+    // Animar contadores si es la sección about (solo una vez)
+    if (
+      (element.classList.contains("about") || element.id === "sobre-mi") &&
+      this.countersAnimated.size === 0
+    ) {
       this.animateCounters();
     }
 
-    // Animar barras de habilidades
-    if (element.classList.contains("skills") || element.id === "habilidades") {
+    // Animar barras de habilidades (solo una vez)
+    if (
+      (element.classList.contains("skills") || element.id === "habilidades") &&
+      !element.dataset.skillsAnimated
+    ) {
+      element.dataset.skillsAnimated = "true";
       this.animateSkillBars();
     }
 
-    // Animar cards con retraso escalonado
+    // Animar cards con retraso escalonado (solo una vez)
     if (
-      element.classList.contains("certifications") ||
-      element.classList.contains("projects")
+      (element.classList.contains("certifications") ||
+        element.classList.contains("projects")) &&
+      !element.dataset.cardsAnimated
     ) {
+      element.dataset.cardsAnimated = "true";
       this.animateCardsSequentially(element);
+    }
+
+    // Stop observing this element to prevent re-animation
+    if (this.observer) {
+      this.observer.unobserve(element);
     }
   }
 
@@ -138,15 +164,27 @@ class AnimationsModule {
       ".skill-progress, .progress-bar"
     );
 
+    // Prevent multiple animations of the same bars
+    const animatedBars = new Set();
+
     skillBars.forEach((bar, index) => {
+      const barId =
+        bar.dataset.level || bar.getAttribute("data-progress") || index;
+
+      if (animatedBars.has(barId)) return;
+      animatedBars.add(barId);
+
+      // Use requestAnimationFrame for smoother animations
       setTimeout(() => {
-        const level =
-          bar.getAttribute("data-level") || bar.getAttribute("data-progress");
-        if (bar && level) {
-          bar.style.width = `${level}%`;
-          bar.classList.add("animated");
-        }
-      }, index * 100); // Retraso escalonado
+        requestAnimationFrame(() => {
+          const level =
+            bar.getAttribute("data-level") || bar.getAttribute("data-progress");
+          if (bar && level && !bar.classList.contains("animated")) {
+            bar.style.width = `${level}%`;
+            bar.classList.add("animated");
+          }
+        });
+      }, index * 80); // Reduced delay for smoother sequence
     });
   }
 
@@ -170,15 +208,19 @@ class AnimationsModule {
    * Configurar animación de carga de página
    */
   setupLoadingAnimation() {
-    window.addEventListener("load", () => {
-      document.body.style.opacity = "0";
-      document.body.style.transition = "opacity 0.5s ease-in-out";
-
-      setTimeout(() => {
-        document.body.style.opacity = "1";
+    // Use requestAnimationFrame to avoid flickering
+    const handlePageLoad = () => {
+      if (document.readyState === "complete") {
+        document.body.classList.add("animations-ready");
         this.addLoadingCompleteClass();
-      }, 100);
-    });
+      }
+    };
+
+    if (document.readyState === "complete") {
+      handlePageLoad();
+    } else {
+      window.addEventListener("load", handlePageLoad, { once: true });
+    }
   }
 
   /**

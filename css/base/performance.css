@@ -34,3 +34,70 @@ body {
 .btn:hover {
   will-change: auto;
 }
+
+/* Loading states optimization - Prevent flickering */
+body {
+  opacity: 1;
+  visibility: visible;
+  transition: none;
+}
+
+body.page-loaded {
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.animations-ready {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Prevent content shift during data loading */
+.skill-progress {
+  width: 0%;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-progress.animated {
+  transition-delay: 0.2s;
+}
+
+/* Smooth intersection observer animations */
+section {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.animate {
+  animation: none;
+}
+
+/* Prevent double animations on scroll */
+.fade-in-up.animate {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optimize counter animations */
+.stat-number,
+.stat h3 {
+  transition: none;
+  backface-visibility: hidden;
+}
+
+/* Reduce layout thrashing */
+.skill-item,
+.timeline-item,
+.cert-card,
+.project-card {
+  contain: layout style;
+}

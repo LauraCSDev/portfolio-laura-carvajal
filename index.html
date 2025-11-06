@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,17 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico" id="favicon-ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/logo-light.png" id="favicon">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/logo-light.png">
-    <link rel="apple-touch-icon" href="img/logo-light.png" id="apple-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logo-dark.png" id="favicon">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo-dark.png">
+    <link rel="apple-touch-icon" href="img/logo-dark.png" id="apple-icon">
+
+    <!-- Initialize dark theme immediately -->
+    <script>
+        // Set dark theme immediately to prevent flash
+        document.documentElement.setAttribute('data-theme',
+            localStorage.getItem('portfolio-theme') || 'dark'
+        );
+    </script>
 
     <!-- Preload critical resources to prevent re-renders -->
     <link rel="preload" href="css/main.css" as="style">
@@ -34,7 +42,7 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <a href="#inicio" class="logo-link">
-                    <img src="img/logo-light.png" alt="" data-i18n-alt="ui.alt.logo" class="logo-img" id="navbar-logo">
+                    <img src="img/logo-dark.png" alt="" data-i18n-alt="ui.alt.logo" class="logo-img" id="navbar-logo">
                 </a>
             </div>
 
@@ -71,7 +79,7 @@
             </div>
 
             <div class="hero-image">
-                <img src="img/logo-light.png" alt="" data-i18n-alt="ui.alt.logoImage" class="hero-logo" id="hero-logo">
+                <img src="img/logo-dark.png" alt="" data-i18n-alt="ui.alt.logoImage" class="hero-logo" id="hero-logo">
             </div>
         </div>
 
@@ -218,18 +226,19 @@
         </button>
     </div>
 
-    <!-- JavaScript - Sistema Modular -->
+    <!-- JavaScript - Arquitectura Modular Optimizada -->
 
     <!-- 1. Sistema i18n (debe cargarse primero) -->
     <script src="js/i18n.js"></script>
 
-    <!-- 2. Módulos especializados -->
-    <script src="js/modules/navigation.js"></script>
-    <script src="js/modules/theme.js"></script>
-    <script src="js/modules/animations.js"></script>
-    <script src="js/modules/forms.js"></script>
+    <!-- 2. Módulos especializados (orden de dependencias) -->
+    <script src="js/modules/core.js"></script> <!-- Configuraciones transversales y optimizaciones -->
+    <script src="js/modules/navigation.js"></script> <!-- Navegación móvil y scroll suave -->
+    <script src="js/modules/theme.js"></script> <!-- Cambio de tema y logos dinámicos -->
+    <script src="js/modules/animations.js"></script> <!-- Animaciones de scroll optimizadas -->
+    <script src="js/modules/forms.js"></script> <!-- Formularios y notificaciones -->
 
-    <!-- 3. Coordinador principal (debe cargarse al final) -->
+    <!-- 3. Coordinador principal - Barrel Pattern (debe cargarse al final) -->
     <script src="js/app.js"></script>
 </body>
 

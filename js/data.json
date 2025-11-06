@@ -77,12 +77,12 @@
       "en": "About Me"
     },
     "intro": {
-      "es": "Soy una profesional de 27 años con más de 6 años de experiencia en desarrollo de software. Actualmente me desempeño como Analista Programador II en BAC Latam y como Profesora Universitaria en la Universidad Fidélitas, combinando la práctica profesional con la enseñanza.",
-      "en": "I am a 27-year-old professional with more than 6 years of experience in software development. I currently work as a Software Analyst II at BAC Latam and as a University Professor at Universidad Fidélitas, combining professional practice with teaching."
+      "es": "Soy una profesional de 27 años con más de 6 años de experiencia en desarrollo de software.",
+      "en": "I am a 27-year-old professional with more than 6 years of experience in software development."
     },
     "description": {
-      "es": "Mi experiencia abarca desarrollo Frontend con React, desarrollo mobile con Flutter, y liderazgo de equipos técnicos. Me especializo en crear aplicaciones web y móviles de alta calidad, aplicando técnicas de modelado, estándares y patrones acordados. También tengo experiencia en cIQ, DevRel y diseño UX/UI.",
-      "en": "My experience spans Frontend development with React, mobile development with Flutter, and technical team leadership. I specialize in creating high-quality web and mobile applications, applying modeling techniques, agreed-upon standards and patterns. I also have experience in cIQ, DevRel and UX/UI design."
+      "es": "Actualmente me desempeño como Analista Programador II en BAC Latam y como Profesora Universitaria en la Universidad Fidélitas, combinando la práctica profesional con la enseñanza. <br/> <br/> Mi experiencia abarca desarrollo Frontend con React, desarrollo mobile con Flutter, y liderazgo de equipos técnicos. Me especializo en crear aplicaciones web y móviles de alta calidad, aplicando técnicas de modelado, estándares y patrones acordados. También tengo experiencia en cIQ, DevRel y diseño UX/UI.",
+      "en": "I currently work as a Software Analyst II at BAC Latam and as a University Professor at Universidad Fidélitas, combining professional practice with teaching. <br/> <br/> My experience spans Frontend development with React, mobile development with Flutter, and technical team leadership. I specialize in creating high-quality web and mobile applications, applying modeling techniques, agreed-upon standards and patterns. I also have experience in cIQ, DevRel and UX/UI design."
     },
     "stats": [
       {

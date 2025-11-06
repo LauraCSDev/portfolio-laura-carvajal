@@ -12,7 +12,7 @@ class PortfolioApp {
     // Estado de la aplicación
     this.state = {
       language: localStorage.getItem("portfolio-lang") || "es",
-      theme: localStorage.getItem("portfolio-theme") || "light",
+      theme: localStorage.getItem("portfolio-theme") || "dark",
       isLoading: true,
     };
   }
@@ -72,6 +72,7 @@ class PortfolioApp {
   initModules() {
     // Definir módulos disponibles
     const moduleClasses = {
+      core: CoreModule,
       navigation: NavigationModule,
       theme: ThemeModule,
       animations: AnimationsModule,
@@ -246,6 +247,12 @@ class PortfolioApp {
       staggerAnimation: (selector, animation, delay) =>
         this.modules.animations?.staggerAnimation(selector, animation, delay),
 
+      // Core & Performance
+      getPerformanceData: () => this.modules.core?.getPerformanceSummary(),
+      isPageLoaded: () => this.modules.core?.isLoaded(),
+      addOptimization: (name) =>
+        this.modules.core?.addLoadingOptimization(name),
+
       // Estado
       getAppState: () => ({ ...this.state }),
       isReady: () => this.isInitialized && !this.state.isLoading,
@@ -331,6 +338,10 @@ class PortfolioApp {
    */
   logLoadedFeatures() {
     const features = [
+      "🔧 Core Module con optimizaciones transversales",
+      "⚡ Optimizaciones de carga y rendimiento",
+      "📊 Monitoreo de performance en tiempo real",
+      "🛡️ Manejo robusto de errores globales",
       "🌐 Sistema i18n unificado con JSON",
       "📱 Navegación móvil responsiva",
       "🎨 Cambio de tema dinámico",
@@ -339,7 +350,6 @@ class PortfolioApp {
       "🔔 Sistema de notificaciones mejorado",
       "🚀 Navegación suave entre secciones",
       "⚡ API global de utilidades",
-      "🛡️ Manejo robusto de errores",
     ];
 
     console.log("🎯 Características habilitadas:");

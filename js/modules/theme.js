@@ -6,7 +6,7 @@
 class ThemeModule {
   constructor() {
     this.isInitialized = false;
-    this.currentTheme = localStorage.getItem("portfolio-theme") || "light";
+    this.currentTheme = localStorage.getItem("portfolio-theme") || "dark";
     this.themeToggle = null;
   }
 
@@ -164,11 +164,11 @@ class ThemeModule {
   detectSystemTheme() {
     if (
       window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
+      window.matchMedia("(prefers-color-scheme: light)").matches
     ) {
-      return "dark";
+      return "light";
     }
-    return "light";
+    return "dark";
   }
 
   /**
