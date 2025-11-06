@@ -140,7 +140,7 @@ class NotificationsManager {
   }
 }
 
-// Export for use in other modules
+// Make available globally
 if (typeof window !== "undefined") {
-  window.NotificationsManager = NotificationsManager;
+  window["NotificationsManager"] = NotificationsManager;
 }
