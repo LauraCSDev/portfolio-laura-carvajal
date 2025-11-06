@@ -1,60 +1,42 @@
 /**
- * Sistema de internacionalización mejorado
- * Improved i18n system
+ * Sistema de internacionalización refactorizado
+ * Arquitectura limpia con separación de responsabilidades
  */
 
-class PortfolioI18n {
+// ===========================
+// CLASES BASE
+// ===========================
+
+/**
+ * Gestor de datos del portfolio
+ */
+class DataManager {
   constructor() {
     this.data = null;
-    this.currentLang = localStorage.getItem("portfolio-lang") || "es";
-    this.supportedLangs = ["es", "en"];
+    this.isLoaded = false;
   }
 
-  /**
-   * Carga los datos del portfolio
-   */
   async loadData() {
+    if (this.isLoaded) return this.data;
+    
     try {
       const response = await fetch("./js/data.json");
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
       this.data = await response.json();
+      this.isLoaded = true;
       return this.data;
     } catch (error) {
       console.error("Error loading portfolio data:", error);
-      return null;
+      throw error;
     }
   }
 
-  /**
-   * Inicializa el sistema i18n
-   */
-  async init() {
-    await this.loadData();
-    this.updateLanguage(this.currentLang);
-    this.setupLanguageToggle();
-    return this;
+  getData() {
+    return this.data;
   }
 
-  /**
-   * Cambia el idioma actual
-   */
-  updateLanguage(lang) {
-    if (!this.supportedLangs.includes(lang)) {
-      console.warn(`Language ${lang} not supported. Using 'es' as fallback.`);
-      lang = "es";
-    }
-
-    this.currentLang = lang;
-    localStorage.setItem("portfolio-lang", lang);
-    document.documentElement.lang = lang;
-
-    this.updateContent();
-    this.updateLanguageButton();
-  }
-
-  /**
-   * Obtiene texto traducido por path
-   */
-  getText(path, lang = this.currentLang) {
+  getText(path, lang) {
     if (!this.data) return path;
 
     const keys = path.split(".");
@@ -68,7 +50,7 @@ class PortfolioI18n {
       }
     }
 
-    // Si el resultado es un objeto con idiomas, retorna el idioma solicitado
+    // Si es un objeto con idiomas, retorna el idioma solicitado
     if (current && typeof current === "object" && current[lang]) {
       return current[lang];
     }
@@ -80,17 +62,79 @@ class PortfolioI18n {
 
     return path;
   }
+}
 
-  /**
-   * Actualiza todo el contenido de la página
-   */
-  updateContent() {
-    if (!this.data) return;
+/**
+ * Gestor de idiomas
+ */
+class LanguageManager {
+  constructor() {
+    this.currentLang = localStorage.getItem("portfolio-lang") || "es";
+    this.supportedLangs = ["es", "en"];
+    this.observers = [];
+  }
 
+  setLanguage(lang) {
+    if (!this.supportedLangs.includes(lang)) {
+      console.warn(`Language ${lang} not supported. Using 'es' as fallback.`);
+      lang = "es";
+    }
+
+    const oldLang = this.currentLang;
+    this.currentLang = lang;
+    
+    localStorage.setItem("portfolio-lang", lang);
+    document.documentElement.lang = lang;
+
+    // Notificar cambio a observers
+    this.notifyObservers(lang, oldLang);
+  }
+
+  getCurrentLanguage() {
+    return this.currentLang;
+  }
+
+  addObserver(callback) {
+    this.observers.push(callback);
+  }
+
+  removeObserver(callback) {
+    this.observers = this.observers.filter(obs => obs !== callback);
+  }
+
+  notifyObservers(newLang, oldLang) {
+    this.observers.forEach(callback => {
+      try {
+        callback(newLang, oldLang);
+      } catch (error) {
+        console.error("Error in language observer:", error);
+      }
+    });
+
+    // Emitir evento global
+    const event = new CustomEvent("languageChanged", {
+      detail: { language: newLang, previousLanguage: oldLang },
+    });
+    document.dispatchEvent(event);
+  }
+}
+
+/**
+ * Actualizador de contenido DOM
+ */
+class DOMUpdater {
+  constructor(dataManager, languageManager) {
+    this.dataManager = dataManager;
+    this.languageManager = languageManager;
+  }
+
+  updateStaticContent() {
+    const currentLang = this.languageManager.getCurrentLanguage();
+    
     // Actualizar elementos con data-i18n
     document.querySelectorAll("[data-i18n]").forEach((element) => {
       const key = element.getAttribute("data-i18n");
-      const text = this.getText(key);
+      const text = this.dataManager.getText(key, currentLang);
 
       if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
         element.placeholder = text;
@@ -99,30 +143,58 @@ class PortfolioI18n {
       }
     });
 
-    // Actualizar secciones dinámicas
-    this.updateNavigation();
-    this.updateHeroSection();
-    this.updateAboutSection();
-    this.updateSkillsSection();
-    this.updateExperienceSection();
-    this.updateCertificationsSection();
-    this.updateProjectsSection();
-    this.updateContactSection();
+    // Actualizar atributos alt
+    document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
+      const key = element.getAttribute("data-i18n-alt");
+      const text = this.dataManager.getText(key, currentLang);
+      element.alt = text;
+    });
+
+    // Actualizar atributos title
+    document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+      const key = element.getAttribute("data-i18n-title");
+      const text = this.dataManager.getText(key, currentLang);
+      element.title = text;
+    });
+
+    // Actualizar title de la página
+    const titleElement = document.querySelector('title[data-i18n]');
+    if (titleElement) {
+      const key = titleElement.getAttribute("data-i18n");
+      const text = this.dataManager.getText(key, currentLang);
+      titleElement.textContent = text;
+    }
+  }
+}
+
+// ===========================
+// COMPONENTES ESPECIALIZADOS
+// ===========================
+
+/**
+ * Componente de navegación
+ */
+class NavigationComponent {
+  constructor(dataManager, languageManager) {
+    this.dataManager = dataManager;
+    this.languageManager = languageManager;
   }
 
-  /**
-   * Actualiza la navegación
-   */
-  updateNavigation() {
+  render() {
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    
+    if (!data?.navigation) return;
+
     const nav = document.querySelector(".nav-menu");
-    if (!nav || !this.data.navigation) return;
+    if (!nav) return;
 
     nav.innerHTML = "";
-    this.data.navigation.items.forEach((item) => {
+    data.navigation.items.forEach((item) => {
       const li = document.createElement("li");
       const a = document.createElement("a");
       a.href = item.href;
-      a.textContent = item[this.currentLang];
+      a.textContent = item[currentLang];
       a.classList.add("nav-link");
       if (item.href === "#inicio") {
         a.classList.add("active");
@@ -131,35 +203,324 @@ class PortfolioI18n {
       nav.appendChild(li);
     });
   }
+}
 
-  /**
-   * Actualiza la sección hero
-   */
-  updateHeroSection() {
-    const personal = this.data.personal;
-    if (!personal) return;
-
-    // Nombre
-    const nameEl = document.querySelector('[data-hero="name"]');
-    if (nameEl) nameEl.textContent = personal.name[this.currentLang];
-
-    // Título
-    const titleEl = document.querySelector('[data-hero="title"]');
-    if (titleEl) titleEl.textContent = personal.title[this.currentLang];
-
-    // Descripción
-    const descEl = document.querySelector('[data-hero="description"]');
-    if (descEl) descEl.textContent = personal.description[this.currentLang];
+/**
+ * Componente de habilidades
+ */
+class SkillsComponent {
+  constructor(dataManager, languageManager) {
+    this.dataManager = dataManager;
+    this.languageManager = languageManager;
   }
 
-  /**
-   * Actualiza la sección sobre mí
-   */
+  render() {
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    
+    if (!data?.skills) return;
+
+    const skillsGrid = document.querySelector(".skills-grid");
+    if (!skillsGrid) return;
+
+    skillsGrid.innerHTML = "";
+    data.skills.categories.forEach((category) => {
+      const categoryDiv = this.createCategoryElement(category, currentLang);
+      skillsGrid.appendChild(categoryDiv);
+    });
+
+    this.animateSkillBars();
+  }
+
+  createCategoryElement(category, currentLang) {
+    const categoryDiv = document.createElement("div");
+    categoryDiv.className = "skill-category";
+
+    categoryDiv.innerHTML = `
+      <h3><i class="${category.icon}"></i> <span>${category.title[currentLang]}</span></h3>
+      <div class="skill-list">
+        ${category.skills.map(skill => this.createSkillItemHTML(skill)).join("")}
+      </div>
+    `;
+
+    return categoryDiv;
+  }
+
+  createSkillItemHTML(skill) {
+    return `
+      <div class="skill-item">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span class="skill-name">${skill.name}</span>
+          <span class="skill-level">${skill.level}%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-progress" data-level="${skill.level}" style="width: 0%;"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  animateSkillBars() {
+    const skillBars = document.querySelectorAll(".skill-progress");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const bar = entry.target;
+            const level = bar.getAttribute("data-level");
+            setTimeout(() => {
+              bar.style.width = `${level}%`;
+            }, 100);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    skillBars.forEach((bar) => observer.observe(bar));
+  }
+}
+
+/**
+ * Componente de contacto mejorado
+ */
+class ContactComponent {
+  constructor(dataManager, languageManager) {
+    this.dataManager = dataManager;
+    this.languageManager = languageManager;
+  }
+
+  render() {
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    
+    if (!data?.contact) return;
+
+    this.renderContactInfo(data.contact, currentLang);
+    this.renderContactForm(data.contact, currentLang);
+  }
+
+  renderContactInfo(contact, currentLang) {
+    const contactInfo = document.querySelector(".contact-info");
+    if (!contactInfo) return;
+
+    contactInfo.innerHTML = `
+      <div class="contact-header">
+        <h3>${contact.greeting[currentLang]}</h3>
+        <p class="contact-description">${contact.description[currentLang]}</p>
+      </div>
+      
+      <div class="contact-items">
+        ${this.createContactItems(contact, currentLang)}
+      </div>
+      
+      <div class="social-links">
+        ${this.createSocialLinks(contact.socialLinks, currentLang)}
+      </div>
+    `;
+  }
+
+  createContactItems(contact, currentLang) {
+    const items = [
+      {
+        icon: "fas fa-envelope",
+        label: contact.info.email.label[currentLang],
+        value: contact.info.email.value,
+        href: `mailto:${contact.info.email.value}`,
+        type: "email"
+      },
+      {
+        icon: "fab fa-linkedin",
+        label: contact.info.linkedin.label[currentLang],
+        value: contact.info.linkedin.value,
+        href: contact.info.linkedin.url,
+        type: "linkedin"
+      },
+      {
+        icon: "fas fa-map-marker-alt",
+        label: contact.info.location.label[currentLang],
+        value: contact.info.location.value[currentLang],
+        href: null,
+        type: "location"
+      }
+    ];
+
+    return items.map(item => `
+      <div class="contact-item" data-contact-type="${item.type}">
+        <div class="contact-item-icon">
+          <i class="${item.icon}"></i>
+        </div>
+        <div class="contact-item-content">
+          <h4>${item.label}</h4>
+          ${item.href ? 
+            `<p><a href="${item.href}" target="_blank" rel="noopener">${item.value}</a></p>` :
+            `<p>${item.value}</p>`
+          }
+        </div>
+        <div class="contact-item-action">
+          ${item.href ? '<i class="fas fa-external-link-alt"></i>' : ''}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  createSocialLinks(socialLinks, currentLang) {
+    if (!socialLinks) return "";
+    
+    return socialLinks.map(social => `
+      <a href="${social.url}" 
+         class="social-link" 
+         target="_blank" 
+         rel="noopener"
+         title="${social.label[currentLang]}"
+         data-social="${social.name}">
+        <i class="${social.icon}"></i>
+        <span class="social-label">${social.label[currentLang]}</span>
+      </a>
+    `).join("");
+  }
+
+  renderContactForm(contact, currentLang) {
+    const contactForm = document.querySelector(".contact-form");
+    if (!contactForm) return;
+
+    contactForm.innerHTML = `
+      <div class="form-header">
+        <h3>Envía un mensaje</h3>
+        <p>Completa el formulario y te responderé pronto</p>
+      </div>
+      ${contact.form.fields.map(field => this.createFormField(field, currentLang)).join("")}
+      <button type="submit" class="btn btn-primary btn-full">
+        <i class="fas fa-paper-plane"></i>
+        <span>${contact.form.submit[currentLang]}</span>
+      </button>
+    `;
+  }
+
+  createFormField(field, currentLang) {
+    const baseClasses = "form-control";
+    const isTextarea = field.type === "textarea";
+    
+    return `
+      <div class="form-group">
+        <label for="${field.name}" class="form-label">
+          ${field.label[currentLang]}${field.required ? ' <span class="required">*</span>' : ''}
+        </label>
+        ${isTextarea ? 
+          `<textarea 
+            id="${field.name}" 
+            name="${field.name}" 
+            class="${baseClasses}"
+            placeholder="${field.placeholder[currentLang]}"
+            ${field.required ? "required" : ""}
+            rows="4"
+          ></textarea>` :
+          `<input 
+            type="${field.type}" 
+            id="${field.name}" 
+            name="${field.name}" 
+            class="${baseClasses}"
+            placeholder="${field.placeholder[currentLang]}"
+            ${field.required ? "required" : ""}
+          >`
+        }
+      </div>
+    `;
+  }
+}
+
+// ===========================
+// CLASE PRINCIPAL REFACTORIZADA
+// ===========================
+
+/**
+ * Sistema principal de internacionalización
+ */
+class PortfolioI18n {
+  constructor() {
+    this.dataManager = new DataManager();
+    this.languageManager = new LanguageManager();
+    this.domUpdater = new DOMUpdater(this.dataManager, this.languageManager);
+    
+    // Componentes
+    this.components = {
+      navigation: new NavigationComponent(this.dataManager, this.languageManager),
+      skills: new SkillsComponent(this.dataManager, this.languageManager),
+      contact: new ContactComponent(this.dataManager, this.languageManager)
+    };
+
+    // Setup observers
+    this.languageManager.addObserver((newLang) => {
+      this.updateContent();
+    });
+  }
+
+  async init() {
+    try {
+      await this.dataManager.loadData();
+      this.updateLanguage(this.languageManager.getCurrentLanguage());
+      this.setupLanguageToggle();
+      return this;
+    } catch (error) {
+      console.error("Failed to initialize i18n system:", error);
+      throw error;
+    }
+  }
+
+  updateLanguage(lang) {
+    this.languageManager.setLanguage(lang);
+  }
+
+  updateContent() {
+    if (!this.dataManager.getData()) return;
+
+    this.domUpdater.updateStaticContent();
+    
+    // Renderizar componentes especializados
+    Object.values(this.components).forEach(component => {
+      try {
+        component.render();
+      } catch (error) {
+        console.error("Error rendering component:", component.constructor.name, error);
+      }
+    });
+
+    // Actualizar elementos específicos
+    this.updateHeroSection();
+    this.updateAboutSection();
+    this.updateExperienceSection();
+    this.updateCertificationsSection();
+    this.updateProjectsSection();
+    this.updateLanguageButton();
+  }
+
+  // Métodos legacy mantenidos para compatibilidad
+  updateHeroSection() {
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    const personal = data?.personal;
+    if (!personal) return;
+
+    const elements = {
+      greeting: document.querySelector('[data-hero="greeting"]'),
+      name: document.querySelector('[data-hero="name"]'),
+      title: document.querySelector('[data-hero="title"]'),
+      description: document.querySelector('[data-hero="description"]')
+    };
+
+    if (elements.greeting) elements.greeting.textContent = personal.greeting[currentLang];
+    if (elements.name) elements.name.textContent = personal.name[currentLang];
+    if (elements.title) elements.title.textContent = personal.title[currentLang];
+    if (elements.description) elements.description.textContent = personal.description[currentLang];
+  }
+
   updateAboutSection() {
-    const about = this.data.about;
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    const about = data?.about;
     if (!about) return;
 
-    // Estadísticas
     const statsContainer = document.querySelector(".about-stats");
     if (statsContainer) {
       statsContainer.innerHTML = "";
@@ -168,96 +529,36 @@ class PortfolioI18n {
         statDiv.className = "stat";
         statDiv.innerHTML = `
           <h3>${stat.value}</h3>
-          <p>${stat.label[this.currentLang]}</p>
+          <p>${stat.label[currentLang]}</p>
         `;
         statsContainer.appendChild(statDiv);
       });
     }
   }
 
-  /**
-   * Actualiza la sección de habilidades
-   */
-  updateSkillsSection() {
-    const skills = this.data.skills;
-    if (!skills) return;
-
-    const skillsGrid = document.querySelector(".skills-grid");
-    if (!skillsGrid) return;
-
-    skillsGrid.innerHTML = "";
-    skills.categories.forEach((category) => {
-      const categoryDiv = document.createElement("div");
-      categoryDiv.className = "skill-category";
-
-      categoryDiv.innerHTML = `
-        <h3><i class="${category.icon}"></i> <span>${
-        category.title[this.currentLang]
-      }</span></h3>
-        <div class="skill-list">
-          ${category.skills
-            .map(
-              (skill) => `
-            <div class="skill-item">
-              <span class="skill-name">${skill.name}</span>
-              <div class="skill-bar">
-                <div class="skill-level" data-level="${skill.level}"></div>
-              </div>
-            </div>
-          `
-            )
-            .join("")}
-        </div>
-      `;
-
-      skillsGrid.appendChild(categoryDiv);
-    });
-
-    // Animar las barras de habilidades
-    this.animateSkillBars();
-  }
-
-  /**
-   * Actualiza la sección de experiencia
-   */
   updateExperienceSection() {
-    const experience = this.data.experience;
-    if (!experience) {
-      console.warn("❌ No experience data found");
-      return;
-    }
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    const experience = data?.experience;
+    if (!experience) return;
 
     const timeline = document.querySelector(".timeline");
-    if (!timeline) {
-      console.warn("❌ Timeline container not found");
-      return;
-    }
+    if (!timeline) return;
 
-    console.log(
-      "✅ Updating experience section with",
-      experience.jobs.length,
-      "jobs"
-    );
-
-    // Limpiar contenido existente (incluyendo fallback)
     timeline.innerHTML = "";
-
-    experience.jobs.forEach((job, index) => {
-      console.log(`Adding job ${index + 1}:`, job.title[this.currentLang]);
+    experience.jobs.forEach((job) => {
       const timelineItem = document.createElement("div");
       timelineItem.className = "timeline-item";
 
       timelineItem.innerHTML = `
         <div class="timeline-marker"></div>
         <div class="timeline-content">
-          <h3>${job.title[this.currentLang]}</h3>
+          <h3>${job.title[currentLang]}</h3>
           <h4>${job.company}</h4>
-          <span class="timeline-date">${job.period[this.currentLang]}</span>
-          <p>${job.description[this.currentLang]}</p>
+          <span class="timeline-date">${job.period[currentLang]}</span>
+          <p>${job.description[currentLang]}</p>
           <div class="timeline-skills">
-            ${job.skills
-              .map((skill) => `<span class="skill-tag">${skill}</span>`)
-              .join("")}
+            ${job.skills.map((skill) => `<span class="skill-tag">${skill}</span>`).join("")}
           </div>
         </div>
       `;
@@ -266,34 +567,17 @@ class PortfolioI18n {
     });
   }
 
-  /**
-   * Actualiza la sección de certificaciones
-   */
   updateCertificationsSection() {
-    console.log("🎓 Actualizando sección de certificaciones...");
-    const certifications = this.data.certifications;
-    console.log("📋 Certificaciones encontradas:", certifications);
-    if (!certifications) {
-      console.warn("❌ No se encontraron datos de certificaciones");
-      return;
-    }
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    const certifications = data?.certifications;
+    if (!certifications) return;
 
     const certsGrid = document.querySelector(".certifications-grid");
-    console.log("🎯 Elemento certificaciones-grid:", certsGrid);
-    if (!certsGrid) {
-      console.warn("❌ No se encontró el elemento .certifications-grid");
-      return;
-    }
+    if (!certsGrid) return;
 
     certsGrid.innerHTML = "";
-    console.log(
-      `📄 Procesando ${certifications.items.length} certificaciones...`
-    );
-    certifications.items.forEach((cert, index) => {
-      console.log(
-        `🔸 Certificación ${index + 1}:`,
-        cert.title[this.currentLang]
-      );
+    certifications.items.forEach((cert) => {
       const certCard = document.createElement("div");
       certCard.className = "cert-card";
 
@@ -302,29 +586,23 @@ class PortfolioI18n {
           <i class="${cert.icon}"></i>
         </div>
         <div class="cert-content">
-          <h3>${cert.title[this.currentLang]}</h3>
+          <h3>${cert.title[currentLang]}</h3>
           <h4>${cert.company}</h4>
-          ${
-            cert.id_number ? `<p class="cert-id">ID: ${cert.id_number}</p>` : ""
-          }
+          ${cert.id_number ? `<p class="cert-id">ID: ${cert.id_number}</p>` : ""}
           <div class="cert-tech">
-            ${cert.technologies
-              .map((tech) => `<span class="tech-tag">${tech}</span>`)
-              .join("")}
+            ${cert.technologies.map((tech) => `<span class="tech-tag">${tech}</span>`).join("")}
           </div>
         </div>
       `;
 
       certsGrid.appendChild(certCard);
     });
-    console.log("✅ Certificaciones actualizadas correctamente");
   }
 
-  /**
-   * Actualiza la sección de proyectos
-   */
   updateProjectsSection() {
-    const projects = this.data.projects;
+    const data = this.dataManager.getData();
+    const currentLang = this.languageManager.getCurrentLanguage();
+    const projects = data?.projects;
     if (!projects) return;
 
     const projectsGrid = document.querySelector(".projects-grid");
@@ -337,29 +615,23 @@ class PortfolioI18n {
 
       projectCard.innerHTML = `
         <div class="project-image">
-          <img src="${project.image}" alt="${
-        project.title[this.currentLang]
-      }" loading="lazy">
+          <img src="${project.image}" alt="${project.title[currentLang]}" loading="lazy">
           <div class="project-overlay">
             <div class="project-links">
               <a href="${project.demo}" class="btn btn-primary" target="_blank">
-                ${this.getText("ui.buttons.viewProject")}
+                ${this.dataManager.getText("ui.buttons.viewProject", currentLang)}
               </a>
-              <a href="${
-                project.code
-              }" class="btn btn-secondary" target="_blank">
-                ${this.getText("ui.buttons.viewCode")}
+              <a href="${project.code}" class="btn btn-secondary" target="_blank">
+                ${this.dataManager.getText("ui.buttons.viewCode", currentLang)}
               </a>
             </div>
           </div>
         </div>
         <div class="project-content">
-          <h3>${project.title[this.currentLang]}</h3>
-          <p>${project.description[this.currentLang]}</p>
+          <h3>${project.title[currentLang]}</h3>
+          <p>${project.description[currentLang]}</p>
           <div class="project-tech">
-            ${project.technologies
-              .map((tech) => `<span class="tech-tag">${tech}</span>`)
-              .join("")}
+            ${project.technologies.map((tech) => `<span class="tech-tag">${tech}</span>`).join("")}
           </div>
         </div>
       `;
@@ -368,192 +640,71 @@ class PortfolioI18n {
     });
   }
 
-  /**
-   * Actualiza la sección de contacto
-   */
-  updateContactSection() {
-    console.log("📞 Actualizando sección de contacto...");
-    const contact = this.data.contact;
-    console.log("📋 Datos de contacto encontrados:", contact);
-    if (!contact) {
-      console.warn("❌ No se encontraron datos de contacto");
-      return;
-    }
-
-    // Información de contacto
-    const contactInfo = document.querySelector(".contact-info");
-    if (contactInfo) {
-      contactInfo.innerHTML = `
-        <h3>${contact.greeting[this.currentLang]}</h3>
-        <p class="contact-description">${
-          contact.description[this.currentLang]
-        }</p>
-        
-        <div class="contact-items">
-          <div class="contact-item">
-            <div class="contact-item-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <div class="contact-item-content">
-              <h4>${contact.info.email.label[this.currentLang]}</h4>
-              <p>${contact.info.email.value}</p>
-            </div>
-          </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">
-            <i class="fab fa-linkedin"></i>
-          </div>
-          <div class="contact-item-content">
-            <h4>${contact.info.linkedin.label[this.currentLang]}</h4>
-            <p><a href="${contact.info.linkedin.url}" target="_blank">${
-        contact.info.linkedin.value
-      }</a></p>
-          </div>
-        </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">
-              <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <div class="contact-item-content">
-              <h4>${contact.info.location.label[this.currentLang]}</h4>
-              <p>${contact.info.location.value[this.currentLang]}</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Redes sociales -->
-        <div class="social-links">
-          ${
-            contact.socialLinks
-              ? contact.socialLinks
-                  .map(
-                    (social) => `
-            <a href="${
-              social.url
-            }" class="social-link" target="_blank" title="${
-                      social.label[this.currentLang]
-                    }">
-              <i class="${social.icon}"></i>
-            </a>
-          `
-                  )
-                  .join("")
-              : ""
-          }
-        </div>
-      `;
-    }
-
-    // Formulario de contacto
-    const contactForm = document.querySelector(".contact-form");
-    console.log("📝 Elemento contact-form:", contactForm);
-    if (contactForm) {
-      contactForm.innerHTML =
-        contact.form.fields
-          .map((field) => {
-            if (field.type === "textarea") {
-              return `
-            <div class="form-group">
-              <label for="${field.name}">${field.label[this.currentLang]}${
-                field.required ? " *" : ""
-              }</label>
-              <textarea 
-                id="${field.name}" 
-                name="${field.name}" 
-                placeholder="${field.placeholder[this.currentLang]}"
-                ${field.required ? "required" : ""}
-              ></textarea>
-            </div>
-          `;
-            } else {
-              return `
-            <div class="form-group">
-              <label for="${field.name}">${field.label[this.currentLang]}${
-                field.required ? " *" : ""
-              }</label>
-              <input 
-                type="${field.type}" 
-                id="${field.name}" 
-                name="${field.name}" 
-                placeholder="${field.placeholder[this.currentLang]}"
-                ${field.required ? "required" : ""}
-              >
-            </div>
-          `;
-            }
-          })
-          .join("") +
-        `
-        <button type="submit" class="btn btn-primary btn-full">
-          ${contact.form.submit[this.currentLang]}
-        </button>
-      `;
-      console.log("✅ Formulario de contacto actualizado correctamente");
-    } else {
-      console.warn("❌ No se encontró el elemento .contact-form");
-    }
-    console.log("✅ Sección de contacto actualizada completamente");
-  }
-
-  /**
-   * Configura el botón de cambio de idioma
-   */
   setupLanguageToggle() {
+    const floatingToggle = document.querySelector("#floating-language-toggle");
     const langToggle = document.querySelector(".lang-toggle");
-    if (!langToggle) return;
 
-    langToggle.addEventListener("click", () => {
-      const newLang = this.currentLang === "es" ? "en" : "es";
-      this.updateLanguage(newLang);
-    });
+    if (floatingToggle) {
+      floatingToggle.addEventListener("click", () => {
+        const newLang = this.languageManager.getCurrentLanguage() === "es" ? "en" : "es";
+        this.updateLanguage(newLang);
+      });
+    }
+
+    if (langToggle) {
+      langToggle.addEventListener("click", () => {
+        const newLang = this.languageManager.getCurrentLanguage() === "es" ? "en" : "es";
+        this.updateLanguage(newLang);
+      });
+    }
   }
 
-  /**
-   * Actualiza el botón de idioma
-   */
   updateLanguageButton() {
+    const currentLang = this.languageManager.getCurrentLanguage();
+    
     const langToggle = document.querySelector(".lang-toggle");
-    if (!langToggle) return;
+    if (langToggle) {
+      const nextLang = currentLang === "es" ? "en" : "es";
+      langToggle.textContent = nextLang.toUpperCase();
+      langToggle.title = this.dataManager.getText("ui.language.toggle", currentLang);
+    }
 
-    const nextLang = this.currentLang === "es" ? "en" : "es";
-    langToggle.textContent = nextLang.toUpperCase();
-    langToggle.title = this.getText("ui.language.toggle");
+    this.updateFloatingLanguageButton();
   }
 
-  /**
-   * Anima las barras de habilidades
-   */
-  animateSkillBars() {
-    const skillBars = document.querySelectorAll(".skill-level");
+  updateFloatingLanguageButton() {
+    const currentLang = this.languageManager.getCurrentLanguage();
+    
+    const currentFlag = document.querySelector("#current-flag");
+    if (currentFlag) {
+      const flags = {
+        es: `<img src="https://flagicons.lipis.dev/flags/4x3/cr.svg" alt="Español (Costa Rica)" width="20" height="15">`,
+        en: `<img src="https://flagicons.lipis.dev/flags/4x3/us.svg" alt="English (United States)" width="20" height="15">`,
+      };
+      currentFlag.innerHTML = flags[currentLang];
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const bar = entry.target;
-            const level = bar.getAttribute("data-level");
-            bar.style.width = `${level}%`;
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    skillBars.forEach((bar) => observer.observe(bar));
+    const toggleBtn = document.querySelector("#floating-language-toggle");
+    if (toggleBtn) {
+      const tooltips = {
+        es: "Cambiar idioma",
+        en: "Change language",
+      };
+      toggleBtn.title = tooltips[currentLang];
+    }
   }
 
-  /**
-   * Obtiene los datos actuales
-   */
+  // Métodos públicos para acceso externo
+  getText(path) {
+    return this.dataManager.getText(path, this.languageManager.getCurrentLanguage());
+  }
+
   getData() {
-    return this.data;
+    return this.dataManager.getData();
   }
 
-  /**
-   * Obtiene el idioma actual
-   */
   getCurrentLanguage() {
-    return this.currentLang;
+    return this.languageManager.getCurrentLanguage();
   }
 }
 

@@ -20,6 +20,7 @@ class NavigationModule {
       this.setupMobileNavigation();
       this.setupSmoothScrolling();
       this.setupActiveNavigation();
+      this.setupScrollToTop();
     }, 100);
 
     this.isInitialized = true;
@@ -175,6 +176,74 @@ class NavigationModule {
     }
 
     return null;
+  }
+
+  /**
+   * Configurar el botón de scroll to top
+   */
+  setupScrollToTop() {
+    const scrollTopBtn = document.querySelector("#scroll-to-top");
+    if (!scrollTopBtn) {
+      console.warn("⚠️ Botón de scroll to top no encontrado");
+      return;
+    }
+
+    // Mostrar/ocultar botón según scroll
+    const toggleScrollTopButton = () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add("visible");
+      } else {
+        scrollTopBtn.classList.remove("visible");
+      }
+    };
+
+    // Event listener para scroll
+    let scrollTopTicking = false;
+    const requestToggleScrollTop = () => {
+      if (!scrollTopTicking) {
+        requestAnimationFrame(() => {
+          toggleScrollTopButton();
+          scrollTopTicking = false;
+        });
+        scrollTopTicking = true;
+      }
+    };
+
+    window.addEventListener("scroll", requestToggleScrollTop);
+
+    // Event listener para click
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    // Actualizar tooltips según idioma
+    this.updateScrollTopTooltip();
+
+    // Escuchar cambios de idioma para actualizar tooltips
+    document.addEventListener("languageChanged", () => {
+      this.updateScrollTopTooltip();
+    });
+
+    console.log("✅ Botón scroll to top configurado");
+  }
+
+  /**
+   * Actualizar tooltip del botón scroll to top según el idioma
+   */
+  updateScrollTopTooltip() {
+    const scrollTopBtn = document.querySelector("#scroll-to-top");
+    if (!scrollTopBtn) return;
+
+    const currentLang = window.portfolioI18n?.getCurrentLanguage() || "es";
+    const tooltips = {
+      es: "Ir arriba",
+      en: "Go to top",
+    };
+
+    scrollTopBtn.title = tooltips[currentLang];
   }
 }
 

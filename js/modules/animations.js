@@ -134,15 +134,16 @@ class AnimationsModule {
    * Animar barras de habilidades
    */
   animateSkillBars() {
-    const skillBars = document.querySelectorAll(".skill-level, .progress-bar");
+    const skillBars = document.querySelectorAll(
+      ".skill-progress, .progress-bar"
+    );
 
     skillBars.forEach((bar, index) => {
       setTimeout(() => {
         const level =
           bar.getAttribute("data-level") || bar.getAttribute("data-progress");
         if (bar && level) {
-          bar.style.setProperty("--skill-width", level + "%");
-          bar.style.setProperty("--progress-width", level + "%");
+          bar.style.width = `${level}%`;
           bar.classList.add("animated");
         }
       }, index * 100); // Retraso escalonado

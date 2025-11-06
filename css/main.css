@@ -1,0 +1,31 @@
+/* ===========================
+   MODULAR CSS ARCHITECTURE
+   Portfolio Laura Carvajal
+=========================== */
+
+/* Base Styles */
+@import url("./base/variables.css");
+@import url("./base/reset.css");
+@import url("./base/typography.css");
+@import url("./base/performance.css");
+@import url("./base/animations.css");
+@import url("./base/responsive.css");
+
+/* Layout */
+@import url("./layout/layout.css");
+
+/* Components */
+@import url("./components/buttons.css");
+@import url("./components/navigation.css");
+@import url("./components/contact-enhanced.css");
+@import url("./components/glassmorphism.css");
+@import url("./components/section-titles.css");
+
+/* Sections */
+@import url("./sections/hero.css");
+@import url("./sections/about.css");
+@import url("./sections/skills.css");
+@import url("./sections/experience.css");
+@import url("./sections/certifications.css");
+@import url("./sections/projects.css");
+@import url("./sections/footer.css");

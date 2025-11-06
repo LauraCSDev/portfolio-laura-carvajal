@@ -1,0 +1,47 @@
+/* ===========================
+   RESET & BASE STYLES
+=========================== */
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease;
+}
+
+/* Prevent theme flash on load */
+html {
+  background-color: #fafafa;
+}
+
+[data-theme="dark"] html {
+  background-color: #010127;
+}
+
+/* Prevent layout shift */
+body {
+  min-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-family: var(--font-family);
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--bg-color);
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+/* Dark mode body adjustments */
+[data-theme="dark"] body {
+  background: var(--bg-color);
+}

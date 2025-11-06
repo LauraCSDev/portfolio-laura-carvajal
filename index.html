@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laura Carvajal - Analista Programador II | Frontend Developer | Team Lead</title>
+    <title data-i18n="ui.page.title">Laura Carvajal - Portafolio</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico" id="favicon-ico">
@@ -12,14 +12,20 @@
     <link rel="icon" type="image/png" sizes="16x16" href="img/logo-light.png">
     <link rel="apple-touch-icon" href="img/logo-light.png" id="apple-icon">
 
+    <!-- Preload critical resources to prevent re-renders -->
+    <link rel="preload" href="css/main.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@300;400;500;600;700&display=swap"
+        as="style">
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -28,44 +34,15 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <a href="#inicio" class="logo-link">
-                    <img src="img/logo-light.png" alt="Laura Carvajal" class="logo-img" id="navbar-logo">
+                    <img src="img/logo-light.png" alt="" data-i18n-alt="ui.alt.logo" class="logo-img" id="navbar-logo">
                 </a>
             </div>
 
             <ul class="nav-menu" id="nav-menu">
-                <!-- Enlaces de navegación con fallback -->
-                <li><a href="#inicio" class="nav-link active" data-i18n="nav.inicio">Inicio</a></li>
-                <li><a href="#sobre-mi" class="nav-link" data-i18n="nav.sobreMi">Sobre Mí</a></li>
-                <li><a href="#habilidades" class="nav-link" data-i18n="nav.habilidades">Habilidades</a></li>
-                <li><a href="#experiencia" class="nav-link" data-i18n="nav.experiencia">Experiencia</a></li>
-                <li><a href="#certificaciones" class="nav-link" data-i18n="nav.certificaciones">Certificaciones</a></li>
-                <li><a href="#proyectos" class="nav-link" data-i18n="nav.proyectos">Proyectos</a></li>
-                <li><a href="#contacto" class="nav-link" data-i18n="nav.contacto">Contacto</a></li>
+                <!-- Enlaces de navegación se generarán dinámicamente -->
             </ul>
 
-            <!-- Selector de idioma -->
-            <div class="language-selector">
-                <button class="language-toggle" id="language-toggle">
-                    <span class="flag">🇪🇸</span>
-                    <span class="lang-text">ES</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="language-dropdown">
-                    <button class="language-option" data-lang="es">
-                        <span class="flag">🇪🇸</span>
-                        <span class="lang-name">Español</span>
-                    </button>
-                    <button class="language-option" data-lang="en">
-                        <span class="flag">🇺🇸</span>
-                        <span class="lang-name">English</span>
-                    </button>
-                </div>
-            </div>
 
-            <!-- Selector de tema -->
-            <button class="theme-toggle" id="theme-toggle" title="Cambiar tema">
-                <i class="fas fa-moon"></i>
-            </button>
 
             <!-- Menú hamburguesa -->
             <div class="nav-toggle" id="nav-toggle">
@@ -81,25 +58,20 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span>Hola, soy</span>
-                    <span class="highlight" data-hero="name">Laura Carvajal</span>
+                    <span data-hero="greeting"></span>
+                    <span class="highlight" data-hero="name"></span>
                 </h1>
-                <h2 class="hero-subtitle" data-hero="title">Analista Programador II | Frontend Developer | UX/UI
-                    Designer</h2>
-                <p class="hero-description" data-hero="description">
-                    Frontend Developer con casi 6 años de experiencia. Especializada en React, Flutter y tecnologías
-                    modernas.
-                    Profesora universitaria y Team Lead con experiencia en desarrollo mobile y web de alta calidad.
-                </p>
+                <h2 class="hero-subtitle" data-hero="title"></h2>
+                <p class="hero-description" data-hero="description"></p>
 
                 <div class="hero-buttons">
-                    <a href="#proyectos" class="btn btn-primary" data-i18n="ui.buttons.viewProjects">Ver Proyectos</a>
-                    <a href="#contacto" class="btn btn-secondary" data-i18n="ui.buttons.contactMe">Contáctame</a>
+                    <a href="#proyectos" class="btn btn-primary" data-i18n="ui.buttons.viewProjects"></a>
+                    <a href="#contacto" class="btn btn-secondary" data-i18n="ui.buttons.contactMe"></a>
                 </div>
             </div>
 
             <div class="hero-image">
-                <img src="img/logo-light.png" alt="Laura Carvajal Logo" class="hero-logo" id="hero-logo">
+                <img src="img/logo-light.png" alt="" data-i18n-alt="ui.alt.logoImage" class="hero-logo" id="hero-logo">
             </div>
         </div>
 
@@ -111,29 +83,22 @@
     <!-- About Section -->
     <section id="sobre-mi" class="about">
         <div class="container">
-            <h2 class="section-title" data-i18n="about.title">Sobre Mí</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="about-intro" data-i18n="about.intro">
-                        Soy una profesional de 27 años con casi 6 años de experiencia en desarrollo de software.
-                        Actualmente me desempeño como Analista Programador II en BAC Latam y como Profesora
-                        Universitaria en la Universidad Fidélitas, combinando la práctica profesional con la enseñanza.
-                    </p>
-                    <p data-i18n="about.description">
-                        Mi experiencia abarca desarrollo Frontend con React, desarrollo mobile con Flutter,
-                        y liderazgo de equipos técnicos. Me especializo en crear aplicaciones web y móviles
-                        de alta calidad, aplicando técnicas de modelado, estándares y patrones acordados.
-                        También tengo experiencia en cIQ, DevRel y diseño UX/UI.
-                    </p>
+            <div class="glass-section">
+                <h2 class="section-title" data-i18n="about.title"></h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p class="about-intro" data-i18n="about.intro"></p>
+                        <p data-i18n="about.description"></p>
 
-                    <div class="about-stats">
-                        <!-- Los stats se generarán dinámicamente -->
+                        <div class="about-stats">
+                            <!-- Los stats se generarán dinámicamente -->
+                        </div>
                     </div>
-                </div>
 
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-code"></i>
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-code"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,10 +108,12 @@
     <!-- Skills Section -->
     <section id="habilidades" class="skills">
         <div class="container">
-            <h2 class="section-title" data-i18n="skills.title">Habilidades Técnicas</h2>
+            <div class="glass-section">
+                <h2 class="section-title" data-i18n="skills.title"></h2>
 
-            <div class="skills-grid">
-                <!-- Las habilidades se generarán dinámicamente -->
+                <div class="skills-grid">
+                    <!-- Las habilidades se generarán dinámicamente -->
+                </div>
             </div>
         </div>
     </section>
@@ -154,114 +121,11 @@
     <!-- Experience Section -->
     <section id="experiencia" class="experience">
         <div class="container">
-            <h2 class="section-title" data-i18n="experience.title">Experiencia Profesional</h2>
+            <div class="glass-section">
+                <h2 class="section-title" data-i18n="experience.title"></h2>
 
-            <div class="timeline">
-                <!-- Experiencia con fallback -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n="experience.jobs.bac.title">Analista Programador II</h3>
-                        <h4>BAC Latam</h4>
-                        <span class="timeline-date" data-i18n="experience.jobs.bac.period">Octubre 2023 -
-                            Presente</span>
-                        <p data-i18n="experience.jobs.bac.description">Desarrollo y mantenimiento de aplicaciones
-                            móviles y web de alta calidad, aplicando técnicas de modelado, estándares, patrones y
-                            herramientas acordadas. Liderazgo de equipo técnico y mentor de desarrolladores en sistemas
-                            Atomic Design.</p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">Java</span>
-                            <span class="skill-tag">Flutter</span>
-                            <span class="skill-tag">AWS</span>
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">Dart</span>
-                            <span class="skill-tag">Atomic Design</span>
-                            <span class="skill-tag">Team Lead</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n="experience.jobs.fidelitas.title">University Professor</h3>
-                        <h4>Fidélitas University</h4>
-                        <span class="timeline-date" data-i18n="experience.jobs.fidelitas.period">Febrero 2023 -
-                            Presente</span>
-                        <p data-i18n="experience.jobs.fidelitas.description">Profesora universitaria en la Facultad de
-                            Ingeniería en Sistemas de Computación. Enseñanza de programación, desarrollo de software y
-                            tecnologías modernas a estudiantes de ingeniería.</p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">Java</span>
-                            <span class="skill-tag">Raptor</span>
-                            <span class="skill-tag">SCRUM</span>
-                            <span class="skill-tag">Spring Boot</span>
-                            <span class="skill-tag">MySQL</span>
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Teaching</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n="experience.jobs.bhuma.title">Frontend Web Developer</h3>
-                        <h4>Bhuma</h4>
-                        <span class="timeline-date" data-i18n="experience.jobs.bhuma.period">Marzo 2022 - Octubre
-                            2023</span>
-                        <p data-i18n="experience.jobs.bhuma.description">Desarrollo Frontend como Software Developer,
-                            realizando también tareas de cIQ, DevRel y diseño UX/UI. Creación de interfaces web modernas
-                            y experiencias de usuario optimizadas.</p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">GraphQL</span>
-                            <span class="skill-tag">Tailwind</span>
-                            <span class="skill-tag">Node.js</span>
-                            <span class="skill-tag">TypeScript</span>
-                            <span class="skill-tag">UX/UI</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n="experience.jobs.kleeen.title">Frontend Developer</h3>
-                        <h4>Kleeen Software</h4>
-                        <span class="timeline-date" data-i18n="experience.jobs.kleeen.period">Febrero 2020 - Noviembre
-                            2022</span>
-                        <p data-i18n="experience.jobs.kleeen.description">Desarrollo Frontend como Software Developer,
-                            especializada en crear interfaces de usuario modernas y responsivas utilizando las últimas
-                            tecnologías web.</p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">GraphQL</span>
-                            <span class="skill-tag">Tailwind</span>
-                            <span class="skill-tag">Node.js</span>
-                            <span class="skill-tag">TypeScript</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n="experience.jobs.education.title">Licenciatura en Administración de TI</h3>
-                        <h4>Tecnológico de Costa Rica</h4>
-                        <span class="timeline-date" data-i18n="experience.jobs.education.period">Enero 2016 - Julio
-                            2022</span>
-                        <p data-i18n="experience.jobs.education.description">Formación en gestión de tecnologías de la
-                            información, desarrollo de profesionales innovadores para análisis de negocios, gestión de
-                            proyectos, arquitectura de aplicaciones y consultoría en servicios de TI.</p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">IT Management</span>
-                            <span class="skill-tag">Project Management</span>
-                            <span class="skill-tag">Software Architecture</span>
-                            <span class="skill-tag">Business Analysis</span>
-                        </div>
-                    </div>
+                <div class="timeline">
+                    <!-- La experiencia se generará dinámicamente -->
                 </div>
             </div>
         </div>
@@ -270,56 +134,11 @@
     <!-- Certifications Section -->
     <section id="certificaciones" class="certifications">
         <div class="container">
-            <h2 class="section-title" data-i18n="certifications.title">Certificaciones</h2>
+            <div class="glass-section">
+                <h2 class="section-title" data-i18n="certifications.title"></h2>
 
-            <div class="certifications-grid">
-                <!-- Las certificaciones se generarán dinámicamente -->
-                <!-- Fallback content in case JavaScript fails -->
-                <div class="cert-card">
-                    <div class="cert-icon">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Flutter Certified Application Developer</h3>
-                        <h4>ATC - Advance Training Consultants</h4>
-                        <p class="cert-id">ID: ATCW10001832</p>
-                        <div class="cert-tech">
-                            <span class="tech-tag">Flutter</span>
-                            <span class="tech-tag">Dart</span>
-                            <span class="tech-tag">Mobile Development</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>Scrum Foundation Professional Certificate (SFPC)</h3>
-                        <h4>CertiProf</h4>
-                        <p class="cert-id">ID: JLSTTDHPHJ-VHVKHVHZ-YBWYJDJDDT</p>
-                        <div class="cert-tech">
-                            <span class="tech-tag">SCRUM</span>
-                            <span class="tech-tag">Agile</span>
-                            <span class="tech-tag">Project Management</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <div class="cert-content">
-                        <h3>UX Writing: Content Design and User Experience</h3>
-                        <h4>Udemy</h4>
-                        <div class="cert-tech">
-                            <span class="tech-tag">UX Writing</span>
-                            <span class="tech-tag">Content Design</span>
-                            <span class="tech-tag">User Experience</span>
-                        </div>
-                    </div>
+                <div class="certifications-grid">
+                    <!-- Las certificaciones se generarán dinámicamente -->
                 </div>
             </div>
         </div>
@@ -328,11 +147,13 @@
     <!-- Projects Section -->
     <section id="proyectos" class="projects">
         <div class="container">
-            <h2 class="section-title" data-i18n="projects.title">Proyectos Destacados</h2>
-            <p class="section-subtitle" data-i18n="projects.subtitle">Algunos de mis trabajos destacados</p>
+            <div class="glass-section">
+                <h2 class="section-title" data-i18n="projects.title"></h2>
+                <p class="section-subtitle" data-i18n="projects.subtitle"></p>
 
-            <div class="projects-grid">
-                <!-- Los proyectos se generarán dinámicamente -->
+                <div class="projects-grid">
+                    <!-- Los proyectos se generarán dinámicamente -->
+                </div>
             </div>
         </div>
     </section>
@@ -340,41 +161,19 @@
     <!-- Contact Section -->
     <section id="contacto" class="contact">
         <div class="container">
-            <h2 class="section-title" data-i18n="contact.title">Contacto</h2>
+            <div class="glass-section">
+                <h2 class="section-title" data-i18n="contact.title"></h2>
 
-            <div class="contact-content">
-                <div class="contact-info">
-                    <!-- La información de contacto se generará dinámicamente -->
-                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <!-- La información de contacto se generará dinámicamente -->
+                    </div>
 
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contact-form">
-                        <!-- El formulario se generará dinámicamente -->
-                        <!-- Fallback content in case JavaScript fails -->
-                        <div class="form-group">
-                            <label for="name">Nombre *</label>
-                            <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" placeholder="tu.email@ejemplo.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">Asunto</label>
-                            <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Mensaje *</label>
-                            <textarea id="message" name="message" placeholder="Tu mensaje aquí..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-full">
-                            Enviar Mensaje
-                        </button>
-                    </form>
+                    <div class="contact-form-container">
+                        <form class="contact-form" id="contact-form">
+                            <!-- El formulario se generará dinámicamente -->
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -385,16 +184,39 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3>Laura Carvajal</h3>
-                    <p>Analista Programador II | Team Lead | University Professor</p>
+                    <h3 data-i18n="personal.name"></h3>
+                    <p data-i18n="footer.brandDescription"></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-i18n="footer.copyright">&copy; 2025 Laura Carvajal. Todos los derechos reservados.</p>
-                <p data-i18n="footer.madeWith">Diseñado y desarrollado con ❤️ usando HTML5, CSS3 y JavaScript</p>
+                <p data-i18n="footer.copyright"></p>
+                <p data-i18n="footer.madeWith"></p>
             </div>
         </div>
     </footer>
+
+    <!-- Botones Flotantes -->
+    <div class="floating-controls">
+        <!-- Botón Ir Arriba -->
+        <button class="floating-btn scroll-top-btn" id="scroll-to-top" title="" data-i18n-title="ui.titles.scrollTop">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <!-- Botón de Tema -->
+        <button class="floating-btn theme-btn" id="floating-theme-toggle" title=""
+            data-i18n-title="ui.titles.themeToggle">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Botón de Idioma -->
+        <button class="floating-btn language-btn" id="floating-language-toggle" title=""
+            data-i18n-title="ui.titles.languageToggle">
+            <span class="flag" id="current-flag">
+                <img src="https://flagicons.lipis.dev/flags/4x3/cr.svg" alt="" data-i18n-alt="ui.alt.flagSpanish"
+                    width="20" height="15">
+            </span>
+        </button>
+    </div>
 
     <!-- JavaScript - Sistema Modular -->
 

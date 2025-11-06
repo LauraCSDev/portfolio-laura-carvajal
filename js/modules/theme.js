@@ -16,7 +16,10 @@ class ThemeModule {
   init() {
     if (this.isInitialized) return;
 
-    this.themeToggle = document.querySelector(".theme-toggle");
+    // Buscar botón flotante
+    this.themeToggle =
+      document.querySelector("#floating-theme-toggle") ||
+      document.querySelector(".theme-toggle");
 
     if (!this.themeToggle) {
       console.warn("⚠️ Botón de cambio de tema no encontrado");
@@ -75,6 +78,9 @@ class ThemeModule {
     document.documentElement.setAttribute("data-theme", theme);
     document.body.className = document.body.className.replace(/theme-\w+/g, "");
     document.body.classList.add(`theme-${theme}`);
+
+    // Mark body as loaded to prevent flash
+    document.body.classList.add("loaded");
   }
 
   /**
@@ -84,7 +90,10 @@ class ThemeModule {
   updateThemeButton(theme) {
     if (!this.themeToggle) return;
 
-    const icon = this.themeToggle.querySelector("i");
+    // Buscar icono tanto en botón flotante como en navbar
+    const icon =
+      this.themeToggle.querySelector("#theme-icon") ||
+      this.themeToggle.querySelector("i");
     if (icon) {
       icon.className = theme === "light" ? "fas fa-moon" : "fas fa-sun";
     }

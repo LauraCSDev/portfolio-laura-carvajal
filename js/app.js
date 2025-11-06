@@ -201,7 +201,7 @@ class PortfolioApp {
 
     if (flagSpan && textSpan) {
       const langData = {
-        es: { flag: "🇪🇸", text: "ES" },
+        es: { flag: "��", text: "ES" },
         en: { flag: "🇺🇸", text: "EN" },
       };
 

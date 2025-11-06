@@ -1,5 +1,9 @@
 {
   "personal": {
+    "greeting": {
+      "es": "Hola, soy",
+      "en": "Hello, I'm"
+    },
     "name": {
       "es": "Laura Carvajal",
       "en": "Laura Carvajal"
@@ -74,7 +78,7 @@
     },
     "intro": {
       "es": "Soy una profesional de 27 años con más de 6 años de experiencia en desarrollo de software. Actualmente me desempeño como Analista Programador II en BAC Latam y como Profesora Universitaria en la Universidad Fidélitas, combinando la práctica profesional con la enseñanza.",
-      "en": "I am a 27-year-old professional with more than 6 years of experience in software development. I currently work as a Software Analyst II at BAC Latam and as a University Professor at Fidélitas University, combining professional practice with teaching."
+      "en": "I am a 27-year-old professional with more than 6 years of experience in software development. I currently work as a Software Analyst II at BAC Latam and as a University Professor at Universidad Fidélitas, combining professional practice with teaching."
     },
     "description": {
       "es": "Mi experiencia abarca desarrollo Frontend con React, desarrollo mobile con Flutter, y liderazgo de equipos técnicos. Me especializo en crear aplicaciones web y móviles de alta calidad, aplicando técnicas de modelado, estándares y patrones acordados. También tengo experiencia en cIQ, DevRel y diseño UX/UI.",
@@ -207,7 +211,7 @@
           "es": "University Professor",
           "en": "University Professor"
         },
-        "company": "Fidélitas University",
+        "company": "Universidad Fidélitas",
         "period": {
           "es": "Febrero 2023 - Presente",
           "en": "February 2023 - Present"
@@ -275,7 +279,7 @@
         "id": "education",
         "title": {
           "es": "Licenciatura en Administración de Tecnologías de Información",
-          "en": "Bachelor Degree IT Management"
+          "en": "Bachelor's Degree in Information Technology Administration"
         },
         "company": "Tecnológico de Costa Rica",
         "period": {
@@ -283,14 +287,18 @@
           "en": "January 2016 - July 2022"
         },
         "description": {
-          "es": "Formación en gestión de tecnologías de la información, desarrollo de profesionales innovadores para análisis de negocios, gestión de proyectos, arquitectura de aplicaciones y consultoría en servicios de TI.",
-          "en": "Training in information technology management, developing innovative professionals for business analysis, project management, application architecture and IT services consulting."
+          "es": "Formación integral como profesional intérprete-negociador entre las necesidades organizacionales y las soluciones de TI. Especialización en gestión de equipos multidisciplinarios, análisis de factibilidad técnica y económica, diseño de soluciones innovadoras, y administración del ciclo de vida de sistemas de información. Competencias en arquitectura empresarial, consultoría en procesos de negocio orientados a TICs, y gestión del conocimiento organizacional.",
+          "en": "Comprehensive training as a professional interpreter-negotiator between organizational needs and IT solutions. Specialization in managing multidisciplinary teams, technical and economic feasibility analysis, innovative solution design, and information systems lifecycle administration. Expertise in enterprise architecture, business process consulting oriented to ICTs, and organizational knowledge management."
         },
         "skills": [
           "IT Management",
           "Project Management",
-          "Software Architecture",
-          "Business Analysis"
+          "Enterprise Architecture",
+          "Business Analysis",
+          "Team Leadership",
+          "Technical Consulting",
+          "Information Systems",
+          "Knowledge Management"
         ],
         "type": "education"
       }
@@ -298,12 +306,12 @@
   },
   "certifications": {
     "title": {
-      "es": "Certificaciones",
-      "en": "Certifications"
+      "es": "Certificaciones / Cursos",
+      "en": "Certifications / Courses"
     },
     "subtitle": {
-      "es": "Certificaciones profesionales y especializaciones",
-      "en": "Professional certifications and specializations"
+      "es": "Certificaciones profesionales y cursos de especialización",
+      "en": "Professional certifications and specialization courses"
     },
     "items": [
       {
@@ -314,11 +322,17 @@
         },
         "company": "ATC - Advance Training Consultants",
         "id_number": "ATCW10001832",
+        "date": "2023",
         "description": {
-          "es": "Certificación oficial en desarrollo de aplicaciones móviles con Flutter",
-          "en": "Official certification in mobile application development with Flutter"
+          "es": "Certificación oficial en desarrollo de aplicaciones móviles multiplataforma con Flutter y Dart",
+          "en": "Official certification in cross-platform mobile application development with Flutter and Dart"
         },
-        "technologies": ["Flutter", "Dart", "Mobile Development"],
+        "technologies": [
+          "Flutter",
+          "Dart",
+          "Mobile Development",
+          "Cross-platform"
+        ],
         "icon": "fab fa-google"
       },
       {
@@ -329,25 +343,62 @@
         },
         "company": "CertiProf",
         "id_number": "JLSTTDHPHJ-VHVKHVHZ-YBWYJDJDDT",
+        "date": "2022",
         "description": {
-          "es": "Certificación profesional en metodologías ágiles SCRUM",
-          "en": "Professional certification in SCRUM agile methodologies"
+          "es": "Certificación profesional en metodologías ágiles SCRUM para gestión de proyectos de desarrollo de software",
+          "en": "Professional certification in SCRUM agile methodologies for software development project management"
         },
-        "technologies": ["SCRUM", "Agile", "Project Management"],
+        "technologies": [
+          "SCRUM",
+          "Agile",
+          "Project Management",
+          "Team Leadership"
+        ],
         "icon": "fas fa-certificate"
       },
       {
-        "id": "ux",
+        "id": "ux-writing-udemy",
         "title": {
-          "es": "UX Writing: Content Design and User Experience",
+          "es": "UX Writing: diseño de contenido y experiencia de usuario",
           "en": "UX Writing: Content Design and User Experience"
         },
         "company": "Udemy",
+        "id_number": "UC-f6943d2f-7f95-42ae-aa53-2aa20a9d035a",
+        "date": "2023",
         "description": {
-          "es": "Especialización en diseño de contenido y experiencia de usuario",
-          "en": "Specialization in content design and user experience"
+          "es": "Curso especializado en UX Writing y diseño de contenido para mejorar la experiencia del usuario en productos digitales",
+          "en": "Specialized course in UX Writing and content design to improve user experience in digital products"
         },
-        "technologies": ["UX Writing", "Content Design", "User Experience"],
+        "technologies": [
+          "Figma",
+          "UX Writing",
+          "Content Design",
+          "User Experience",
+          "Digital Products"
+        ],
+        "icon": "fas fa-pen-nib"
+      },
+      {
+        "id": "ux-ui-fundamentals",
+        "title": {
+          "es": "UX / UI Design: Fundamentos en Experiencia de usuario",
+          "en": "UX / UI Design: Fundamentals in User Experience"
+        },
+        "company": "Udemy",
+        "id_number": "UC-3bdb6336-32af-4823-bf76-01030d5a6a55",
+        "date": "2023",
+        "description": {
+          "es": "Curso fundamental sobre principios de diseño UX/UI y fundamentos de experiencia de usuario para productos digitales",
+          "en": "Fundamental course on UX/UI design principles and user experience fundamentals for digital products"
+        },
+        "technologies": [
+          "Figma",
+          "UX Design",
+          "UI Design",
+          "User Research",
+          "Design Thinking",
+          "Prototyping"
+        ],
         "icon": "fas fa-paint-brush"
       }
     ]
@@ -617,8 +668,47 @@
       "madeWith": {
         "es": "Diseñado y desarrollado con ❤️ usando HTML5, CSS3 y JavaScript",
         "en": "Designed and developed with ❤️ using HTML5, CSS3 and JavaScript"
+      },
+      "brandDescription": {
+        "es": "Analista Programador II | Team Lead | University Professor",
+        "en": "Software Analyst II | Team Lead | University Professor"
       }
     },
+    "alt": {
+      "logo": {
+        "es": "Laura Carvajal",
+        "en": "Laura Carvajal"
+      },
+      "logoImage": {
+        "es": "Logo de Laura Carvajal",
+        "en": "Laura Carvajal Logo"
+      },
+      "flagSpanish": {
+        "es": "Español (Costa Rica)",
+        "en": "Spanish (Costa Rica)"
+      }
+    },
+    "titles": {
+      "scrollTop": {
+        "es": "Ir arriba",
+        "en": "Go to top"
+      },
+      "themeToggle": {
+        "es": "Cambiar tema",
+        "en": "Switch theme"
+      },
+      "languageToggle": {
+        "es": "Cambiar idioma",
+        "en": "Change language"
+      }
+    },
+    "page": {
+      "title": {
+        "es": "Laura Carvajal - Portafolio",
+        "en": "Laura Carvajal - Portfolio"
+      }
+    },
+
     "system": {
       "loading": {
         "es": "Cargando...",

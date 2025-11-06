@@ -1,0 +1,36 @@
+/* ===========================
+   PERFORMANCE OPTIMIZATIONS
+=========================== */
+
+/* Smooth transitions for theme switching - Optimized to reduce re-renders */
+body,
+.navbar,
+.glass-section,
+.glass-card,
+.btn,
+.nav-link,
+.footer,
+.floating-btn,
+.contact-info,
+.contact-form,
+.project-card,
+.skill-category,
+.cert-card,
+.timeline-content {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Prevent layout shifts during font loading */
+body {
+  font-display: swap;
+}
+
+/* Reduce repaints by optimizing will-change */
+.navbar,
+.floating-controls,
+.glass-section:hover,
+.project-card:hover,
+.btn:hover {
+  will-change: auto;
+}
