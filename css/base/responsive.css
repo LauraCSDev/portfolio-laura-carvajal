@@ -2,25 +2,15 @@
    RESPONSIVE DESIGN
 =========================== */
 
-/* Hero responsive */
+/* General responsive styles */
 @media (max-width: 1023px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
-    text-align: center;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
   .about-content {
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
   }
 
   .about-stats {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
   }
 
@@ -29,19 +19,10 @@
     gap: var(--spacing-xl);
   }
 
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .btn {
     width: 100%;
     max-width: 250px;
     justify-content: center;
-  }
-
-  .hero-logo {
-    width: 200px;
   }
 
   .timeline::before {
@@ -127,5 +108,84 @@
   .scroll-top-btn {
     width: 48px;
     height: 48px;
+  }
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+  /* Asegurar que el contenedor principal no tenga overflow */
+  .section {
+    padding: var(--spacing-xl) var(--spacing-md);
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 var(--spacing-md);
+    box-sizing: border-box;
+  }
+
+  /* Skills específicamente para tablet */
+  .skills-grid {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+}
+
+/* Small mobile specific styles */
+@media (max-width: 480px) {
+  /* Contenedores principales */
+  .section {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  /* Títulos de sección más pequeños */
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+  }
+
+  /* Botones más adaptados */
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+
+  /* About stats para móvil */
+  .about-stats {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  /* Navegación móvil */
+  .nav-container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  /* Timeline móvil */
+  .timeline-item {
+    padding-left: 40px;
+  }
+
+  .timeline-marker {
+    left: 2px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .timeline::before {
+    left: 9px;
+    width: 2px;
   }
 }

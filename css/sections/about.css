@@ -3,9 +3,8 @@
 =========================== */
 
 .about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-3xl);
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
   align-items: center;
 }
 
@@ -17,8 +16,9 @@
 }
 
 .about-stats {
+  align-items: center;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-lg);
   margin-top: var(--spacing-2xl);
 }

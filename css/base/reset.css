@@ -9,6 +9,19 @@
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent horizontal scroll */
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* Base */
 html {
   scroll-behavior: smooth;
