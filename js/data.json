@@ -420,62 +420,65 @@
           "en": "Responsive Personal Portfolio"
         },
         "description": {
-          "es": "Diseño y desarrollo de portfolio personal con enfoque en UX/UI moderno, implementando animaciones CSS y navegación intuitiva.",
-          "en": "Design and development of personal portfolio with focus on modern UX/UI, implementing CSS animations and intuitive navigation."
+          "es": "Diseño y desarrollo de portfolio personal con enfoque en UX/UI moderno, implementando animaciones CSS, liquid glass effects y navegación intuitiva.",
+          "en": "Design and development of personal portfolio with focus on modern UX/UI, implementing CSS animations, liquid glass effects and intuitive navigation."
         },
-        "technologies": ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+        "technologies": [
+          "HTML5",
+          "CSS3",
+          "JavaScript",
+          "Responsive Design",
+          "Liquid Glass"
+        ],
         "image": "img/projects/portfolio.jpg",
-        "demo": "#",
-        "code": "#"
+        "demo": "https://lauracsdev.github.io/portfolio-laura-carvajal",
+        "code": "https://github.com/LauraCSDev/portfolio-laura-carvajal"
       },
       {
-        "id": "landing",
+        "id": "finca-belen",
         "title": {
-          "es": "Landing Page Corporativa",
-          "en": "Corporate Landing Page"
+          "es": "Finca Belén Platform",
+          "en": "Finca Belén Platform"
         },
         "description": {
-          "es": "Diseño UX/UI y desarrollo frontend de landing page para startup tecnológica, optimizada para conversión y con diseño responsive.",
-          "en": "UX/UI design and frontend development of landing page for tech startup, optimized for conversion with responsive design."
+          "es": "Plataforma web para finca turística en Esparza, Puntarenas. Diseño enfocado en mostrar servicios, galería de imágenes y sistema de reservas optimizado para turismo rural.",
+          "en": "Web platform for tourist farm in Esparza, Puntarenas. Design focused on showcasing services, image gallery and booking system optimized for rural tourism."
         },
-        "technologies": ["React", "Tailwind CSS", "JavaScript", "UX/UI"],
+        "technologies": ["React", "Firebase", "Responsive Design", "UX/UI"],
         "image": "img/projects/landing.jpg",
-        "demo": "#",
+        "demo": "https://finca-belen-platform.web.app",
         "code": "#"
       },
       {
-        "id": "elearning",
+        "id": "mmm-costarica",
         "title": {
-          "es": "App Web de E-learning",
-          "en": "E-learning Web App"
+          "es": "MMM Costa Rica - Sitio Web Iglesia",
+          "en": "MMM Costa Rica - Church Website"
         },
         "description": {
-          "es": "Interfaz de usuario para plataforma educativa online con sistema de cursos y seguimiento de progreso centrado en la experiencia de aprendizaje.",
-          "en": "User interface for online educational platform with course system and progress tracking focused on learning experience."
+          "es": "Página web institucional para MMM Iglesia. Diseño moderno y accesible con información de eventos, ministerios y sistema de comunicación con la comunidad.",
+          "en": "Institutional website for MMM Church. Modern and accessible design with event information, ministries and community communication system."
         },
-        "technologies": ["React", "Node.js", "MongoDB", "Express"],
+        "technologies": [
+          "React",
+          "Firebase",
+          "Tailwind CSS",
+          "Responsive Design"
+        ],
         "image": "img/projects/elearning.jpg",
-        "demo": "#",
+        "demo": "https://mmm-costarica.web.app",
         "code": "#"
       }
     ]
   },
   "contact": {
     "title": {
-      "es": "Contacto",
-      "en": "Contact"
+      "es": "Conectemos",
+      "en": "Let's Connect"
     },
     "subtitle": {
-      "es": "¿Tienes un proyecto en mente? ¡Hablemos!",
-      "en": "Let's work together"
-    },
-    "greeting": {
-      "es": "¡Hablemos!",
-      "en": "Let's talk!"
-    },
-    "description": {
-      "es": "Estoy disponible para nuevas oportunidades y proyectos interesantes.",
-      "en": "I'm available for new opportunities and interesting projects."
+      "es": "¿Tienes un proyecto en mente? Transformemos ideas en soluciones",
+      "en": "Have a project in mind? Let's transform ideas into solutions"
     },
     "info": {
       "email": {

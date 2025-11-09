@@ -6,7 +6,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: var(--spacing-xl) 0;
+  padding: calc(var(--spacing-xl) + 80px) 0 var(--spacing-xl) 0; /* Padding top compensando header */
   background: var(--bg-color);
   position: relative;
 }

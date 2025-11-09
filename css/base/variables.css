@@ -3,33 +3,38 @@
 =========================== */
 
 :root {
-  /* Paleta de colores basada en #ffb109 */
-  --primary-color: #ffb109; /* Naranja cálido principal */
+  /* Paleta de colores basada en #ffb109 - Optimizada para accesibilidad en light mode */
+  --primary-color: #cc8907; /* Naranja más oscuro para mejor contraste en light mode */
   --secondary-color: #cd6713; /* Naranja más profundo */
   --accent-color: #f2cc8f; /* Beige dorado suave */
   --success-color: #8fb569; /* Verde natural complementario */
-  --warning-color: #f2ac57; /* Mismo que primary para consistencia */
+  --warning-color: #e09c45; /* Naranja medio para mejor contraste */
   --error-color: #d93025; /* Rojo cálido complementario */
 
-  /* Colores base para tokens */
-  --white: #fafafa;
+  /* Colores base para tokens - Light mode suave */
+  --white: #fcfcfc; /* Blanco más suave, menos brillante */
   --black: #000000;
-  --white-rgb: 250, 250, 250; /* RGB del blanco FAFAFA para transparencias */
+  --white-rgb: 252, 252, 252; /* RGB del blanco suave para transparencias */
   --black-rgb: 0, 0, 0; /* RGB del negro para transparencias */
-  --bg-rgb: 250, 250, 250; /* RGB del FAFAFA */
-  --primary-rgb: 255, 177, 9; /* RGB del primary color actualizado */
+  --bg-rgb: 248, 249, 250; /* RGB de un gris muy claro para fondo más suave */
+  --primary-rgb: 204, 137, 7; /* RGB del primary color actualizado para mejor contraste */
   --secondary-rgb: 205, 103, 19; /* RGB del secondary color */
   --accent-rgb: 242, 204, 143; /* RGB del accent color */
 
-  /* Colores de texto */
-  --text-color: #1f2937; /* Gris oscuro para mejor contraste */
-  --text-light: #6b7280; /* Gris medio para texto secundario */
-  --text-muted: #9ca3af; /* Gris claro para texto auxiliar */
+  /* Colores de texto suaves */
+  --text-color: #2d3748; /* Gris oscuro más suave para mejor lectura */
+  --text-light: #718096; /* Gris medio suave para texto secundario */
+  --text-muted: #a0aec0; /* Gris claro suave para texto auxiliar */
 
-  /* Backgrounds simplificados */
-  --bg-color: #fafafa; /* Fondo principal FAFAFA */
-  --bg-light: #fafafa; /* Fondo claro consistente */
-  --bg-canvas: #fafafa; /* Fondo de tarjetas FAFAFA */
+  /* Backgrounds suaves y cálidos */
+  --bg-color: #f8f9fa; /* Fondo principal gris cálido muy claro */
+  --bg-light: #f8f9fa; /* Fondo claro consistente */
+  --bg-canvas: rgba(
+    248,
+    249,
+    250,
+    0.85
+  ); /* Fondo de tarjetas con transparencia */
 
   /* Bordes */
   --border-color: #e5e7eb; /* Borde principal */
@@ -66,20 +71,28 @@
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
     monospace;
 
-  /* Glassmorphism Variables - Usando tokens */
-  --glass-bg: rgba(var(--white-rgb), 0.25);
-  --glass-bg-strong: rgba(var(--white-rgb), 0.4);
-  --glass-border: rgba(var(--white-rgb), 0.3);
-  --glass-border-accent: rgba(var(--primary-rgb), 0.4);
-  --glass-shadow: 0 8px 32px 0 rgba(var(--primary-rgb), 0.2);
-  --glass-backdrop: blur(8px);
-  --glass-backdrop-strong: blur(12px);
+  /* Glassmorphism Variables - Light mode suave y elegante */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-border-accent: rgba(var(--primary-rgb), 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.02),
+    0 2px 8px rgba(0, 0, 0, 0.01);
+  --glass-backdrop: blur(16px) saturate(160%);
+  --glass-backdrop-strong: blur(20px) saturate(180%);
+
+  /* Variables para botones flotantes en light mode suave */
+  --floating-bg: rgba(255, 255, 255, 0.8);
+  --floating-border: rgba(255, 255, 255, 0.7);
+  --floating-shadow: 0 8px 24px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.02);
 }
 
 /* Dark theme variables */
 [data-theme="dark"] {
-  /* Colores adaptados para modo oscuro - Paleta #ffb109 */
-  --primary-color: #ffb109; /* Naranja más suave para mejor contraste */
+  /* Colores adaptados para modo oscuro - Paleta #ffb109 optimizada */
+  --primary-color: #ffb109; /* Naranja brillante - funciona bien en dark mode */
   --secondary-color: #f2ac57; /* Naranja cálido principal */
   --accent-color: #f2d499; /* Beige dorado más claro */
   --success-color: #a8c47f; /* Verde natural más claro */
@@ -90,7 +103,7 @@
   --white-rgb: 255, 255, 255; /* Mantener blanco puro para textos en dark mode */
   --black-rgb: 0, 0, 0; /* Override para dark mode */
   --bg-rgb: 1, 1, 39; /* RGB del azul oscuro */
-  --primary-rgb: 255, 177, 9; /* RGB del primary color dark */
+  --primary-rgb: 255, 177, 9; /* RGB del primary color dark - brillante para contraste */
   --secondary-rgb: 242, 172, 87; /* RGB del secondary color dark */
   --accent-rgb: 242, 212, 153; /* RGB del accent color dark */
   --glass-bg-rgb: 1, 1, 39; /* RGB para glassmorphism dark */
@@ -115,4 +128,11 @@
   --glass-border: rgba(var(--white-rgb), 0.2);
   --glass-border-accent: rgba(var(--primary-rgb), 0.5);
   --glass-shadow: 0 8px 32px 0 rgba(var(--black-rgb), 0.5);
+
+  /* Variables para botones flotantes en dark mode */
+  --floating-bg: rgba(var(--glass-bg-rgb), 0.8);
+  --floating-border: rgba(var(--white-rgb), 0.25);
+  --floating-shadow: 0 8px 32px rgba(var(--black-rgb), 0.4),
+    0 4px 16px rgba(var(--black-rgb), 0.2),
+    inset 0 1px 0 rgba(var(--white-rgb), 0.15);
 }

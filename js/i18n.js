@@ -308,77 +308,18 @@ class ContactComponent {
 
     if (!data?.contact) return;
 
-    this.renderContactInfo(data.contact, currentLang);
-    this.renderContactForm(data.contact, currentLang);
+    this.renderContactSection(data.contact, currentLang);
   }
 
-  renderContactInfo(contact, currentLang) {
-    const contactInfo = document.querySelector(".contact-info");
-    if (!contactInfo) return;
-
-    contactInfo.innerHTML = `
-      <div class="contact-header">
-        <h3>${contact.greeting[currentLang]}</h3>
-        <p class="contact-description">${contact.description[currentLang]}</p>
-      </div>
-      
-      <div class="contact-items">
-        ${this.createContactItems(contact, currentLang)}
-      </div>
-      
-      <div class="social-links">
-        ${this.createSocialLinks(contact.socialLinks, currentLang)}
-      </div>
-    `;
-  }
-
-  createContactItems(contact, currentLang) {
-    const items = [
-      {
-        icon: "fas fa-envelope",
-        label: contact.info.email.label[currentLang],
-        value: contact.info.email.value,
-        href: `mailto:${contact.info.email.value}`,
-        type: "email",
-      },
-      {
-        icon: "fab fa-linkedin",
-        label: contact.info.linkedin.label[currentLang],
-        value: contact.info.linkedin.value,
-        href: contact.info.linkedin.url,
-        type: "linkedin",
-      },
-      {
-        icon: "fas fa-map-marker-alt",
-        label: contact.info.location.label[currentLang],
-        value: contact.info.location.value[currentLang],
-        href: null,
-        type: "location",
-      },
-    ];
-
-    return items
-      .map(
-        (item) => `
-      <div class="contact-item" data-contact-type="${item.type}">
-        <div class="contact-item-icon">
-          <i class="${item.icon}"></i>
-        </div>
-        <div class="contact-item-content">
-          <h4>${item.label}</h4>
-          ${
-            item.href
-              ? `<p><a href="${item.href}" target="_blank" rel="noopener">${item.value}</a></p>`
-              : `<p>${item.value}</p>`
-          }
-        </div>
-        <div class="contact-item-action">
-          ${item.href ? '<i class="fas fa-external-link-alt"></i>' : ""}
-        </div>
-      </div>
-    `
-      )
-      .join("");
+  renderContactSection(contact, currentLang) {
+    // Renderizar redes sociales destacadas
+    const socialContainer = document.querySelector(".social-links-featured");
+    if (socialContainer) {
+      socialContainer.innerHTML = this.createSocialLinks(
+        contact.socialLinks,
+        currentLang
+      );
+    }
   }
 
   createSocialLinks(socialLinks, currentLang) {
@@ -399,59 +340,6 @@ class ContactComponent {
     `
       )
       .join("");
-  }
-
-  renderContactForm(contact, currentLang) {
-    const contactForm = document.querySelector(".contact-form");
-    if (!contactForm) return;
-
-    contactForm.innerHTML = `
-      <div class="form-header">
-        <h3>Envía un mensaje</h3>
-        <p>Completa el formulario y te responderé pronto</p>
-      </div>
-      ${contact.form.fields
-        .map((field) => this.createFormField(field, currentLang))
-        .join("")}
-      <button type="submit" class="btn btn-primary btn-full">
-        <i class="fas fa-paper-plane"></i>
-        <span>${contact.form.submit[currentLang]}</span>
-      </button>
-    `;
-  }
-
-  createFormField(field, currentLang) {
-    const baseClasses = "form-control";
-    const isTextarea = field.type === "textarea";
-
-    return `
-      <div class="form-group">
-        <label for="${field.name}" class="form-label">
-          ${field.label[currentLang]}${
-      field.required ? ' <span class="required">*</span>' : ""
-    }
-        </label>
-        ${
-          isTextarea
-            ? `<textarea 
-            id="${field.name}" 
-            name="${field.name}" 
-            class="${baseClasses}"
-            placeholder="${field.placeholder[currentLang]}"
-            ${field.required ? "required" : ""}
-            rows="4"
-          ></textarea>`
-            : `<input 
-            type="${field.type}" 
-            id="${field.name}" 
-            name="${field.name}" 
-            class="${baseClasses}"
-            placeholder="${field.placeholder[currentLang]}"
-            ${field.required ? "required" : ""}
-          >`
-        }
-      </div>
-    `;
   }
 }
 
@@ -662,24 +550,17 @@ class PortfolioI18n {
         <div class="glass-reflection-1"></div>
         <div class="glass-reflection-2"></div>
         <div class="project-image">
-          <img src="${project.image}" alt="${
-        project.title[currentLang]
-      }" loading="lazy">
-          <div class="project-overlay">
-            <div class="project-links">
-              <a href="${project.demo}" class="btn btn-primary" target="_blank">
-                ${this.dataManager.getText(
-                  "ui.buttons.viewProject",
-                  currentLang
-                )}
-              </a>
-              <a href="${
-                project.code
-              }" class="btn btn-secondary" target="_blank">
-                ${this.dataManager.getText("ui.buttons.viewCode", currentLang)}
-              </a>
-            </div>
-          </div>
+          ${
+            project.demo && project.demo !== "#"
+              ? `<iframe 
+                  src="${project.demo}" 
+                  title="${project.title[currentLang]}"
+                  loading="lazy"
+                  scrolling="no"
+                  class="project-iframe"
+                ></iframe>`
+              : `<img src="${project.image}" alt="${project.title[currentLang]}" loading="lazy">`
+          }
         </div>
         <div class="project-content">
           <h3>${project.title[currentLang]}</h3>
@@ -688,6 +569,30 @@ class PortfolioI18n {
             ${project.technologies
               .map((tech) => `<span class="tech-tag">${tech}</span>`)
               .join("")}
+          </div>
+          <div class="project-actions">
+            <a href="${
+              project.demo
+            }" class="project-link" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i>
+              <span>${this.dataManager.getText(
+                "ui.buttons.viewProject",
+                currentLang
+              )}</span>
+            </a>
+            ${
+              project.code && project.code !== "#"
+                ? `<a href="${
+                    project.code
+                  }" class="project-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                    <span>${this.dataManager.getText(
+                      "ui.buttons.viewCode",
+                      currentLang
+                    )}</span>
+                  </a>`
+                : ""
+            }
           </div>
         </div>
       `;

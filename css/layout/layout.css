@@ -13,6 +13,16 @@
 /* Section spacing - optimized for desktop */
 section {
   padding: var(--spacing-2xl) 0; /* Reduced from larger values */
+  scroll-margin-top: 80px; /* Para navegación suave con header fijo */
+}
+
+/* First section after fixed header adjustment */
+.section-first,
+section:first-of-type:not(.hero) {
+  padding-top: calc(
+    var(--spacing-2xl) + 80px
+  ); /* Compensar altura del header fijo */
+  scroll-margin-top: 80px; /* Para navegación suave */
 }
 
 /* Glass section styling */

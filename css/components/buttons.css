@@ -55,66 +55,64 @@
   width: 100%;
 }
 
-/* Floating buttons - liquid glass effect */
+/* Floating buttons - iOS-style Liquid Glass */
 .floating-btn {
   position: relative;
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: var(--glass-shadow);
-  backdrop-filter: var(--glass-backdrop);
-  -webkit-backdrop-filter: var(--glass-backdrop);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   z-index: 1000;
   overflow: hidden;
 }
 
-/* Liquid glass reflection effect */
+/* iOS-style reflection effect */
 .floating-btn::before {
   content: "";
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
   background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 255, 255, 0.1) 25%,
-    rgba(255, 255, 255, 0) 50%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0.15) 100%
+    180deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
   );
-  border-radius: 50%;
-  opacity: 0.6;
+  border-radius: 50% 50% 0 0;
   pointer-events: none;
-  transition: all 0.3s ease;
-  z-index: -1;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 
 .floating-btn::after {
   content: "";
   position: absolute;
-  top: 10%;
-  left: 15%;
-  width: 35%;
-  height: 35%;
-  background: linear-gradient(
-    135deg,
+  top: 15%;
+  left: 20%;
+  width: 25%;
+  height: 25%;
+  background: radial-gradient(
+    circle at center,
     rgba(255, 255, 255, 0.4) 0%,
     rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
+    transparent 100%
   );
   border-radius: 50%;
   filter: blur(1px);
-  opacity: 0.7;
+  opacity: 0.6;
   pointer-events: none;
   transition: all 0.3s ease;
 }
@@ -122,32 +120,31 @@
 .floating-btn:hover {
   background: var(--primary-color);
   color: var(--white);
-  border-color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-large), 0 0 20px rgba(var(--primary-rgb), 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(var(--primary-rgb), 0.6);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(var(--primary-rgb), 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .floating-btn:hover::before {
-  opacity: 0.9;
+  opacity: 1;
   background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.2) 25%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.1) 75%,
-    rgba(255, 255, 255, 0.25) 100%
+    180deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
   );
 }
 
 .floating-btn:hover::after {
-  opacity: 1;
-  transform: scale(1.2);
-  background: linear-gradient(
-    135deg,
+  opacity: 0.9;
+  transform: scale(1.1);
+  background: radial-gradient(
+    circle at center,
     rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.1) 100%
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 100%
   );
 }
 
@@ -164,17 +161,17 @@
   font-size: 1.25rem;
 }
 
-/* Specific floating button functionality */
+/* Specific floating button animations - más sutiles */
 .scroll-top-btn:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .theme-btn:hover {
-  transform: translateY(-2px) rotate(15deg);
+  transform: translateY(-2px) rotate(5deg) scale(1.02);
 }
 
 .language-btn:hover {
-  transform: translateY(-2px) scale(1.1);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .language-btn .flag {
@@ -198,48 +195,65 @@
   z-index: 1000;
 }
 
-/* Dark theme adjustments - Improved contrast */
+/* Dark theme adjustments - iOS style */
 [data-theme="dark"] .floating-btn {
-  background: rgba(var(--bg-rgb), 0.95);
-  border-color: rgba(var(--white-rgb), 0.2);
+  background: rgba(var(--bg-rgb), 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
   color: rgba(var(--white-rgb), 0.9);
-  box-shadow: 0 4px 15px rgba(var(--black-rgb), 0.4),
-    0 2px 8px rgba(var(--black-rgb), 0.2),
-    inset 0 1px 0 rgba(var(--white-rgb), 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .floating-btn::before {
   background: linear-gradient(
-    45deg,
+    180deg,
     rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0.08) 25%,
-    rgba(255, 255, 255, 0.02) 50%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0.12) 100%
+    rgba(255, 255, 255, 0.03) 50%,
+    transparent 100%
   );
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 [data-theme="dark"] .floating-btn::after {
-  background: linear-gradient(
-    135deg,
+  background: radial-gradient(
+    circle at center,
     rgba(255, 255, 255, 0.25) 0%,
     rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.02) 100%
+    transparent 100%
   );
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 [data-theme="dark"] .floating-btn:hover {
   background: var(--primary-color);
   border-color: var(--primary-color);
   color: var(--white);
-  box-shadow: var(--shadow-large), 0 0 25px rgba(var(--primary-rgb), 0.6),
-    0 0 45px rgba(var(--primary-rgb), 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(var(--primary-rgb), 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .floating-btn:hover::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  opacity: 1;
+}
+
+[data-theme="dark"] .floating-btn:hover::after {
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.12) 40%,
+    transparent 100%
+  );
+  opacity: 0.9;
 }
 
 [data-theme="dark"] .floating-btn:focus-visible {
   outline-color: rgba(var(--primary-rgb), 0.8);
-  outline-width: 3px;
+  outline-width: 2px;
 }
