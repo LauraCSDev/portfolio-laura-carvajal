@@ -35,19 +35,35 @@ body {
   will-change: auto;
 }
 
-/* Loading states optimization - Prevent flickering */
+/* Optimizar animaciones de scroll - Prevenir repaints */
+section.animate,
+.cert-card.animate,
+.project-card.animate,
+.timeline-item.animate,
+.skill-item.animate,
+.about-stat.animate {
+  will-change: opacity, transform;
+}
+
+/* Remover will-change después de la animación */
+section,
+.cert-card,
+.project-card,
+.timeline-item,
+.skill-item,
+.about-stat {
+  will-change: auto;
+}
+
+/* Loading states optimization - Sin parpadeo inicial */
 body {
   opacity: 1;
   visibility: visible;
-  transition: none;
 }
 
-body.page-loaded {
-  transition: opacity 0.3s ease-in-out;
-}
-
+/* Activar transiciones suaves cuando las animaciones estén listas */
 body.animations-ready {
-  transition: opacity 0.2s ease-in-out;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Prevent content shift during data loading */
@@ -60,26 +76,32 @@ body.animations-ready {
   transition-delay: 0.2s;
 }
 
-/* Smooth intersection observer animations */
-section {
+/* Elementos visibles por defecto - Sin parpadeo */
+section,
+.cert-card,
+.project-card,
+.timeline-item,
+.skill-item,
+.about-stat {
   opacity: 1;
-  transform: none;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(0);
 }
 
-section.animate {
-  animation: none;
+/* Solo aplicar animación suave cuando se marca como .animate */
+section.animate,
+.cert-card.animate,
+.project-card.animate,
+.timeline-item.animate,
+.skill-item.animate,
+.about-stat.animate {
+  animation: fadeInUp 0.4s ease-out;
 }
 
-/* Prevent double animations on scroll */
-.fade-in-up.animate {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
+/* Keyframe optimizado - Movimiento más sutil */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;

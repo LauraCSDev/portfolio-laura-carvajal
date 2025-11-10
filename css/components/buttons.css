@@ -127,6 +127,12 @@
     inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
+/* Sombra neutra en modo dark para botones flotantes */
+[data-theme="dark"] .floating-btn:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
 .floating-btn:hover::before {
   opacity: 1;
   background: linear-gradient(
@@ -228,9 +234,8 @@
   background: var(--primary-color);
   border-color: var(--primary-color);
   color: var(--white);
-  box-shadow: 0 4px 16px rgba(var(--primary-rgb), 0.4),
-    0 2px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .floating-btn:hover::before {

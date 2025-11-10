@@ -997,3 +997,49 @@ textarea.form-control {
   animation: slideInUp 0.6s ease-out both;
   animation-delay: 0.4s;
 }
+
+/* ===========================
+   DARK MODE - SOMBRAS NEUTRAS
+   Sobrescribir sombras amarillas con neutras
+=========================== */
+
+[data-theme="dark"] .contact-detail-item:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .contact-item:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .social-link:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .btn-full:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-control:focus-within {
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .notification.show {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Animaciones de pulso con sombras neutras */
+@keyframes pulse-glow-dark {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  }
+}
+
+[data-theme="dark"] .contact-item[data-contact-type="email"]:hover {
+  animation: pulse-glow-dark 2s ease-in-out infinite;
+}

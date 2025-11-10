@@ -1,22 +1,91 @@
 /* ===========================
    ANIMATIONS
+   Optimizadas para prevenir parpadeos y saltos
 =========================== */
 
+/* Animación suave desde abajo */
 .fade-in-up {
-  animation: fadeInUp 0.8s ease-out;
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 20px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+/* Otras animaciones útiles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.slide-down {
+  animation: slideDown 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Prevenir parpadeo inicial - elementos empiezan visibles */
+section,
+.hero,
+.navbar,
+.cert-card,
+.project-card,
+.timeline-item,
+.skill-item,
+.about-stat {
+  opacity: 1;
+  transform: none;
+  /* Hardware acceleration para animaciones suaves */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  will-change: auto;
+}
+
+/* Solo aplicar animación cuando tenga la clase .animate */
+section.animate,
+.hero.animate,
+.navbar.animate,
+.cert-card.animate,
+.project-card.animate,
+.timeline-item.animate,
+.skill-item.animate,
+.about-stat.animate {
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Prevenir FOUC y saltos durante la carga inicial */
+body:not(.animations-ready) * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Asegurar que las barras de progreso empiecen desde 0 */
+.skill-progress {
+  width: 0% !important;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }

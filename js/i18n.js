@@ -243,12 +243,24 @@ class SkillsComponent {
     const categoryDiv = document.createElement("div");
     categoryDiv.className = "skill-category";
 
+    const skillCount = category.skills.length;
+
     categoryDiv.innerHTML = `
       <div class="glass-reflection-1"></div>
       <div class="glass-reflection-2"></div>
-      <h3><i class="${category.icon}"></i> <span>${
-      category.title[currentLang]
-    }</span></h3>
+      
+      <div class="skill-category-header">
+        <div class="skill-category-icon">
+          <i class="${category.icon}"></i>
+        </div>
+        <div class="skill-category-title">
+          <h3>${category.title[currentLang]}</h3>
+          <div class="skill-category-count">${skillCount} ${
+      currentLang === "es" ? "habilidades" : "skills"
+    }</div>
+        </div>
+      </div>
+      
       <div class="skill-list">
         ${category.skills
           .map((skill) => this.createSkillItemHTML(skill))
@@ -260,13 +272,34 @@ class SkillsComponent {
   }
 
   createSkillItemHTML(skill) {
+    // Obtener nivel en texto con traducciones
+    const getLevelText = (level, lang) => {
+      if (level >= 90) {
+        return lang === "es" ? "Experto" : "Expert";
+      } else if (level >= 80) {
+        return lang === "es" ? "Avanzado" : "Advanced";
+      } else if (level >= 70) {
+        return lang === "es" ? "Competente" : "Proficient";
+      } else {
+        return lang === "es" ? "Intermedio" : "Intermediate";
+      }
+    };
+
+    const currentLang = this.languageManager.getCurrentLanguage();
+    const levelText = getLevelText(skill.level, currentLang);
+
     return `
       <div class="skill-item">
-        <span class="skill-name">${skill.name}</span>
-        <div class="skill-bar">
-          <div class="skill-progress" data-level="${skill.level}" style="width: 0%;"></div>
+        <div class="skill-name-row">
+          <span class="skill-name">${skill.name}</span>
+          <span class="skill-percentage">${skill.level}%</span>
         </div>
-        <span class="skill-level">${skill.level}%</span>
+        <div class="skill-bar-container">
+          <div class="skill-bar">
+            <div class="skill-progress" data-level="${skill.level}" style="width: 0%;"></div>
+          </div>
+          <div class="skill-level-label">${levelText}</div>
+        </div>
       </div>
     `;
   }
@@ -283,10 +316,11 @@ class SkillsComponent {
             setTimeout(() => {
               bar.style.width = `${level}%`;
             }, 100);
+            observer.unobserve(bar);
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     skillBars.forEach((bar) => observer.observe(bar));
@@ -511,14 +545,26 @@ class PortfolioI18n {
       certCard.innerHTML = `
         <div class="glass-reflection-1"></div>
         <div class="glass-reflection-2"></div>
-        <div class="cert-icon">
-          <i class="${cert.icon}"></i>
+        
+        <div class="cert-header">
+          <div class="cert-icon">
+            <i class="${cert.icon}"></i>
+          </div>
+          <div class="cert-header-text">
+            <div class="cert-content">
+              <h3>${cert.title[currentLang]}</h3>
+              <h4>${cert.company}</h4>
+            </div>
+          </div>
         </div>
-        <div class="cert-content">
-          <h3>${cert.title[currentLang]}</h3>
-          <h4>${cert.company}</h4>
+        
+        ${cert.id_number ? `<p class="cert-id">ID: ${cert.id_number}</p>` : ""}
+        
+        <div class="cert-body">
           ${
-            cert.id_number ? `<p class="cert-id">ID: ${cert.id_number}</p>` : ""
+            cert.description
+              ? `<p class="cert-description">${cert.description[currentLang]}</p>`
+              : ""
           }
           <div class="cert-tech">
             ${cert.technologies

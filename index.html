@@ -20,19 +20,83 @@
         );
     </script>
 
-    <!-- Preload critical resources to prevent re-renders -->
+    <!-- CRITICAL CSS inline para prevenir FOUC -->
+    <style>
+        /* Tema y variables críticas */
+        :root {
+            --primary-color: #cc8907;
+            --primary-rgb: 204, 137, 7;
+            --text-color: #2d3748;
+            --bg-color: #f8f9fa;
+            --white: #fcfcfc;
+            --white-rgb: 252, 252, 252;
+            --font-family: "Elms Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #ffb109;
+            --primary-rgb: 255, 177, 9;
+            --text-color: #f9fafb;
+            --bg-color: #010127;
+            --white-rgb: 255, 255, 255;
+        }
+
+        /* Reset crítico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-color);
+        }
+
+        /* Body visible inmediatamente */
+        body {
+            min-height: 100vh;
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Prevenir scroll horizontal */
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+    </style>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/base/variables.css" as="style">
+    <link rel="preload" href="css/base/reset.css" as="style">
     <link rel="preload" href="css/main.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@300;400;500;600;700&display=swap"
-        as="style">
 
-    <!-- Fonts -->
+    <!-- Preconnect para recursos externos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Fuentes con font-display: swap para prevenir bloqueo -->
     <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+    </noscript>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Font Awesome de forma no bloqueante -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </noscript>
 
-    <!-- CSS -->
+    <!-- CSS Principal -->
     <link rel="stylesheet" href="css/main.css">
 </head>
 

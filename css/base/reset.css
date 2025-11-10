@@ -30,28 +30,14 @@ html {
   transition: background-color 0.3s ease;
 }
 
-/* Prevent theme flash on load */
-html {
-  background-color: #fafafa;
-}
-
-[data-theme="dark"] html {
-  background-color: #010127;
-}
-
-/* Prevent layout shift */
+/* Prevent layout shift - NO opacity 0 inicial */
 body {
   min-height: 100vh;
-  opacity: 0;
-  transition: opacity 0.3s ease;
   font-family: var(--font-family);
   line-height: 1.6;
   color: var(--text-color);
   background: var(--bg-color);
-}
-
-body.loaded {
-  opacity: 1;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Dark mode body adjustments */

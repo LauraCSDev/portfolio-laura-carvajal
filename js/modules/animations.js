@@ -29,8 +29,8 @@ class AnimationsModule {
   setupScrollAnimations() {
     // Configuración optimizada del Intersection Observer
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
+      threshold: 0.15, // Aumentado para evitar animaciones prematuras
+      rootMargin: "0px 0px -100px 0px", // Más margen para evitar parpadeos
     };
 
     // Use throttling to prevent excessive animations
@@ -38,7 +38,13 @@ class AnimationsModule {
 
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !animationQueue.has(entry.target)) {
+        // Solo animar cuando está entrando Y tiene suficiente visibilidad
+        if (
+          entry.isIntersecting &&
+          entry.intersectionRatio >= 0.15 &&
+          !animationQueue.has(entry.target) &&
+          !entry.target.classList.contains("animate")
+        ) {
           animationQueue.add(entry.target);
 
           // Use requestAnimationFrame for smooth animations
@@ -50,8 +56,8 @@ class AnimationsModule {
       });
     }, observerOptions);
 
-    // Observar secciones
-    document.querySelectorAll("section").forEach((section) => {
+    // Observar secciones (excepto hero que ya está visible)
+    document.querySelectorAll("section:not(.hero)").forEach((section) => {
       this.observer.observe(section);
     });
 
@@ -174,6 +180,11 @@ class AnimationsModule {
       if (animatedBars.has(barId)) return;
       animatedBars.add(barId);
 
+      // Inicializar con width 0 si no está establecido
+      if (!bar.style.width || bar.style.width === "0%") {
+        bar.style.width = "0%";
+      }
+
       // Use requestAnimationFrame for smoother animations
       setTimeout(() => {
         requestAnimationFrame(() => {
@@ -184,7 +195,7 @@ class AnimationsModule {
             bar.classList.add("animated");
           }
         });
-      }, index * 80); // Reduced delay for smoother sequence
+      }, index * 60); // Reducido a 60ms para animación más fluida
     });
   }
 
@@ -198,9 +209,14 @@ class AnimationsModule {
     );
 
     cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add("animate", "fade-in-up");
-      }, index * 150); // Retraso de 150ms entre cards
+      // Verificar que la card no esté ya animada
+      if (!card.classList.contains("animate")) {
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            card.classList.add("animate", "fade-in-up");
+          });
+        }, index * 100); // Reducido de 150ms a 100ms para más fluidez
+      }
     });
   }
 
@@ -212,7 +228,10 @@ class AnimationsModule {
     const handlePageLoad = () => {
       if (document.readyState === "complete") {
         document.body.classList.add("animations-ready");
-        this.addLoadingCompleteClass();
+        // Animar elementos iniciales cuando la página esté lista
+        requestAnimationFrame(() => {
+          this.animateInitialElements();
+        });
       }
     };
 
@@ -221,18 +240,6 @@ class AnimationsModule {
     } else {
       window.addEventListener("load", handlePageLoad, { once: true });
     }
-  }
-
-  /**
-   * Agregar clase cuando la carga esté completa
-   */
-  addLoadingCompleteClass() {
-    document.body.classList.add("loaded");
-
-    // Animar elementos iniciales
-    setTimeout(() => {
-      this.animateInitialElements();
-    }, 300);
   }
 
   /**
