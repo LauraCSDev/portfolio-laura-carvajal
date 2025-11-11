@@ -86,6 +86,5 @@ body:not(.animations-ready) * {
 
 /* Asegurar que las barras de progreso empiecen desde 0 */
 .skill-progress {
-  width: 0% !important;
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0%;
 }
