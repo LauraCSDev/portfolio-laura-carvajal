@@ -208,7 +208,7 @@
       {
         "id": "fidelitas",
         "title": {
-          "es": "University Professor",
+          "es": "Profesora Universitaria",
           "en": "University Professor"
         },
         "company": "Universidad Fidélitas",
@@ -228,14 +228,14 @@
           "MySQL",
           "Git",
           "Python",
-          "Teaching"
+          "Enseñanza"
         ],
         "type": "work"
       },
       {
         "id": "bhuma",
         "title": {
-          "es": "Frontend Web Developer",
+          "es": "Desarrolladora Frontend Web",
           "en": "Frontend Web Developer"
         },
         "company": "Bhuma",
@@ -260,7 +260,7 @@
       {
         "id": "kleeen",
         "title": {
-          "es": "Frontend Developer",
+          "es": "Desarrolladora Frontend",
           "en": "Frontend Developer"
         },
         "company": "Kleeen Software",
@@ -291,14 +291,14 @@
           "en": "Comprehensive training as a professional interpreter-negotiator between organizational needs and IT solutions. Specialization in managing multidisciplinary teams, technical and economic feasibility analysis, innovative solution design, and information systems lifecycle administration. Expertise in enterprise architecture, business process consulting oriented to ICTs, and organizational knowledge management."
         },
         "skills": [
-          "IT Management",
-          "Project Management",
-          "Enterprise Architecture",
-          "Business Analysis",
-          "Team Leadership",
-          "Technical Consulting",
-          "Information Systems",
-          "Knowledge Management"
+          "Gestión de TI",
+          "Gestión de Proyectos",
+          "Arquitectura Empresarial",
+          "Análisis de Negocios",
+          "Liderazgo de Equipos",
+          "Consultoría Técnica",
+          "Sistemas de Información",
+          "Gestión del Conocimiento"
         ],
         "type": "education"
       }
@@ -317,7 +317,7 @@
       {
         "id": "flutter",
         "title": {
-          "es": "Flutter Certified Application Developer",
+          "es": "Desarrolladora Certificada de Aplicaciones Flutter",
           "en": "Flutter Certified Application Developer"
         },
         "company": "ATC - Advance Training Consultants",
@@ -330,15 +330,15 @@
         "technologies": [
           "Flutter",
           "Dart",
-          "Mobile Development",
-          "Cross-platform"
+          "Desarrollo Móvil",
+          "Multiplataforma"
         ],
         "icon": "fab fa-google"
       },
       {
         "id": "scrum",
         "title": {
-          "es": "Scrum Foundation Professional Certificate (SFPC)",
+          "es": "Certificado Profesional de Fundamentos Scrum (SFPC)",
           "en": "Scrum Foundation Professional Certificate (SFPC)"
         },
         "company": "CertiProf",
@@ -350,9 +350,9 @@
         },
         "technologies": [
           "SCRUM",
-          "Agile",
-          "Project Management",
-          "Team Leadership"
+          "Ágil",
+          "Gestión de Proyectos",
+          "Liderazgo de Equipos"
         ],
         "icon": "fas fa-certificate"
       },
@@ -371,10 +371,10 @@
         },
         "technologies": [
           "Figma",
-          "UX Writing",
-          "Content Design",
-          "User Experience",
-          "Digital Products"
+          "Redacción UX",
+          "Diseño de Contenido",
+          "Experiencia de Usuario",
+          "Productos Digitales"
         ],
         "icon": "fas fa-pen-nib"
       },
@@ -393,11 +393,11 @@
         },
         "technologies": [
           "Figma",
-          "UX Design",
-          "UI Design",
-          "User Research",
-          "Design Thinking",
-          "Prototyping"
+          "Diseño UX",
+          "Diseño UI",
+          "Investigación de Usuarios",
+          "Pensamiento de Diseño",
+          "Prototipado"
         ],
         "icon": "fas fa-paint-brush"
       }
@@ -416,7 +416,7 @@
       {
         "id": "portfolio",
         "title": {
-          "es": "Portfolio Personal Responsivo",
+          "es": "Portafolio Personal Responsivo",
           "en": "Responsive Personal Portfolio"
         },
         "description": {
@@ -427,8 +427,8 @@
           "HTML5",
           "CSS3",
           "JavaScript",
-          "Responsive Design",
-          "Liquid Glass"
+          "Diseño Responsivo",
+          "Cristal Líquido"
         ],
         "image": "img/projects/portfolio.jpg",
         "demo": "https://lauracsdev.github.io/portfolio-laura-carvajal",
@@ -437,14 +437,14 @@
       {
         "id": "finca-belen",
         "title": {
-          "es": "Finca Belén Platform",
+          "es": "Plataforma Finca Belén",
           "en": "Finca Belén Platform"
         },
         "description": {
           "es": "Plataforma web para finca turística en Esparza, Puntarenas. Diseño enfocado en mostrar servicios, galería de imágenes y sistema de reservas optimizado para turismo rural.",
           "en": "Web platform for tourist farm in Esparza, Puntarenas. Design focused on showcasing services, image gallery and booking system optimized for rural tourism."
         },
-        "technologies": ["React", "Firebase", "Responsive Design", "UX/UI"],
+        "technologies": ["React", "Firebase", "Diseño Responsivo", "UX/UI"],
         "image": "img/projects/landing.jpg",
         "demo": "https://finca-belen-platform.web.app",
         "code": "#"
@@ -463,7 +463,7 @@
           "React",
           "Firebase",
           "Tailwind CSS",
-          "Responsive Design"
+          "Diseño Responsivo"
         ],
         "image": "img/projects/elearning.jpg",
         "demo": "https://mmm-costarica.web.app",
