@@ -617,15 +617,7 @@ class PortfolioI18n {
               .join("")}
           </div>
           <div class="project-actions">
-            <a href="${
-              project.demo
-            }" class="project-link" target="_blank" rel="noopener noreferrer">
-              <i class="fas fa-external-link-alt"></i>
-              <span>${this.dataManager.getText(
-                "ui.buttons.viewProject",
-                currentLang
-              )}</span>
-            </a>
+            
             ${
               project.code && project.code !== "#"
                 ? `<a href="${
