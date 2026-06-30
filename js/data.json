@@ -414,25 +414,32 @@
     },
     "items": [
       {
-        "id": "portfolio",
+        "id": "FisioMov",
         "title": {
-          "es": "Portafolio Personal Responsivo",
-          "en": "Responsive Personal Portfolio"
+          "es": "Sistema de Gestión para clínica de fisioterapia",
+          "en": "Management System for Physiotherapy Clinic"
         },
         "description": {
-          "es": "Diseño y desarrollo de portfolio personal con enfoque en UX/UI moderno, implementando animaciones CSS, liquid glass effects y navegación intuitiva.",
-          "en": "Design and development of personal portfolio with focus on modern UX/UI, implementing CSS animations, liquid glass effects and intuitive navigation."
+          "es": "Sistema de gestión para clínica de fisioterapia, con funcionalidades de citas, pacientes, rutinas (impulsado con IA) y administración de ejercicios.",
+          "en": "Management system for a physiotherapy clinic, with features for appointments, patients, AI-powered routines, and exercise management."
         },
-        "technologies": [
-          "HTML5",
-          "CSS3",
-          "JavaScript",
-          "Diseño Responsivo",
-          "Cristal Líquido"
-        ],
-        "image": "img/projects/portfolio.jpg",
-        "demo": "https://lauracsdev.github.io/portfolio-laura-carvajal",
-        "code": "https://github.com/LauraCSDev/portfolio-laura-carvajal"
+        "technologies": ["react", "vite", "TypeScript", "Node", "Firebase"],
+        "image": "img/projects/fisio_mov.png",
+        "code": "#"
+      },
+      {
+        "id": "aera",
+        "title": {
+          "es": "Sistema de Gestión y Ecommerce para tienda de ropa online",
+          "en": "ERP and Ecommerce for Online Clothing Store"
+        },
+        "description": {
+          "es": "Sistema de gestión y ecommerce para tienda de ropa online, con funcionalidades de inventario, ventas, proveedores y administración de productos.",
+          "en": "Management and ecommerce system for an online clothing store, with inventory, sales, suppliers, and product management features."
+        },
+        "technologies": ["react", "vite", "TypeScript", "Node", "Firebase"],
+        "image": "img/projects/aera.png",
+        "code": "#"
       },
       {
         "id": "finca-belen",
@@ -465,8 +472,7 @@
           "Tailwind CSS",
           "Diseño Responsivo"
         ],
-        "image": "img/projects/elearning.jpg",
-        "demo": "https://mmm-costarica.web.app",
+        "demo": "https://mmmcostarica.org",
         "code": "#"
       }
     ]
